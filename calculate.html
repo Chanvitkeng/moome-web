@@ -300,12 +300,17 @@
 
   .birth-summary {
     text-align: center;
-    color: var(--lavender);
-    font-size: 13px;
-    margin-bottom: 24px;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    letter-spacing: 0.05em;
+    color: var(--plum);
+    font-size: clamp(15px, 2.2vw, 18px);
+    margin-bottom: 28px;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .birth-summary strong {
+    color: var(--gold);
+    font-weight: 700;
+    margin: 0 0.15em;
   }
 
   /* === SHARE === */
@@ -810,8 +815,9 @@ function calculate(day, month, year, isShared) {
   document.getElementById('archEng').textContent = arch.eng;
   document.getElementById('archTh').textContent = arch.th;
   document.getElementById('archTagline').textContent = arch.tagline;
-  document.getElementById('birthSummary').textContent =
-    (isShared ? 'เพื่อนเกิดวันที่ ' : 'คุณเกิดวันที่ ') + day + ' ' + monthNames[month] + ' ' + year;
+  document.getElementById('birthSummary').innerHTML =
+    (isShared ? 'เพื่อนเกิดวันที่ ' : 'คุณเกิดวันที่ ') +
+    '<strong>' + day + ' ' + monthNames[month] + ' ' + year + '</strong>';
 
   const strList = document.getElementById('strengths');
   strList.innerHTML = '';
