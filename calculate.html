@@ -567,11 +567,11 @@ const archetypes = {
     growth: ["หยุดพักเมื่อจำเป็น", "ฟังร่างกายและจิตใจ"]
   },
   8: {
-    eng: "The Just",
-    th: "ผู้ตัดสินด้วยใจ",
-    tagline: "คนที่หาความยุติธรรมในทุกเรื่อง · ตรงไปตรงมาและน่าเชื่อถือ",
-    strengths: ["ยุติธรรม มีหลักการ", "ตรงไปตรงมา", "น่าเชื่อถือสูง"],
-    growth: ["ฟังด้านที่ไม่เห็นด้วยก่อน", "เข้าใจพื้นที่สีเทา"]
+    eng: "The Brave · Strength",
+    th: "ผู้กล้าหาญ",
+    tagline: "คนที่มีพลังภายในแม้กลัวก็ยังเดิน · อดทนและสงบลึก",
+    strengths: ["กล้าหาญแม้กลัว", "อดทนและทน", "ใจสงบในวิกฤต"],
+    growth: ["ยอมรับความอ่อนแอเป็นพลัง", "ขอความช่วยเหลือเป็น"]
   },
   9: {
     eng: "The Sage",
@@ -588,11 +588,11 @@ const archetypes = {
     growth: ["หาแก่นที่ไม่เปลี่ยน", "สร้างความสม่ำเสมอ"]
   },
   11: {
-    eng: "The Brave",
-    th: "ผู้กล้าหาญ",
-    tagline: "คนที่มีพลังภายในแม้กลัวก็ยังเดิน · อดทนและสงบลึก",
-    strengths: ["กล้าหาญแม้กลัว", "อดทนและทน", "ใจสงบในวิกฤต"],
-    growth: ["ยอมรับความอ่อนแอเป็นพลัง", "ขอความช่วยเหลือเป็น"]
+    eng: "The Just · Justice",
+    th: "ผู้ตัดสินด้วยใจ · ตาชั่งทอง",
+    tagline: "คนที่หาความยุติธรรมในทุกเรื่อง · ตรงไปตรงมาและน่าเชื่อถือ · เกิดมาเพื่อสร้างสมดุล",
+    strengths: ["ยุติธรรม มีหลักการ", "ตรงไปตรงมา", "น่าเชื่อถือสูง"],
+    growth: ["ฟังด้านที่ไม่เห็นด้วยก่อน", "เข้าใจพื้นที่สีเทา"]
   },
   12: {
     eng: "The Hanged",
@@ -673,22 +673,19 @@ const archetypes = {
   }
 };
 
-// === Calculation logic ===
-function digitalRoot(n) {
-  while (n > 9) {
-    n = String(n).split('').reduce((a, b) => a + parseInt(b), 0);
-  }
-  return n;
-}
+// === Calculation logic (Russian Destiny Matrix · standard method) ===
 function reduceTo22(n) {
   while (n > 22) n -= 22;
   return n;
 }
+function yearDigitSum(year) {
+  return String(year).split('').reduce((a, b) => a + parseInt(b), 0);
+}
 function calculateMatrix(day, month, year) {
-  const A = reduceTo22(day);
-  const B = month;
-  const C = digitalRoot(year);
-  const D = reduceTo22(A + B + C);
+  const A = reduceTo22(day);                  // 1-22 (day reduced if > 22)
+  const B = month;                             // 1-12
+  const C = reduceTo22(yearDigitSum(year));    // year digit sum, reduced once if > 22
+  const D = reduceTo22(A + B + C);             // sum reduced to 1-22
   return D;
 }
 
