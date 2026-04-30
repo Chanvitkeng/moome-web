@@ -67,20 +67,12 @@
       "operatingSystem": "Web, LINE",
       "applicationCategory": "LifestyleApplication",
       "description": "ดูดวงด้วย Destiny Matrix + 4 ศาสตร์ + Companion AI",
-      "offers": [
-        {
-          "@type": "Offer",
-          "name": "Free",
-          "price": "0",
-          "priceCurrency": "THB"
-        },
-        {
-          "@type": "Offer",
-          "name": "Self-Discovery",
-          "price": "99",
-          "priceCurrency": "THB"
-        }
-      ],
+      "offers": {
+        "@type": "Offer",
+        "name": "Free",
+        "price": "0",
+        "priceCurrency": "THB"
+      },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
@@ -175,9 +167,11 @@
     margin-bottom: 20px;
   }
   .hero h1 em {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    font-family: 'IBM Plex Sans Thai', 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-weight: 600;
     color: var(--gold);
+    margin-inline-start: 0.18em;
   }
   .hero p.subtitle {
     font-size: clamp(16px, 2.5vw, 19px);
@@ -245,10 +239,11 @@
     letter-spacing: -0.02em;
   }
   .section-title em {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
+    font-family: 'IBM Plex Sans Thai', 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-weight: 600;
     color: var(--gold);
+    margin-inline-start: 0.15em;
   }
   .section-sub {
     text-align: center;
@@ -331,11 +326,13 @@
     letter-spacing: -0.01em;
   }
   .voice-card .quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    font-family: 'IBM Plex Sans Thai', 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-weight: 400;
     font-size: 15px;
     color: var(--plum);
-    line-height: 1.6;
+    line-height: 1.7;
+    opacity: 0.85;
   }
 
   /* === Features === */
@@ -710,7 +707,7 @@
   <div class="pricing-grid">
     <div class="price-card">
       <h3>Free</h3>
-      <div class="price">฿0</div>
+      <div class="price">ฟรีตลอด</div>
       <ul>
         <li>Destiny Matrix</li>
         <li>วันลืมตา</li>
@@ -720,7 +717,7 @@
     </div>
     <div class="price-card featured">
       <h3>Self-Discovery</h3>
-      <div class="price">฿99<span class="period">/เดือน</span></div>
+      <div class="price">Most Popular</div>
       <ul>
         <li>ทุก Free features</li>
         <li>+ Companion AI</li>
@@ -731,7 +728,7 @@
     </div>
     <div class="price-card">
       <h3>Growth</h3>
-      <div class="price">฿149<span class="period">/เดือน</span></div>
+      <div class="price">Daily Coach</div>
       <ul>
         <li>ทุก Self-Discovery</li>
         <li>+ Daily Companion</li>
@@ -741,13 +738,13 @@
     </div>
     <div class="price-card">
       <h3>Lifetime</h3>
-      <div class="price">฿4,990</div>
+      <div class="price">ตลอดชีวิต</div>
       <ul>
         <li>ทุก feature ตลอดชีวิต</li>
         <li>จ่ายครั้งเดียว</li>
         <li>ดวงรายปีฟรี</li>
       </ul>
-      <a href="https://line.me/R/ti/p/@moome" class="btn btn-secondary">เลือก Lifetime</a>
+      <a href="https://line.me/R/ti/p/@moome" class="btn btn-secondary">สนใจ · ทักแชท</a>
     </div>
   </div>
 </section>
@@ -763,7 +760,7 @@
     </details>
     <details class="faq-item">
       <summary>ใช้ฟรีได้จริงเหรอ?</summary>
-      <div class="answer">ใช่ · Free tier ใช้ได้ตลอด มี Destiny Matrix + วันลืมตา + 5 chat กับ AI ต่อวัน · ไม่ต้องผูกบัตรเครดิต · ถ้าอยากใช้ Companion AI กับ Wheel of Life ค่อย upgrade ฿99/เดือน</div>
+      <div class="answer">ใช่ · Free tier ใช้ได้ตลอด มี Destiny Matrix + วันลืมตา + 5 chat กับ AI ต่อวัน · ไม่ต้องผูกบัตรเครดิต · ถ้าอยากใช้ Companion AI กับ Wheel of Life ค่อย upgrade ทีหลัง</div>
     </details>
     <details class="faq-item">
       <summary>ทำไม 4 ศาสตร์ ไม่ใช่ 1?</summary>
