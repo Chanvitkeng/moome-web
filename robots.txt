@@ -1,0 +1,14 @@
+# Moome · robots.txt
+# https://moome.app/
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://moome.app/sitemap.xml
+
+# Crawl-delay (optional · ลด server load)
+Crawl-delay: 1
