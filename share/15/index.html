@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>#15 ผู้รู้แรงดึงดูด · The Tempter | Moome Destiny Matrix</title>
-<meta name="description" content="คนที่เข้าใจพลังของความปรารถนา · ลองคำนวณ Destiny Matrix ของคุณบ้าง — ฟรี ไม่ต้องสมัคร">
+<title>#15 ผู้รู้แรงดึงดูด · The Tempter | Moome</title>
+<meta name="description" content="คนที่เข้าใจพลังของความปรารถนา · คำนวณ Destiny Matrix ของคุณบ้าง — ฟรี">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -12,6 +12,7 @@
 <meta property="og:title" content="#15 ผู้รู้แรงดึงดูด · The Tempter">
 <meta property="og:description" content="คนที่เข้าใจพลังของความปรารถนา · คำนวณ Destiny Matrix ของคุณบ้าง — ฟรี">
 <meta property="og:image" content="https://moome.app/og/15.png">
+<meta property="og:image:secure_url" content="https://moome.app/og/15.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Moome archetype #15 The Tempter">
@@ -24,98 +25,209 @@
 <meta name="twitter:description" content="คนที่เข้าใจพลังของความปรารถนา">
 <meta name="twitter:image" content="https://moome.app/og/15.png">
 
-<!-- LINE specific -->
-<meta property="og:image:secure_url" content="https://moome.app/og/15.png">
+<link rel="canonical" href="https://moome.app/share/15/">
 
-<!-- Don't index share pages (they're for OG sharing only) — canonical points to calculator -->
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://moome.app/calculate/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Italiana&display=swap" rel="stylesheet">
 
 <!-- Vercel Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #F5EFE6; --plum: #3d2c4e; --gold: #c9a961;
+    --gold-soft: #ead8b8; --lavender: #b8a5c9; --midnight: #0f0a1e;
+  }
   body {
     font-family: 'IBM Plex Sans Thai', -apple-system, sans-serif;
-    background: #F5EFE6;
-    color: #3d2c4e;
+    background: var(--cream);
+    color: var(--plum);
+    line-height: 1.6;
     min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 24px;
   }
-  .loader {
-    max-width: 480px;
+  nav {
+    padding: 18px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(61,44,78,0.08);
   }
-  .num {
-    font-size: 80px;
-    color: #c9a961;
-    font-weight: 700;
-    margin-bottom: 8px;
+  nav .logo {
+    font-family: 'Italiana', serif;
+    font-size: 20px;
+    letter-spacing: 0.32em;
+    color: var(--plum);
+    text-decoration: none;
   }
-  .name {
-    font-size: 28px;
-    color: #3d2c4e;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .eng {
+  nav .logo::before { content: '✦ '; color: var(--gold); }
+  nav a.cta {
+    background: var(--plum);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 999px;
+    text-decoration: none;
     font-size: 14px;
-    color: #c9a961;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .friend-line {
+    color: var(--lavender);
+    font-size: 14px;
     margin-bottom: 24px;
   }
-  .tagline {
-    color: #b8a5c9;
-    font-size: 15px;
-    margin-bottom: 32px;
-  }
-  .spinner {
-    display: inline-block;
-    width: 24px; height: 24px;
-    border: 3px solid rgba(61,44,78,0.15);
-    border-top-color: #c9a961;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin-bottom: 12px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .redirect-text {
-    color: #b8a5c9;
-    font-size: 13px;
-  }
-  a { color: #3d2c4e; text-decoration: underline; }
-</style>
+  .friend-line strong { color: var(--gold); }
 
-<!-- Auto-redirect: preserve query params (?d=&m=&y=) -->
-<script>
-(function() {
-  var params = window.location.search;
-  var dest = '/calculate/' + params;
-  // Small delay so OG image has chance to be cached + analytics fire
-  setTimeout(function() { window.location.replace(dest); }, 100);
-})();
-</script>
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/calculate/">
-</noscript>
+  .archetype-card {
+    background: linear-gradient(135deg, var(--plum) 0%, var(--midnight) 100%);
+    color: var(--cream);
+    border-radius: 32px;
+    padding: 56px 32px;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .archetype-card::before {
+    content: ''; position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at center, rgba(201,169,97,0.18) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .arch-num {
+    font-family: 'Italiana', serif;
+    font-size: clamp(80px, 16vw, 140px);
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+  .arch-eng {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold-soft);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 12px;
+    position: relative;
+  }
+  .arch-th {
+    font-weight: 700;
+    font-size: clamp(28px, 6vw, 42px);
+    color: var(--cream);
+    margin-top: 8px;
+    position: relative;
+  }
+  .arch-tag {
+    color: var(--gold-soft);
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .cta-box {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 24px;
+    border: 1px solid rgba(201,169,97,0.3);
+    margin-bottom: 24px;
+  }
+  .cta-box h2 {
+    font-family: 'Italiana', serif;
+    font-size: clamp(24px, 5vw, 32px);
+    color: var(--midnight);
+    margin-bottom: 10px;
+  }
+  .cta-box h2 em {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 600;
+    margin-inline-start: 0.15em;
+  }
+  .cta-box p {
+    color: var(--lavender);
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 16px 32px;
+    background: var(--plum);
+    color: var(--cream);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); background: var(--midnight); }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--lavender);
+    font-size: 12px;
+  }
+  footer a { color: var(--lavender); }
+</style>
 </head>
 <body>
 
-<div class="loader">
-  <div class="num">15</div>
-  <div class="eng">The Tempter</div>
-  <div class="name">ผู้รู้แรงดึงดูด</div>
-  <div class="tagline">คนที่เข้าใจพลังของความปรารถนา</div>
-  <div class="spinner"></div>
-  <div class="redirect-text">กำลังเปิด calculator...</div>
-  <p style="margin-top:24px;font-size:12px;color:#b8a5c9;">
-    หากไม่เปลี่ยนหน้าใน 2 วิ <a href="/calculate/">กดที่นี่</a>
-  </p>
-</div>
+<nav>
+  <a href="/" class="logo">MOOME</a>
+  <a href="/calculate/" class="cta">คำนวณของฉัน</a>
+</nav>
+
+<main>
+  <div class="eyebrow">DESTINY MATRIX · ARCHETYPE</div>
+  <div class="friend-line" id="friendLine">เพื่อนของคุณคือ archetype นี้</div>
+
+  <div class="archetype-card">
+    <div class="arch-num">15</div>
+    <div class="arch-eng">The Tempter</div>
+    <div class="arch-th">ผู้รู้แรงดึงดูด</div>
+    <div class="arch-tag">"คนที่เข้าใจพลังของความปรารถนา"</div>
+  </div>
+
+  <div class="cta-box">
+    <h2>ของคุณคือ <em>archetype ไหน?</em></h2>
+    <p>ใส่วันเกิด · ฟรี ไม่ต้องสมัคร · คำนวณใน 30 วินาที</p>
+    <a id="ctaBtn" href="/calculate/" class="btn">✦ คำนวณ Archetype ของฉัน</a>
+  </div>
+</main>
+
+<footer>
+  <a href="/">moome.app</a> · ดูดวงที่มีหลักการ · เพื่อ self-awareness
+</footer>
+
+<script>
+// Show friend's birth date if URL has params
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var d = params.get('d'), m = params.get('m'), y = params.get('y');
+  if (d && m && y) {
+    var months = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    document.getElementById('friendLine').innerHTML =
+      'เพื่อนเกิดวันที่ <strong>' + d + ' ' + months[parseInt(m)] + ' ' + y + '</strong>';
+  }
+})();
+</script>
 
 </body>
 </html>

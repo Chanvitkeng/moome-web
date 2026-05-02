@@ -1,6 +1,29 @@
 # Moome · robots.txt
 # https://moome.app/
 
+# Social media crawlers — explicit allow (no crawl-delay)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: line-poker
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# Default for all other crawlers
 User-agent: *
 Allow: /
 Disallow: /admin/
@@ -10,5 +33,5 @@ Disallow: /private/
 # Sitemap
 Sitemap: https://moome.app/sitemap.xml
 
-# Crawl-delay (optional · ลด server load)
+# Crawl-delay (only for general crawlers, not social)
 Crawl-delay: 1
