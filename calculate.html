@@ -8,10 +8,20 @@
 <meta name="keywords" content="Destiny Matrix, คำนวณ destiny matrix, archetype, ดูดวง, 22 archetypes, ดวงรัสเซีย">
 
 <meta property="og:title" content="คำนวณ Destiny Matrix · 22 Archetypes ตัวตน | Moome">
-<meta property="og:description" content="ใส่วันเกิด เจอ archetype ตัวตนของคุณ ฟรี ไม่ต้องสมัคร">
+<meta property="og:description" content="ใส่วันเกิด เจอ archetype ตัวตนของคุณ ฟรี ไม่ต้องสมัคร · 22 archetypes ตามศาสตร์รัสเซีย">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://moome.app/calculate/">
-<meta property="og:image" content="https://moome.app/og-image.png">
+<meta property="og:image" content="https://moome.app/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Moome · Find Your Archetype in 22 Destiny Matrix Archetypes">
+<meta property="og:site_name" content="Moome">
+<meta property="og:locale" content="th_TH">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="คำนวณ Destiny Matrix · 22 Archetypes ตัวตน | Moome">
+<meta name="twitter:description" content="ใส่วันเกิด เจอ archetype ตัวตนของคุณ ฟรี ไม่ต้องสมัคร">
+<meta name="twitter:image" content="https://moome.app/og/default.png">
 
 <link rel="canonical" href="https://moome.app/calculate/">
 
@@ -898,7 +908,7 @@ document.getElementById('calcForm').addEventListener('submit', function(e) {
 
 // === Share functions ===
 function copyLink() {
-  const url = window.location.href;
+  const url = getShareUrl();
   if (navigator.clipboard) {
     navigator.clipboard.writeText(url).then(() => showToast('✓ คัดลอกลิงก์แล้ว'));
   } else {
@@ -913,11 +923,19 @@ function copyLink() {
   }
 }
 
+// Build shareable URL with OG preview support (uses /share/N/ for rich previews)
+function getShareUrl() {
+  if (!currentResult) return window.location.href;
+  const { archNum, day, month, year } = currentResult;
+  return window.location.origin + '/share/' + archNum +
+         '/?d=' + day + '&m=' + month + '&y=' + year;
+}
+
 function shareToLine() {
   if (!currentResult) return;
   const text = '✦ ฉันคือ #' + currentResult.archNum + ' ' + currentResult.archTh +
                ' (' + currentResult.archEng + ')\nคำนวณ Destiny Matrix ของคุณบ้าง — ฟรี';
-  const url = window.location.href;
+  const url = getShareUrl();
   const lineShareUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text + '\n' + url);
   window.open(lineShareUrl, '_blank');
 }
