@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Plum gradient circle -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3D2C4E"/>
+      <stop offset="100%" stop-color="#0F0A1E"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C9A961" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#C9A961" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#bg)"/>
+  <circle cx="32" cy="32" r="28" fill="url(#glow)"/>
+  <!-- Gold sparkle ✦ -->
+  <path d="M32 14 L34.5 28 L48 32 L34.5 36 L32 50 L29.5 36 L16 32 L29.5 28 Z"
+        fill="#C9A961"/>
+  <!-- Inner highlight -->
+  <path d="M32 22 L33 30 L41 32 L33 34 L32 42 L31 34 L23 32 L31 30 Z"
+        fill="#EAD8B8" opacity="0.6"/>
+</svg>
