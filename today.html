@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Vibe · สีและ outfit เสริมพลังประจำวัน | Moome</title>
+<meta name="description" content="ดูสีเสริมพลัง · outfit · ritual · affirmation ที่เหมาะกับ archetype + วัน + event ของคุณ · ฟรี ไม่ต้องสมัคร · powered by Destiny Matrix">
+<meta name="keywords" content="สีมงคล, สีเสริมพลัง, outfit ประจำวัน, daily vibe, ดูดวงประจำวัน, สีพุธ, สีอังคาร">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moome.app/today/">
+<meta property="og:title" content="Daily Vibe · สีและ outfit เสริมพลังประจำวัน | Moome">
+<meta property="og:description" content="ดูสีเสริมพลัง · outfit · ritual ที่เหมาะกับ archetype + วันของคุณ · ฟรี">
+<meta property="og:image" content="https://moome.app/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="th_TH">
+<meta property="og:site_name" content="Moome">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily Vibe · สีและ outfit ประจำวัน | Moome">
+<meta name="twitter:image" content="https://moome.app/og/default.png">
+
+<link rel="canonical" href="https://moome.app/today/">
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F5EFE6; --plum: #3d2c4e; --gold: #c9a961;
+    --gold-soft: #ead8b8; --lavender: #b8a5c9; --midnight: #0f0a1e;
+    --rose: #b97a8b; --sage: #a8c9a8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'IBM Plex Sans Thai', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--midnight);
+    line-height: 1.7;
+  }
+
+  nav {
+    position: sticky; top: 0;
+    background: rgba(245,239,230,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(61,44,78,0.08);
+    z-index: 100;
+    padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  nav .logo {
+    font-family: 'Italiana', serif;
+    font-size: 20px;
+    letter-spacing: 0.32em;
+    color: var(--plum);
+    text-decoration: none;
+  }
+  nav .logo::before { content: '✦ '; color: var(--gold); }
+  nav .nav-links { display: flex; gap: 24px; align-items: center; }
+  nav a {
+    color: var(--plum);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  nav a:hover { color: var(--gold); }
+  nav .cta {
+    background: var(--plum);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  @media (max-width: 600px) {
+    nav .nav-links a:not(.cta) { display: none; }
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 50vh;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(201,169,97,0.18), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(168,201,168,0.18), transparent 55%),
+      var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .hero-content { max-width: 720px; width: 100%; }
+  .eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Italiana', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    color: var(--midnight);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 em {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+    margin-inline-start: 0.15em;
+  }
+  .hero p.subtitle {
+    font-size: clamp(15px, 2.2vw, 17px);
+    color: var(--plum);
+    margin-bottom: 36px;
+  }
+
+  /* === FORM === */
+  .vibe-form {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 20px 60px -30px rgba(61,44,78,0.25);
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .form-block { margin-bottom: 18px; }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    color: var(--plum);
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1.2fr;
+    gap: 10px;
+  }
+  .date-grid select, .date-grid input, .form-block select {
+    width: 100%;
+    padding: 13px 12px;
+    border: 1.5px solid rgba(61,44,78,0.15);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--midnight);
+    background: white;
+    -webkit-appearance: none; appearance: none;
+  }
+  .date-grid select:focus, .date-grid input:focus, .form-block select:focus {
+    outline: none; border-color: var(--gold);
+  }
+  .calc-btn {
+    width: 100%;
+    padding: 18px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--gold), var(--rose));
+    color: var(--midnight);
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 6px;
+  }
+  .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(201,169,97,0.5); }
+
+  .stored-hint {
+    font-size: 12px;
+    color: var(--lavender);
+    margin-top: 12px;
+    text-align: center;
+  }
+  .stored-hint a {
+    color: var(--lavender);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* === RESULT === */
+  .result-section {
+    display: none;
+    padding: 64px 24px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .result-section.show { display: block; animation: fadeUp 0.6s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .day-header .date-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--lavender);
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .day-header h2 {
+    font-family: 'Italiana', serif;
+    font-size: clamp(28px, 5vw, 40px);
+    color: var(--midnight);
+    line-height: 1.25;
+  }
+  .day-header h2 em {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+    margin-inline-start: 0.15em;
+  }
+  .day-energy {
+    color: var(--plum);
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  /* Color showcase */
+  .color-showcase {
+    background: linear-gradient(135deg, var(--plum), var(--midnight));
+    border-radius: 28px;
+    padding: 40px 28px;
+    margin-bottom: 24px;
+    text-align: center;
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .color-showcase::before {
+    content: '';
+    position: absolute; inset: -50%;
+    background: radial-gradient(circle at center, rgba(201,169,97,0.18), transparent 50%);
+    pointer-events: none;
+  }
+  .color-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-soft);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .color-circles {
+    display: flex; gap: 18px; justify-content: center;
+    margin-bottom: 22px;
+    position: relative;
+  }
+  .color-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.2);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .color-circle.accent {
+    width: 60px; height: 60px;
+    align-self: flex-end;
+  }
+  .color-name {
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--cream);
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .color-meaning {
+    color: var(--gold-soft);
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .color-hex {
+    font-family: monospace;
+    color: var(--gold);
+    font-size: 12px;
+    margin-top: 4px;
+    position: relative;
+  }
+
+  /* Cards grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+
+  .info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px 20px;
+    border: 1px solid rgba(61,44,78,0.08);
+  }
+  .info-card h3 {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .info-card .icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .info-card .main {
+    color: var(--plum);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .info-card .sub {
+    color: var(--lavender);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  /* Outfit section */
+  .outfit-section {
+    background: white;
+    border-radius: 22px;
+    padding: 28px 22px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(61,44,78,0.08);
+  }
+  .outfit-section h3 {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .outfit-tabs {
+    display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .outfit-tab {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--cream);
+    color: var(--plum);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid rgba(61,44,78,0.1);
+    transition: all 0.2s;
+  }
+  .outfit-tab.active {
+    background: var(--plum);
+    color: var(--cream);
+    border-color: var(--plum);
+  }
+  .outfit-content {
+    color: var(--plum);
+    line-height: 1.8;
+  }
+  .outfit-content ul {
+    list-style: none; padding: 0;
+  }
+  .outfit-content li {
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+    font-size: 14.5px;
+  }
+  .outfit-content li::before {
+    content: '◆';
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+  }
+
+  /* Ritual section */
+  .ritual-section {
+    background: linear-gradient(135deg, rgba(201,169,97,0.06), rgba(184,165,201,0.08));
+    border: 1px solid rgba(201,169,97,0.25);
+    border-radius: 22px;
+    padding: 28px 24px;
+    margin-bottom: 24px;
+  }
+  .ritual-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .ritual-section ol {
+    margin-left: 22px;
+    color: var(--plum);
+  }
+  .ritual-section li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+
+  /* Affirmation */
+  .affirmation-block {
+    background: linear-gradient(135deg, var(--plum), var(--midnight));
+    color: var(--gold-soft);
+    border-radius: 22px;
+    padding: 36px 28px;
+    margin-bottom: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .affirmation-block::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 20px;
+    font-family: 'Italiana', serif;
+    font-size: 120px;
+    color: rgba(201,169,97,0.15);
+  }
+  .affirmation-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(18px, 3vw, 22px);
+    color: var(--cream);
+    line-height: 1.6;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .affirmation-credit {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  /* Avoid section */
+  .avoid-section {
+    background: white;
+    border-radius: 18px;
+    padding: 22px 20px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(185,122,139,0.25);
+  }
+  .avoid-section h3 {
+    font-size: 11px;
+    color: var(--rose);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .avoid-section ul {
+    list-style: none;
+  }
+  .avoid-section li {
+    padding-left: 20px;
+    position: relative;
+    color: var(--plum);
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .avoid-section li::before {
+    content: '⊘';
+    color: var(--rose);
+    position: absolute;
+    left: 0;
+  }
+
+  /* Share */
+  .share-section {
+    text-align: center;
+    padding: 24px;
+  }
+  .share-label {
+    font-size: 12px;
+    color: var(--lavender);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .share-row {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  .share-btn {
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--plum);
+    background: white;
+    color: var(--plum);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .share-btn.line { background: #06C755; color: white; border-color: #06C755; }
+  .reset-btn {
+    margin-top: 14px;
+    background: transparent;
+    color: var(--lavender);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    text-decoration: underline;
+    text-decoration-color: rgba(184,165,201,0.4);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--midnight);
+    color: var(--cream);
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-size: 14px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* Disclaimer */
+  .disclaimer {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px;
+    text-align: center;
+    color: var(--lavender);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  footer {
+    background: var(--midnight);
+    color: var(--gold-soft);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 13px;
+  }
+  footer a {
+    color: var(--gold-soft);
+    text-decoration: none;
+    margin: 0 12px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">MOOME</a>
+  <div class="nav-links">
+    <a href="/">หน้าหลัก</a>
+    <a href="/calculate/">คำนวณ</a>
+    <a href="/match/">💞 ดวงคู่</a>
+    <a href="/today/" style="color:var(--gold);">🌅 Today</a>
+    <a href="/blog/">Blog</a>
+    <a href="https://line.me/R/ti/p/@moome" class="cta">Add LINE</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">DAILY VIBE · TODAY</div>
+    <h1>วันนี้ <em>ใส่อะไรดี</em>?</h1>
+    <p class="subtitle">
+      สีเสริมพลัง · outfit · ritual · affirmation<br>
+      ปรับตาม archetype + วัน + event ของคุณ
+    </p>
+
+    <form class="vibe-form" id="vibeForm">
+      <div class="form-block" id="dateBlock">
+        <label class="form-label">วันเกิดของคุณ</label>
+        <div class="date-grid">
+          <select id="day" required><option value="">วัน</option></select>
+          <select id="month" required>
+            <option value="">เดือน</option>
+            <option value="1">มกราคม</option><option value="2">กุมภาพันธ์</option>
+            <option value="3">มีนาคม</option><option value="4">เมษายน</option>
+            <option value="5">พฤษภาคม</option><option value="6">มิถุนายน</option>
+            <option value="7">กรกฎาคม</option><option value="8">สิงหาคม</option>
+            <option value="9">กันยายน</option><option value="10">ตุลาคม</option>
+            <option value="11">พฤศจิกายน</option><option value="12">ธันวาคม</option>
+          </select>
+          <input type="number" id="year" placeholder="ปี ค.ศ." min="1940" max="2026" required>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-label">วันนี้คุณมีอะไร?</label>
+        <select id="event" required>
+          <option value="general">วันธรรมดา · ดู vibe ทั่วไป</option>
+          <option value="presentation">💼 Presentation / Pitch / Interview</option>
+          <option value="date">💕 First Date / โรแมนติก</option>
+          <option value="exam">📚 Exam / สอบ / ทดสอบ</option>
+          <option value="meeting">🤝 Meeting / Negotiation</option>
+          <option value="creative">🎨 Creative work / Design</option>
+          <option value="important_talk">💬 คุยสำคัญ / Difficult conversation</option>
+          <option value="celebration">🎉 ฉลอง / งานสังสรรค์</option>
+        </select>
+      </div>
+
+      <button type="submit" class="calc-btn">✨ ดู vibe ของวันนี้</button>
+      <p class="stored-hint">วันเกิดถูก save ใน browser นี้ครั้งเดียว · <a id="clearStored">ล้างข้อมูล</a></p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== RESULT ===== -->
+<section class="result-section" id="result">
+  <div class="day-header">
+    <div class="date-display" id="dateDisplay">—</div>
+    <h2 id="dayTitle">—</h2>
+    <div class="day-energy" id="dayEnergy">—</div>
+  </div>
+
+  <div class="color-showcase">
+    <div class="color-eyebrow">RECOMMENDED COLORS</div>
+    <div class="color-circles">
+      <div class="color-circle" id="primaryCircle"></div>
+      <div class="color-circle accent" id="accentCircle"></div>
+    </div>
+    <div class="color-name" id="primaryName">—</div>
+    <div class="color-hex" id="primaryHex">—</div>
+    <div class="color-meaning" id="colorMeaning" style="margin-top:14px;">—</div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon">💎</div>
+      <h3>Energy Item</h3>
+      <div class="main" id="stoneName">—</div>
+      <div class="sub" id="stoneSub">—</div>
+    </div>
+    <div class="info-card">
+      <div class="icon">🔢</div>
+      <h3>Lucky Number</h3>
+      <div class="main" id="luckyNumber">—</div>
+      <div class="sub" id="luckySub">—</div>
+    </div>
+  </div>
+
+  <div class="outfit-section">
+    <h3>👔 Outfit Suggestions</h3>
+    <div class="outfit-tabs">
+      <button class="outfit-tab active" data-level="casual">Smart Casual</button>
+      <button class="outfit-tab" data-level="business">Business</button>
+      <button class="outfit-tab" data-level="formal">Formal</button>
+    </div>
+    <div class="outfit-content">
+      <ul id="outfitList"></ul>
+    </div>
+  </div>
+
+  <div class="ritual-section">
+    <h3>🧘 Pre-Event Ritual · 5-15 นาทีก่อนเริ่ม</h3>
+    <ol id="ritualList"></ol>
+  </div>
+
+  <div class="affirmation-block">
+    <div class="affirmation-text" id="affirmationText">—</div>
+    <div class="affirmation-credit" id="affirmationArchetype">—</div>
+  </div>
+
+  <div class="avoid-section">
+    <h3>⊘ หลีกเลี่ยง</h3>
+    <ul id="avoidList"></ul>
+  </div>
+
+  <div class="share-section">
+    <div class="share-label">✦ Share vibe ของคุณ</div>
+    <div class="share-row">
+      <button class="share-btn line" onclick="shareToLine()">💬 Share ใน LINE</button>
+      <button class="share-btn" onclick="copyLink()">🔗 คัดลอกลิงก์</button>
+    </div>
+    <button class="reset-btn" onclick="resetForm()">↺ ลอง event อื่น</button>
+  </div>
+</section>
+
+<div class="toast" id="toast">✓ คัดลอกลิงก์แล้ว</div>
+
+<div class="disclaimer">
+  <strong>Daily Vibe</strong> — ผสาน Destiny Matrix archetype + โหราศาสตร์ไทย (สีประจำวัน) + จิตวิทยาสีสัน · เพื่อ self-awareness และเสริมพลังใจในวันสำคัญ · ไม่ใช่การทำนายโชคชะตา
+</div>
+
+<footer>
+  <p>© 2026 Moome · ดวงที่ฟัง ก่อนพูด<br>
+  <a href="/">หน้าหลัก</a> · <a href="/calculate/">คำนวณ</a> · <a href="/match/">ดวงคู่</a> · <a href="/today/">Today</a> · <a href="https://line.me/R/ti/p/@moome">LINE</a></p>
+</footer>
+
+<script>
+// === Populate day dropdown ===
+const daySelect = document.getElementById('day');
+for (let i = 1; i <= 31; i++) {
+  const opt = document.createElement('option');
+  opt.value = i; opt.textContent = i;
+  daySelect.appendChild(opt);
+}
+
+// === Archetype Calculation (Russian DM) ===
+function reduceTo22(n) { while (n > 22) n -= 22; return n; }
+function calculateMatrix(d, m, y) {
+  const A = reduceTo22(d);
+  const B = m;
+  const ySum = String(y).split('').reduce((a,b) => a + parseInt(b), 0);
+  const C = reduceTo22(ySum);
+  return reduceTo22(A + B + C);
+}
+
+// === 22 Archetypes ===
+const archetypes = {
+  1:  { eng: "The Magician",   th: "นักสร้างสรรค์", color: "#C9A961", element: "fire" },
+  2:  { eng: "The Priestess",  th: "ผู้หยั่งรู้",     color: "#B8A5C9", element: "water" },
+  3:  { eng: "The Bloom",      th: "จักรพรรดินี",   color: "#B97A8B", element: "earth" },
+  4:  { eng: "The Builder",    th: "ผู้สร้างฐาน",    color: "#3D2C4E", element: "earth" },
+  5:  { eng: "The Teacher",    th: "ครูแห่งจิตวิญญาณ", color: "#C9A961", element: "spirit" },
+  6:  { eng: "The Lover",      th: "ผู้รักลึก",       color: "#B97A8B", element: "water" },
+  7:  { eng: "The Driver",     th: "ผู้มุ่งมั่น",      color: "#0F0A1E", element: "fire" },
+  8:  { eng: "The Brave",      th: "ผู้กล้าหาญ",     color: "#B97A8B", element: "fire" },
+  9:  { eng: "The Sage",       th: "ผู้แสวงหา",      color: "#0F0A1E", element: "air" },
+  10: { eng: "The Wheel",      th: "ผู้ปรับตัว",     color: "#C9A961", element: "spirit" },
+  11: { eng: "The Just",       th: "ผู้ตัดสินด้วยใจ", color: "#3D2C4E", element: "air" },
+  12: { eng: "The Hanged",     th: "ผู้มองมุมต่าง",  color: "#B8A5C9", element: "water" },
+  13: { eng: "The Phoenix",    th: "ผู้เกิดใหม่",     color: "#C9A961", element: "fire" },
+  14: { eng: "The Harmonizer", th: "ผู้สมดุล",      color: "#A8C9A8", element: "earth" },
+  15: { eng: "The Tempter",    th: "ผู้รู้แรงดึงดูด", color: "#0F0A1E", element: "fire" },
+  16: { eng: "The Awakener",   th: "ผู้ตื่นรู้",      color: "#B97A8B", element: "fire" },
+  17: { eng: "The Star",       th: "ผู้ส่องแสง",     color: "#C9A961", element: "air" },
+  18: { eng: "The Moon",       th: "ผู้รู้ลึก",       color: "#B8A5C9", element: "water" },
+  19: { eng: "The Sun",        th: "ผู้กระจายแสง",  color: "#C9A961", element: "fire" },
+  20: { eng: "The Judge",      th: "ผู้ตัดสินใจ",    color: "#3D2C4E", element: "spirit" },
+  21: { eng: "The Worldly",    th: "ผู้บูรณาการ",    color: "#0F0A1E", element: "earth" },
+  22: { eng: "The Innocent",   th: "ผู้เริ่มใหม่",    color: "#A8C9A8", element: "spirit" }
+};
+
+// === Archetype affirmations ===
+const affirmations = {
+  1: "ฉันมีศักยภาพในทุกด้าน · ฉันเริ่มต้นได้ทุกเมื่อที่ตัดสินใจ",
+  2: "ฉันฟังเสียงในใจได้ชัดเจน · สัญชาตญาณของฉันแม่นยำ",
+  3: "ฉันสร้างพลังงานบวกให้คนรอบข้าง · ใจฉันอบอุ่นและมั่นคง",
+  4: "ฉันมั่นคงและน่าเชื่อถือ · สิ่งที่ฉันสร้างจะคงทน",
+  5: "ฉันมีปัญญาและพร้อมแบ่งปัน · เสียงของฉันมีน้ำหนัก",
+  6: "ฉันรักด้วยความจริงใจ · ความสัมพันธ์ของฉันลึกซึ้ง",
+  7: "ฉันไปถึงเป้าหมายไม่ว่าทางจะยาก · พลังของฉันไม่หมด",
+  8: "ฉันกล้าหาญแม้ในความกลัว · ความอ่อนแอคือพลังของฉัน",
+  9: "ฉันแสวงหาความจริง · ความเงียบของฉันมีความหมาย",
+  10: "ฉันปรับตัวและขี่คลื่นการเปลี่ยนแปลง · ฉันมองเห็นโอกาส",
+  11: "ฉันยุติธรรม · การตัดสินใจของฉันสมดุลและน่าเชื่อถือ",
+  12: "ฉันเห็นสิ่งที่คนอื่นไม่เห็น · มุมมองของฉันมีคุณค่า",
+  13: "ฉันเกิดใหม่ได้เสมอ · การเปลี่ยนแปลงคือพลังของฉัน",
+  14: "ฉันสร้างความกลมกลืน · ความสมดุลคือคุณสมบัติของฉัน",
+  15: "ฉันเข้าใจพลังของความปรารถนา · ใช้มันเพื่อสร้างสรรค์",
+  16: "ฉันตื่นรู้และไม่กลัวการเปลี่ยน · การพังทลายคือการเริ่มต้น",
+  17: "ฉันเป็นแสงนำทาง · ความหวังของฉันส่องไปไกล",
+  18: "ฉันเข้าใจอารมณ์ลึก · สัญชาตญาณของฉันแม่นยำ",
+  19: "ฉันกระจายความสว่าง · ความสุขของฉันแท้จริง",
+  20: "ฉันตัดสินใจครั้งใหญ่ได้ · ฉันรับผิดชอบในสิ่งที่เลือก",
+  21: "ฉันบูรณาการทุกอย่างเป็นหนึ่ง · ฉันเห็นภาพรวมชัดเจน",
+  22: "ฉันกล้าก้าวสู่สิ่งที่ไม่รู้ · จิตใจฉันเปิดและสด"
+};
+
+// === Day of Week (Thai astrology) ===
+const dayInfo = {
+  0: { thai: 'อาทิตย์', baseColor: '#E63946', baseName: 'แดงเข้ม', energy: 'พลังของผู้นำ · ความกล้าและการแสดงออก' },
+  1: { thai: 'จันทร์', baseColor: '#F1E4C0', baseName: 'ครีมอ่อน', energy: 'พลังของอารมณ์ · ความนุ่มนวลและสัญชาตญาณ' },
+  2: { thai: 'อังคาร', baseColor: '#FF6B9D', baseName: 'ชมพูสด', energy: 'พลังของการลงมือทำ · ความกล้าและพลังงาน' },
+  3: { thai: 'พุธ', baseColor: '#52B788', baseName: 'เขียวสด', energy: 'พลังของการสื่อสาร · ปัญญาและการเชื่อมโยง' },
+  4: { thai: 'พฤหัสบดี', baseColor: '#F4A261', baseName: 'ส้ม', energy: 'พลังของปัญญา · ความรู้และจิตวิญญาณ' },
+  5: { thai: 'ศุกร์', baseColor: '#5DADE2', baseName: 'ฟ้าสด', energy: 'พลังของความรัก · ความสุขและความสัมพันธ์' },
+  6: { thai: 'เสาร์', baseColor: '#6C3483', baseName: 'ม่วงเข้ม', energy: 'พลังของวินัย · ความมั่นคงและการสะสม' }
+};
+
+// === Event Modifiers ===
+const events = {
+  general: {
+    name: 'วันธรรมดา',
+    colorShift: 'balanced',
+    outfit: {
+      casual: ['เสื้อยืดสีฐาน + กางเกงยีนส์', 'รองเท้าผ้าใบสะอาด', 'เครื่องประดับเรียบ 1-2 ชิ้น'],
+      business: ['เชิ้ตเรียบสีฐาน + กางเกงสบาย', 'รองเท้าหนัง loafer', 'นาฬิกาหน้าเรียบ'],
+      formal: ['Suit สีน้ำเงินกรมท่า/เทา + เชิ้ตเรียบ', 'Tie สีฐาน', 'รองเท้าหนังเงา']
+    },
+    stone: { name: 'Clear Quartz', sub: 'หินใส · เพิ่มพลังใจรวมๆ และความใส' },
+    ritual: [
+      'ดื่มน้ำ 1 แก้ว · เริ่มวันด้วยน้ำใส',
+      'หายใจลึก 5 ครั้ง · settle จิตใจ',
+      'ตั้งใจหลัก 1 อย่างที่จะทำให้ดีในวันนี้',
+      'มอง mirror · บอก affirmation 1 ครั้ง',
+      'ออกเดินทางพร้อมท่าทีมั่นใจ'
+    ],
+    avoid: ['ใส่ของรกเกินไป', 'มองมือถือทันทีตื่นนอน', 'เริ่มวันด้วยข่าวร้าย']
+  },
+  presentation: {
+    name: 'Presentation / Pitch / Interview',
+    colorShift: 'authority',
+    outfit: {
+      casual: [
+        'Polo สีฐานเข้ม + เบลเซอร์ navy',
+        'กางเกง chino สีเบจ/เทา',
+        'รองเท้า loafer หนังน้ำตาล',
+        'นาฬิกาทอง/champagne accent'
+      ],
+      business: [
+        'เชิ้ตขาว + Suit navy/dark grey',
+        'Tie สีฐานลายเรียบ หรือ gold accent',
+        'Pocket square สีเสริม archetype',
+        'รองเท้าหนัง wingtip · เบลท์เข้าชุด'
+      ],
+      formal: [
+        'Suit 3-piece navy/charcoal',
+        'เชิ้ตขาว French cuff',
+        'Tie ผ้าซิลค์ลาย subtle',
+        'Cufflinks ทอง/เงิน · Watch luxury'
+      ]
+    },
+    stone: { name: 'Tiger Eye + Citrine', sub: 'Tiger Eye เพิ่ม confidence · Citrine เพิ่ม clarity ในการพูด' },
+    ritual: [
+      'หายใจ 4-7-8 × 4 รอบ (เข้า 4 · ค้าง 7 · ออก 8)',
+      'Power pose 2 นาที · ยืนขาเปิด มือเท้าเอว มองสูง',
+      'ดูสไลด์/บทพูด 1 รอบสุดท้าย',
+      'Touch energy stone + บอก affirmation',
+      'ยิ้ม + eye contact กับ 1 คนใน room ก่อนเริ่ม'
+    ],
+    avoid: ['ดำล้วน (rigid เกินไป)', 'สีร้อนจัด (over-aggressive)', 'พูดยาวเกินใน intro', 'หลีกเลี่ยง eye contact', 'อ่านสไลด์']
+  },
+  date: {
+    name: 'First Date / โรแมนติก',
+    colorShift: 'warm',
+    outfit: {
+      casual: [
+        'เสื้อยืด/Polo สีโทนอุ่น',
+        'กางเกง/กระโปรงสีเข้าได้',
+        'น้ำหอมโทนวานิลลา/อ่อนๆ',
+        'รองเท้าใหม่ที่เดินสบาย'
+      ],
+      business: [
+        'เชิ้ตสีพาสเทล + แจ็คเก็ตเบา',
+        'กางเกง chino fit ดี',
+        'น้ำหอมวู้ดดี้/musk',
+        'รองเท้าสีน้ำตาลขัดเงา'
+      ],
+      formal: [
+        'Suit สีโทนสว่างกว่าปกติ (สีน้ำเงินกลาง/น้ำตาล)',
+        'เชิ้ตสีพาสเทลอ่อน',
+        'Tie โทนอุ่น',
+        'ของเล็กๆ พกไป (ดอกไม้ · ของขวัญ)'
+      ]
+    },
+    stone: { name: 'Rose Quartz', sub: 'ควอตซ์สีกุหลาบ · เปิดใจรัก · เพิ่มความอบอุ่นและรับรู้ความรู้สึก' },
+    ritual: [
+      'อาบน้ำสบายๆ + แต่งตัวเรียบร้อย ไม่รีบร้อน',
+      'ฟังเพลงที่ทำให้รู้สึกดี 10 นาที',
+      'ทบทวน "ฉันเปิดใจ + เป็นตัวเอง"',
+      'Touch rose quartz + smile to mirror',
+      'ไปถึงก่อนเวลา 5 นาที · ใจเย็น'
+    ],
+    avoid: ['น้ำหอมแรงเกิน', 'พูดเรื่องเก่าตัวเองมากไป', 'มือถือบนโต๊ะ', 'ดำล้วน (cold)', 'ไปสายเกิน 5 นาที']
+  },
+  exam: {
+    name: 'Exam / สอบ / ทดสอบ',
+    colorShift: 'focus',
+    outfit: {
+      casual: [
+        'เสื้อยืดสีฐานสว่าง · ไม่อึดอัด',
+        'กางเกงสบายเดิน',
+        'รองเท้านุ่ม',
+        'แว่นกัน blue light (ถ้าใส่)'
+      ],
+      business: [
+        'เชิ้ต/เสื้อ polo เรียบ',
+        'กางเกง chino สบาย',
+        'รองเท้าหนัง loafer',
+        'หลีกเลี่ยงเสื้อรัดมาก'
+      ],
+      formal: [
+        'ชุดเรียบที่สวมสบาย',
+        'หลีกเลี่ยง suit รัด',
+        'รองเท้าที่นั่งสบาย'
+      ]
+    },
+    stone: { name: 'Fluorite (Blue/Purple)', sub: 'หินฟลูออไรท์ · เพิ่มสมาธิและความจำ · ลด brain fog' },
+    ritual: [
+      'นอนเต็มอิ่ม 7-8 ชม. คืนก่อนสอบ',
+      'กินอาหารเช้าเบาๆ · กล้วย + น้ำ',
+      'หายใจลึกก่อนเข้าห้อง 10 รอบ',
+      'อ่านโจทย์ทุกข้อก่อนตอบ',
+      'ทำง่ายก่อน · ยากทีหลัง · ไม่ติดข้อ'
+    ],
+    avoid: ['ดื่มกาแฟเกิน 2 แก้ว', 'อ่านหนังสือคืนก่อน 2 ชม.+', 'มอง paper คนข้างๆ', 'รีบส่ง · เช็ค 1 รอบก่อนจบ', 'ดูคำตอบเก่าหลังออก (impact mood)']
+  },
+  meeting: {
+    name: 'Meeting / Negotiation',
+    colorShift: 'authority',
+    outfit: {
+      casual: [
+        'เสื้อ collar คุณภาพดี + กางเกง slim',
+        'รองเท้าหนัง · เข็มขัดเข้าชุด',
+        'นาฬิกา minimal',
+        'เครื่องเขียนดี (ปากกา · notebook)'
+      ],
+      business: [
+        'Suit dark color + เชิ้ตเรียบ',
+        'Tie subtle pattern',
+        'รองเท้าขัด',
+        'ของส่วนตัวเป็นระเบียบ (กระเป๋า · folder)'
+      ],
+      formal: [
+        'Power suit · navy/charcoal',
+        'Tie สีเข้ม',
+        'นาฬิกาดี',
+        'Folder/portfolio quality'
+      ]
+    },
+    stone: { name: 'Hematite + Pyrite', sub: 'Hematite grounded · Pyrite confidence + การเจรจาที่มีอำนาจ' },
+    ritual: [
+      'อ่าน agenda/notes ก่อน meeting 30 นาที',
+      'ตั้ง goal ของ meeting (1 ผลที่อยากได้)',
+      'Power pose 2 นาที + breathing',
+      'ไปถึงก่อนเวลา 5 นาที',
+      'จับมือ firm · eye contact · listen ก่อน speak'
+    ],
+    avoid: ['พูดก่อนฟัง', 'ไม่ได้เตรียมตัว', 'มือถือบนโต๊ะ visible', 'รับ commit ที่ไม่แน่ใจ', 'แสดง emotion negative']
+  },
+  creative: {
+    name: 'Creative work / Design',
+    colorShift: 'vibrant',
+    outfit: {
+      casual: [
+        'เสื้อยืดสีโทนสนุก + กางเกงสบาย',
+        'รองเท้าผ้าใบสีโดด',
+        'Accessories แปลกๆ (แหวน · ต่างหู unique)',
+        'หมวก/แว่นถ้าชอบ'
+      ],
+      business: [
+        'เสื้อ creative · cardigan',
+        'กางเกงสบาย',
+        'Sneaker premium',
+        'Bag/backpack design'
+      ],
+      formal: [
+        'Suit unconventional color (เขียว/burgundy)',
+        'เชิ้ตลายเล็ก',
+        'Tie creative pattern',
+        'ของส่วนตัว character (notebook design)'
+      ]
+    },
+    stone: { name: 'Lapis Lazuli + Carnelian', sub: 'Lapis เพิ่มความคิดลึก · Carnelian จุดประกาย creative' },
+    ritual: [
+      'Morning pages · เขียน 3 หน้า stream of consciousness',
+      'Walk 15 นาที (steady creativity)',
+      'Music ที่ inspire (no lyrics)',
+      'ตั้ง space ที่ทำงาน · clean + cozy',
+      'Time block 90 นาที · no notification'
+    ],
+    avoid: ['ทำงาน creative ตอน tired', 'สมาธิแตก/notification เปิด', 'ตัดสินงานตัวเองตอนยังทำ', 'หา reference เกินไปก่อนเริ่ม', 'rush deadline']
+  },
+  important_talk: {
+    name: 'คุยสำคัญ / Difficult conversation',
+    colorShift: 'open',
+    outfit: {
+      casual: [
+        'เสื้อ neutral · ไม่กระตุ้นเกิน',
+        'กางเกงสบาย',
+        'หลีกเลี่ยงสีเร้าร้อน',
+        'ของส่วนตัวเรียบ'
+      ],
+      business: [
+        'เชิ้ต/blouse สีกลาง · neutral',
+        'หลีกเลี่ยงลายฉูดฉาด',
+        'รองเท้าใส่สบาย (อยู่นาน)'
+      ],
+      formal: [
+        'Suit เรียบ neutral color',
+        'หลีกเลี่ยง tie สีจัด',
+        'ของส่วนตัว simple'
+      ]
+    },
+    stone: { name: 'Aquamarine', sub: 'อะความารีน · เพิ่มความใจเย็น · พูดสิ่งที่ยากได้อย่างกรุณา' },
+    ritual: [
+      'เขียนสิ่งที่อยากพูดออกมา 1 หน้า',
+      'หายใจลึก 10 ครั้ง · ใจเย็น',
+      'ตั้ง intention "ฉันพูดด้วยความรัก"',
+      'นั่ง stable · ตัวตรง · ไม่ก้าวร้าว',
+      'ฟังก่อนตอบ · pause 3 วิก่อนพูดถ้าจำเป็น'
+    ],
+    avoid: ['คุยตอน hungry/tired', 'ใส่อะไรกระตุ้นเกิน', 'พูดยาวเกินใน opening', 'ขัดเขาพูด', 'แก้ทัน · ฟังให้จบ']
+  },
+  celebration: {
+    name: 'ฉลอง / งานสังสรรค์',
+    colorShift: 'vibrant',
+    outfit: {
+      casual: [
+        'เสื้อสีโดด · มี character',
+        'กางเกง slim + รองเท้าโดด',
+        'Accessories statement',
+        'น้ำหอมที่จำได้'
+      ],
+      business: [
+        'เสื้อสีกลางจัด + เบลเซอร์สีน่าจดจำ',
+        'รองเท้า dress',
+        'นาฬิกา/กำไลโดด',
+        'น้ำหอมหวานนิด'
+      ],
+      formal: [
+        'Suit สี burgundy/midnight blue',
+        'เชิ้ตขาว/ครีม',
+        'Bowtie/tie ลาย unique',
+        'Pocket square สีโดด'
+      ]
+    },
+    stone: { name: 'Sunstone + Citrine', sub: 'Sunstone joyful energy · Citrine attract abundance' },
+    ritual: [
+      'Stretching 10 นาที + dance 1 เพลง',
+      'แต่งตัวพร้อมเพลงที่ชอบ',
+      'มอง mirror · บอก "ฉันสนุกได้และสวยมาก"',
+      'Hydrate ก่อน drinks',
+      'ออกไป + present in moment'
+    ],
+    avoid: ['stress เรื่องอื่นใน mind', 'ดื่มก่อนกินอาหาร', 'เช็คงาน in event', 'เปรียบเทียบตัวเองกับคนอื่น', 'อยู่ deep in phone']
+  }
+};
+
+// === Color shift logic ===
+function shiftColor(baseHex, modifier) {
+  // Simple color modifier - return paired colors based on modifier
+  const map = {
+    balanced: baseHex,
+    authority: darken(baseHex, 30),  // darker for power
+    warm: warmTone(baseHex),
+    focus: baseHex,                   // keep clear
+    vibrant: saturate(baseHex),
+    open: lighten(baseHex, 10)
+  };
+  return map[modifier] || baseHex;
+}
+
+function darken(hex, percent) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  const r = Math.max(0, (num >> 16) - percent);
+  const g = Math.max(0, ((num >> 8) & 0xff) - percent);
+  const b = Math.max(0, (num & 0xff) - percent);
+  return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0').toUpperCase();
+}
+
+function lighten(hex, percent) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  const r = Math.min(255, (num >> 16) + percent);
+  const g = Math.min(255, ((num >> 8) & 0xff) + percent);
+  const b = Math.min(255, (num & 0xff) + percent);
+  return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0').toUpperCase();
+}
+
+function warmTone(hex) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  const r = Math.min(255, (num >> 16) + 20);
+  const g = ((num >> 8) & 0xff);
+  const b = Math.max(0, (num & 0xff) - 10);
+  return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0').toUpperCase();
+}
+
+function saturate(hex) {
+  // For vibrant, just return base — design choice
+  return hex;
+}
+
+// === Main calculation ===
+const monthNames = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const fullMonths = ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+
+let currentVibe = null;
+let currentLevel = 'casual';
+
+function calculate(d, m, y, eventKey) {
+  const archNum = calculateMatrix(d, m, y);
+  const arch = archetypes[archNum];
+
+  const today = new Date();
+  const dow = today.getDay();
+  const day = dayInfo[dow];
+  const event = events[eventKey];
+
+  // Color
+  const primaryColor = shiftColor(day.baseColor, event.colorShift);
+  const accentColor = arch.color;
+
+  // Build color name
+  let colorTitle = '';
+  if (event.colorShift === 'authority') colorTitle = day.baseName + ' โทนเข้ม';
+  else if (event.colorShift === 'warm') colorTitle = day.baseName + ' โทนอุ่น';
+  else if (event.colorShift === 'open') colorTitle = day.baseName + ' โทนอ่อน';
+  else colorTitle = day.baseName;
+
+  const colorMeaning = `${day.energy} · ผสมกับ ${arch.th} (#${archNum}) · ${event.name}`;
+
+  // Lucky number
+  const lucky = ((archNum + dow + d) % 22) + 1;
+
+  // Update DOM
+  const dateStr = today.getDate() + ' ' + fullMonths[today.getMonth()+1] + ' ' + (today.getFullYear() + 543);
+  document.getElementById('dateDisplay').textContent = dateStr.toUpperCase();
+  document.getElementById('dayTitle').innerHTML = 'วัน' + day.thai + ' · <em>' + arch.th + '</em>';
+  document.getElementById('dayEnergy').textContent = day.energy;
+
+  document.getElementById('primaryCircle').style.background = primaryColor;
+  document.getElementById('accentCircle').style.background = accentColor;
+  document.getElementById('primaryName').textContent = colorTitle;
+  document.getElementById('primaryHex').textContent = primaryColor + ' + ' + accentColor;
+  document.getElementById('colorMeaning').textContent = colorMeaning;
+
+  document.getElementById('stoneName').textContent = event.stone.name;
+  document.getElementById('stoneSub').textContent = event.stone.sub;
+  document.getElementById('luckyNumber').textContent = lucky;
+  document.getElementById('luckySub').textContent = 'ใช้ในเวลา · เลขห้อง · ตำแหน่ง · เครื่องประดับ';
+
+  document.getElementById('affirmationText').textContent = '"' + affirmations[archNum] + '"';
+  document.getElementById('affirmationArchetype').textContent = '#' + archNum + ' ' + arch.th;
+
+  // Outfit
+  updateOutfit('casual', event);
+  document.querySelectorAll('.outfit-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.outfit-tab[data-level="casual"]').classList.add('active');
+  currentLevel = 'casual';
+
+  // Ritual
+  const ritualUL = document.getElementById('ritualList');
+  ritualUL.innerHTML = '';
+  event.ritual.forEach(r => {
+    const li = document.createElement('li');
+    li.textContent = r;
+    ritualUL.appendChild(li);
+  });
+
+  // Avoid
+  const avoidUL = document.getElementById('avoidList');
+  avoidUL.innerHTML = '';
+  event.avoid.forEach(a => {
+    const li = document.createElement('li');
+    li.textContent = a;
+    avoidUL.appendChild(li);
+  });
+
+  currentVibe = {
+    archNum, archTh: arch.th, day: day.thai, primaryColor, accentColor, lucky, eventName: event.name
+  };
+
+  // Save birth date
+  localStorage.setItem('moome_birth', JSON.stringify({d, m, y}));
+
+  // Update URL with event for sharing
+  const newUrl = window.location.pathname + '?event=' + eventKey;
+  window.history.replaceState({}, '', newUrl);
+
+  // Show result
+  document.getElementById('result').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('result').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+
+  // Title
+  document.title = 'Vibe ของวัน' + day.thai + ' · ' + arch.th + ' | Moome';
+}
+
+function updateOutfit(level, event) {
+  const ul = document.getElementById('outfitList');
+  ul.innerHTML = '';
+  event.outfit[level].forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    ul.appendChild(li);
+  });
+}
+
+// === Form submit ===
+document.getElementById('vibeForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const d = parseInt(document.getElementById('day').value);
+  const m = parseInt(document.getElementById('month').value);
+  const y = parseInt(document.getElementById('year').value);
+  const eventKey = document.getElementById('event').value;
+  if (!d || !m || !y) return;
+  calculate(d, m, y, eventKey);
+});
+
+// === Outfit tabs ===
+document.querySelectorAll('.outfit-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.outfit-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentLevel = tab.dataset.level;
+    const eventKey = document.getElementById('event').value;
+    updateOutfit(currentLevel, events[eventKey]);
+  });
+});
+
+// === Auto-load from localStorage + URL params ===
+(function() {
+  const saved = localStorage.getItem('moome_birth');
+  const params = new URLSearchParams(window.location.search);
+  const eventParam = params.get('event');
+
+  if (saved) {
+    try {
+      const { d, m, y } = JSON.parse(saved);
+      document.getElementById('day').value = d;
+      document.getElementById('month').value = m;
+      document.getElementById('year').value = y;
+
+      if (eventParam && events[eventParam]) {
+        document.getElementById('event').value = eventParam;
+      }
+
+      // Auto-calculate
+      const ek = document.getElementById('event').value;
+      calculate(d, m, y, ek);
+    } catch (e) {}
+  }
+})();
+
+// === Clear stored ===
+document.getElementById('clearStored').addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.removeItem('moome_birth');
+  showToast('ล้างข้อมูลแล้ว');
+});
+
+// === Share functions ===
+function getShareUrl() {
+  return window.location.origin + window.location.pathname +
+    '?event=' + document.getElementById('event').value;
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(getShareUrl()).then(() => showToast('✓ คัดลอกลิงก์แล้ว'));
+}
+
+function shareToLine() {
+  if (!currentVibe) return;
+  const text = '🌅 Vibe ของฉันวัน' + currentVibe.day + '\n' +
+               '✦ Archetype #' + currentVibe.archNum + ' ' + currentVibe.archTh + '\n' +
+               '🎨 สีเสริมพลัง · 👔 outfit · 💎 หินมงคล\n' +
+               'ดู Vibe ของคุณบ้าง — ฟรี';
+  const lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text + '\n' + getShareUrl());
+  window.open(lineUrl, '_blank');
+}
+
+function resetForm() {
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('event').value = 'general';
+  window.history.replaceState({}, '', window.location.pathname);
+  document.title = 'Daily Vibe · สีและ outfit เสริมพลังประจำวัน | Moome';
+  document.getElementById('vibeForm').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+
+</body>
+</html>

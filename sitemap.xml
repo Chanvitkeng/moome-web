@@ -25,6 +25,14 @@
     <priority>0.95</priority>
   </url>
 
+  <!-- Daily Vibe (V1.4) -->
+  <url>
+    <loc>https://moome.app/today/</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Blog index -->
   <url>
     <loc>https://moome.app/blog/</loc>
@@ -53,6 +61,14 @@
     <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Archetype series -->
+  <url>
+    <loc>https://moome.app/blog/archetype-1-นักสร้างสรรค์/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- Future pages (uncomment when published) -->
