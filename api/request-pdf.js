@@ -1,36 +1,13 @@
 // Vercel Function · POST /api/request-pdf
 // Receives form submission · sends email to user via Resend
 // + notification to admin
+// L2B · Rich content email (12-section archetype report)
 
 import { Resend } from 'resend';
+import { archetypesContent } from './archetypes-content.js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// 22 Archetypes (mirror of frontend data — kept here for email content)
-const archetypes = {
-  1:  { eng: "The Magician",        th: "นักสร้างสรรค์",      tag: "คนที่เปลี่ยนความคิดให้กลายเป็นจริง" },
-  2:  { eng: "The High Priestess",  th: "ผู้หยั่งรู้",        tag: "คนที่อ่านความรู้สึกได้ลึกที่สุด" },
-  3:  { eng: "The Empress",         th: "จักรพรรดินี",        tag: "คนที่สร้างความอบอุ่นและความงามให้โลก" },
-  4:  { eng: "The Emperor",         th: "ผู้สร้างฐาน",        tag: "ผู้นำที่สร้างโครงสร้างมั่นคง" },
-  5:  { eng: "The Hierophant",      th: "ครูแห่งจิตวิญญาณ",   tag: "ผู้นำทางความรู้และศรัทธา" },
-  6:  { eng: "The Lovers",          th: "ผู้รัก",             tag: "คนที่เข้าใจความสัมพันธ์ลึกซึ้ง" },
-  7:  { eng: "The Chariot",         th: "ผู้พิชิต",           tag: "ผู้ผลักดันสิ่งยากให้สำเร็จ" },
-  8:  { eng: "Strength",            th: "พลังภายใน",          tag: "ผู้ใช้ความนุ่มนวลเอาชนะแรง" },
-  9:  { eng: "The Hermit",          th: "ผู้แสวงหา",          tag: "ผู้แสวงหาความจริงในความเงียบ" },
-  10: { eng: "Wheel of Fortune",    th: "วงล้อแห่งโชค",       tag: "ผู้ที่ชีวิตเปลี่ยนได้รวดเร็ว" },
-  11: { eng: "Justice",             th: "ผู้ตัดสินด้วยใจ",    tag: "คนที่มองเห็นความสมดุล" },
-  12: { eng: "The Hanged",          th: "ผู้มองมุมต่าง",      tag: "คนที่เห็นโลกจากมุมที่คนอื่นไม่เห็น" },
-  13: { eng: "Death",               th: "ผู้ผ่านการเปลี่ยน",  tag: "ผู้กล้าทิ้งของเดิมเพื่อเริ่มใหม่" },
-  14: { eng: "Temperance",          th: "ผู้สมดุล",           tag: "คนที่ผสานสิ่งตรงข้ามได้" },
-  15: { eng: "The Devil",           th: "ผู้ปลดพันธนาการ",    tag: "ผู้เห็นเงาของตัวเองและรับรู้" },
-  16: { eng: "The Tower",           th: "ผู้สร้างใหม่",       tag: "ผู้กล้าทุบของเก่าเพื่อสร้างใหม่" },
-  17: { eng: "The Star",            th: "ผู้ส่องแสง",         tag: "ผู้นำความหวังหลังพายุ" },
-  18: { eng: "The Moon",            th: "ผู้ฝัน",             tag: "ผู้เห็นในจิตใต้สำนึก" },
-  19: { eng: "The Sun",             th: "ดวงอาทิตย์",         tag: "ผู้สร้างความยินดีและพลังบวก" },
-  20: { eng: "Judgement",           th: "ผู้ตื่นรู้",         tag: "ผู้ได้ยินเสียงเรียกของจิตวิญญาณ" },
-  21: { eng: "The World",           th: "ผู้สำเร็จ",          tag: "ผู้ครบวงจรชีวิตในรอบหนึ่ง" },
-  22: { eng: "The Innocent",        th: "ผู้เริ่มใหม่",       tag: "คนที่กล้าก้าวสู่สิ่งที่ไม่รู้" },
-};
+const archetypes = archetypesContent;
 
 const PALETTE = {
   cream: '#F5EFE6',
@@ -42,17 +19,46 @@ const PALETTE = {
   lavender: '#b8a5c9',
 };
 
+function sectionHeader(emoji, label) {
+  return `<div style="font-size:11px;letter-spacing:0.28em;color:${PALETTE.gold};text-transform:uppercase;font-weight:700;margin:36px 0 14px;">${emoji} ${label}</div>`;
+}
+
+function strengthGrowthCard(idx, title, desc, color) {
+  return `<div style="background:white;border-left:4px solid ${color};border-radius:0 14px 14px 0;padding:18px 22px;margin-bottom:12px;">
+    <div style="font-size:12px;color:${color};font-weight:700;letter-spacing:0.1em;margin-bottom:6px;">${idx}.</div>
+    <div style="font-size:17px;font-weight:700;color:${PALETTE.midnight};margin-bottom:6px;">${title}</div>
+    <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.6;">${desc}</div>
+  </div>`;
+}
+
 function buildUserEmailHTML(num, archData, birthDate) {
   const archStr = String(num).padStart(2, '0');
+
+  const strengthsHTML = archData.strengths.map((s, i) =>
+    strengthGrowthCard(i + 1, s.title, s.desc, PALETTE.gold)
+  ).join('');
+
+  const growthHTML = archData.growth.map((g, i) =>
+    strengthGrowthCard(i + 1, g.title, g.desc, PALETTE.rose)
+  ).join('');
+
+  const careersHTML = archData.careers.map(c =>
+    `<li style="margin-bottom:8px;padding-left:18px;position:relative;">
+       <span style="position:absolute;left:0;color:${PALETTE.gold};">✦</span>
+       ${c}
+     </li>`
+  ).join('');
+
   return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:${PALETTE.cream};font-family:'Helvetica Neue',Arial,sans-serif;color:${PALETTE.midnight};line-height:1.7;">
-<div style="max-width:600px;margin:0 auto;padding:32px 16px;">
+<div style="max-width:640px;margin:0 auto;padding:32px 16px;">
 
   <!-- Header -->
   <div style="text-align:center;padding:24px 0;border-bottom:1px solid rgba(61,44,78,0.1);">
     <div style="font-size:13px;letter-spacing:0.32em;color:${PALETTE.gold};font-weight:700;">✦ MOOME</div>
     <div style="font-size:12px;color:${PALETTE.lavender};margin-top:4px;">ดวงที่ฟัง ก่อนพูด</div>
+    <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.lavender};margin-top:8px;text-transform:uppercase;">PERSONAL ARCHETYPE REPORT</div>
   </div>
 
   <!-- Hero archetype card -->
@@ -66,14 +72,63 @@ function buildUserEmailHTML(num, archData, birthDate) {
 
   <!-- Greeting -->
   <h1 style="font-size:24px;color:${PALETTE.midnight};margin-bottom:12px;font-weight:700;">สวัสดีครับ 💜</h1>
-  <p style="font-size:15px;color:${PALETTE.plum};">ขอบคุณที่ใช้ Moome คำนวณ Destiny Matrix ของคุณ · นี่คือสรุปย่อของ archetype <strong>#${num} ${archData.th}</strong> สำหรับวันเกิด <strong>${birthDate}</strong></p>
+  <p style="font-size:15px;color:${PALETTE.plum};">ขอบคุณที่ใช้ Moome คำนวณ Destiny Matrix · รายงานนี้เจาะลึก archetype <strong>#${num} ${archData.th}</strong> สำหรับวันเกิด <strong>${birthDate}</strong></p>
+
+  <!-- 1. Essence -->
+  ${sectionHeader('🌟', 'ตัวตนของคุณ')}
+  <p style="font-size:15.5px;color:${PALETTE.plum};line-height:1.85;">${archData.essence}</p>
+
+  <!-- 2. Strengths -->
+  ${sectionHeader('✦', '3 จุดแข็ง')}
+  ${strengthsHTML}
+
+  <!-- 3. Growth Areas -->
+  ${sectionHeader('🌱', '3 พื้นที่เติบโต')}
+  ${growthHTML}
+
+  <!-- 4. Careers -->
+  ${sectionHeader('💼', 'อาชีพที่เหมาะ')}
+  <ul style="background:white;border-radius:14px;padding:22px 22px 22px 22px;list-style:none;color:${PALETTE.plum};font-size:14.5px;border:1px solid rgba(61,44,78,0.08);">
+    ${careersHTML}
+  </ul>
+
+  <!-- 5. Relationships -->
+  ${sectionHeader('💞', 'ในความสัมพันธ์')}
+  <div style="background:linear-gradient(135deg,#fdf6f8,#fbe8ee);border-radius:14px;padding:22px;color:${PALETTE.plum};font-size:15px;line-height:1.75;">
+    ${archData.relationships}
+  </div>
+
+  <!-- 6. Color + Symbol -->
+  ${sectionHeader('🎨', 'สีนำโชค + สัญลักษณ์')}
+  <div style="background:white;border-radius:14px;padding:22px;border:1px solid rgba(61,44,78,0.08);">
+    <div style="margin-bottom:14px;">
+      <div style="font-size:12px;color:${PALETTE.lavender};letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">สีนำโชค</div>
+      <div style="font-size:15px;color:${PALETTE.plum};">${archData.color}</div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:${PALETTE.lavender};letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">สัญลักษณ์</div>
+      <div style="font-size:15px;color:${PALETTE.plum};">${archData.symbol}</div>
+    </div>
+  </div>
+
+  <!-- 7. Monthly Energy -->
+  ${sectionHeader('🌅', 'พลังเดือนนี้')}
+  <div style="background:linear-gradient(135deg,#fffbf2,#fef5e1);border:1px solid rgba(201,169,97,0.25);border-radius:14px;padding:22px;color:${PALETTE.plum};font-size:15px;line-height:1.75;">
+    ${archData.monthlyEnergy}
+  </div>
+
+  <!-- 8. Affirmation -->
+  ${sectionHeader('🙏', 'Affirmation ของคุณ')}
+  <blockquote style="background:linear-gradient(135deg,${PALETTE.plum},${PALETTE.midnight});color:${PALETTE.goldSoft};border-radius:14px;padding:32px 24px;font-size:18px;font-style:italic;text-align:center;line-height:1.6;margin:0;">
+    "${archData.affirmation}"
+  </blockquote>
 
   <!-- Tools section -->
-  <div style="background:white;border-radius:18px;padding:28px;margin:32px 0;border:1px solid rgba(61,44,78,0.08);">
+  <div style="background:white;border-radius:18px;padding:28px;margin:48px 0 32px;border:1px solid rgba(61,44,78,0.08);">
     <div style="font-size:11px;letter-spacing:0.22em;color:${PALETTE.gold};text-transform:uppercase;font-weight:600;margin-bottom:14px;">🎁 STEP NEXT</div>
     <h2 style="font-size:20px;color:${PALETTE.midnight};margin-bottom:16px;font-weight:700;">เครื่องมืออื่นๆ ของ Moome</h2>
-    <ul style="padding-left:0;list-style:none;color:${PALETTE.plum};font-size:14.5px;">
-      <li style="margin-bottom:10px;">💞 <a href="https://moome.app/match/" style="color:${PALETTE.plum};text-decoration:none;border-bottom:1px solid ${PALETTE.gold};">เช็คดวงคู่</a> — เปรียบเทียบ archetype ของคุณกับใครก็ได้</li>
+    <ul style="padding-left:0;list-style:none;color:${PALETTE.plum};font-size:14.5px;margin:0;">
+      <li style="margin-bottom:10px;">💞 <a href="https://moome.app/match/?d1=${birthDate.split('/')[0]}&m1=${birthDate.split('/')[1]}&y1=${birthDate.split('/')[2]}" style="color:${PALETTE.plum};text-decoration:none;border-bottom:1px solid ${PALETTE.gold};">เช็คดวงคู่</a> — เปรียบเทียบ archetype ของคุณกับใครก็ได้</li>
       <li style="margin-bottom:10px;">🌅 <a href="https://moome.app/today/" style="color:${PALETTE.plum};text-decoration:none;border-bottom:1px solid ${PALETTE.gold};">Daily Vibe</a> — สี · ลุค · พลังประจำวัน</li>
       <li style="margin-bottom:10px;">📖 <a href="https://moome.app/blog/" style="color:${PALETTE.plum};text-decoration:none;border-bottom:1px solid ${PALETTE.gold};">Blog</a> — บทความเจาะลึก 22 archetypes</li>
     </ul>
@@ -85,12 +140,6 @@ function buildUserEmailHTML(num, archData, birthDate) {
     <h2 style="font-size:20px;color:${PALETTE.midnight};margin-bottom:8px;">Add LINE — รับ Daily Vibe ทุกเช้า</h2>
     <p style="font-size:14.5px;color:${PALETTE.plum};margin-bottom:18px;">รู้ทันสี/อารมณ์ในวันสำคัญ · ฟรี</p>
     <a href="https://line.me/R/ti/p/@262zpsua" style="display:inline-block;background:#06C755;color:white;padding:12px 28px;border-radius:999px;text-decoration:none;font-weight:600;font-size:14px;">เพิ่มเพื่อน @262zpsua →</a>
-  </div>
-
-  <!-- PDF coming soon -->
-  <div style="background:linear-gradient(135deg,#fffbf2,#fef5e1);border-radius:18px;padding:28px;text-align:center;margin:32px 0;border:1px solid rgba(201,169,97,0.3);">
-    <div style="font-size:11px;letter-spacing:0.22em;color:${PALETTE.gold};text-transform:uppercase;font-weight:600;margin-bottom:8px;">📕 PDF REPORT — COMING SOON</div>
-    <p style="font-size:14.5px;color:${PALETTE.plum};">เรากำลังเตรียม PDF report เจาะลึก archetype ของคุณ 12 หน้า · จะส่งให้ภายในสัปดาห์นี้ · โปรดเช็ค inbox อีกครั้ง</p>
   </div>
 
   <!-- Disclaimer -->
@@ -158,11 +207,11 @@ export default async function handler(req, res) {
     const archData = archetypes[archNum];
     const archStr = '#' + archNum;
 
-    // 1. Send summary email to user
+    // 1. Send rich report email to user
     const userResult = await resend.emails.send({
       from: 'Moome <onboarding@resend.dev>',
       to: email,
-      subject: `✦ Archetype ${archStr} ${archData.th} · สรุปจาก Moome`,
+      subject: `📕 Personal Archetype Report · ${archStr} ${archData.th} · Moome`,
       html: buildUserEmailHTML(archNum, archData, birth_date),
       reply_to: 'chanvit.kasetpiban@gmail.com',
     });
