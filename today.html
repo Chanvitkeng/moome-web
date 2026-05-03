@@ -121,6 +121,33 @@
     margin-bottom: 36px;
   }
 
+  /* === MODE TABS === */
+  .mode-tabs {
+    display: flex; gap: 6px; margin: 0 auto 16px;
+    max-width: 520px; padding: 4px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 999px;
+    border: 1px solid rgba(61,44,78,0.08);
+  }
+  .mode-tab {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--plum);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .mode-tab.active {
+    background: var(--plum);
+    color: var(--cream);
+    font-weight: 600;
+  }
+
   /* === FORM === */
   .vibe-form {
     background: white;
@@ -130,6 +157,113 @@
     max-width: 520px;
     margin: 0 auto;
     text-align: left;
+  }
+  .week-form { display: none; }
+  .week-form.active { display: block; }
+  .single-form.hidden { display: none; }
+
+  /* === Week event rows === */
+  .week-events { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .week-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  .week-row .day-label {
+    font-size: 13px;
+    color: var(--plum);
+    font-weight: 600;
+  }
+  .week-row .day-label .date-num {
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .week-row select {
+    padding: 11px 14px;
+    border: 1.5px solid rgba(61,44,78,0.12);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    background: white;
+    -webkit-appearance: none; appearance: none;
+    cursor: pointer;
+  }
+
+  /* === Week Grid === */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .week-day-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px 18px;
+    border: 1px solid rgba(61,44,78,0.08);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .week-day-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -15px rgba(61,44,78,0.2); }
+  .week-day-card .header-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 14px;
+  }
+  .week-day-card .day-name {
+    font-weight: 700;
+    color: var(--midnight);
+    font-size: 16px;
+  }
+  .week-day-card .day-date {
+    color: var(--lavender);
+    font-size: 12px;
+  }
+  .week-day-card .color-stripe {
+    height: 6px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    background: linear-gradient(to right, var(--c1, var(--gold)), var(--c2, var(--lavender)));
+  }
+  .week-day-card .archetype-line {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .week-day-card .arch-name {
+    color: var(--plum);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .week-day-card .event-line {
+    color: var(--lavender);
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .week-day-card .vibe-summary {
+    background: rgba(201,169,97,0.1);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--plum);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .week-day-card .vibe-summary strong {
+    color: var(--midnight);
+    font-weight: 600;
+  }
+  .week-day-card .view-detail {
+    margin-top: 12px;
+    color: var(--gold);
+    font-size: 12px;
+    text-align: right;
+    font-weight: 600;
   }
   .form-block { margin-bottom: 18px; }
   .form-label {
@@ -145,9 +279,9 @@
     grid-template-columns: 1fr 1.4fr 1.2fr;
     gap: 10px;
   }
-  .date-grid select, .date-grid input, .form-block select {
+  .date-grid select, .date-grid input, .form-block select, .form-block input[type="date"] {
     width: 100%;
-    padding: 13px 12px;
+    padding: 13px 14px;
     border: 1.5px solid rgba(61,44,78,0.15);
     border-radius: 12px;
     font-family: inherit;
@@ -156,8 +290,30 @@
     background: white;
     -webkit-appearance: none; appearance: none;
   }
-  .date-grid select:focus, .date-grid input:focus, .form-block select:focus {
+  .date-grid select:focus, .date-grid input:focus, .form-block select:focus, .form-block input[type="date"]:focus {
     outline: none; border-color: var(--gold);
+  }
+  /* Style native date picker icon */
+  .form-block input[type="date"] {
+    cursor: pointer;
+    background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23c9a961" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>') no-repeat right 14px center;
+    padding-right: 44px;
+    font-weight: 500;
+  }
+  .form-block input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+  }
+  .form-block { position: relative; }
+  /* Custom select arrow */
+  .form-block select {
+    background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%233d2c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>') no-repeat right 14px center;
+    padding-right: 38px;
+    cursor: pointer;
   }
   .calc-btn {
     width: 100%;
@@ -593,7 +749,12 @@
       เตรียมตัวล่วงหน้าได้ · ปรับตาม archetype + วัน + บริบท
     </p>
 
-    <form class="vibe-form" id="vibeForm">
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="single" type="button">📅 วันเดียว</button>
+      <button class="mode-tab" data-mode="week" type="button">🗓 ทั้งสัปดาห์</button>
+    </div>
+
+    <form class="vibe-form single-form" id="vibeForm">
       <div class="form-block" id="dateBlock">
         <label class="form-label">วันเกิดของคุณ</label>
         <div class="date-grid">
@@ -634,10 +795,65 @@
       <button type="submit" class="calc-btn">✨ ดู vibe ของวันนี้</button>
       <p class="stored-hint">วันเกิดถูก save ใน browser นี้ครั้งเดียว · <a id="clearStored">ล้างข้อมูล</a></p>
     </form>
+
+    <form class="vibe-form week-form" id="weekForm">
+      <div class="form-block">
+        <label class="form-label">วันเกิดของคุณ</label>
+        <div class="date-grid">
+          <select id="wDay" required><option value="">วัน</option></select>
+          <select id="wMonth" required>
+            <option value="">เดือน</option>
+            <option value="1">มกราคม</option><option value="2">กุมภาพันธ์</option>
+            <option value="3">มีนาคม</option><option value="4">เมษายน</option>
+            <option value="5">พฤษภาคม</option><option value="6">มิถุนายน</option>
+            <option value="7">กรกฎาคม</option><option value="8">สิงหาคม</option>
+            <option value="9">กันยายน</option><option value="10">ตุลาคม</option>
+            <option value="11">พฤศจิกายน</option><option value="12">ธันวาคม</option>
+          </select>
+          <input type="number" id="wYear" placeholder="ปี ค.ศ." min="1940" max="2026" required>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-label">📅 วันเริ่มต้นสัปดาห์</label>
+        <input type="date" id="weekStart" required>
+        <p style="font-size:12px;color:var(--lavender);margin-top:6px;">เลือกวันแรกของสัปดาห์ที่อยากดู (เริ่มจันทร์ดีสุด)</p>
+      </div>
+
+      <div class="form-block">
+        <label class="form-label">วันไหนมี event อะไร?</label>
+        <div class="week-events" id="weekEvents">
+          <!-- 7 day rows generated by JS -->
+        </div>
+      </div>
+
+      <button type="submit" class="calc-btn">🗓 ดู Vibe ทั้งสัปดาห์</button>
+      <p class="stored-hint">เห็นภาพรวม 7 วัน · เตรียมเสื้อผ้าและ ritual ล่วงหน้า</p>
+    </form>
   </div>
 </section>
 
-<!-- ===== RESULT ===== -->
+<!-- ===== WEEK RESULT ===== -->
+<section class="result-section" id="weekResult">
+  <div class="day-header">
+    <div class="date-display">YOUR WEEK · OVERVIEW</div>
+    <h2 id="weekTitle">สัปดาห์ของ <em>—</em></h2>
+    <div class="day-energy" id="weekRange">—</div>
+  </div>
+
+  <div class="week-grid" id="weekGrid"></div>
+
+  <div class="share-section">
+    <div class="share-label">✦ Share ทั้งสัปดาห์</div>
+    <div class="share-row">
+      <button class="share-btn line" onclick="shareWeekToLine()">💬 Share ใน LINE</button>
+      <button class="share-btn" onclick="copyWeekLink()">🔗 คัดลอกลิงก์</button>
+    </div>
+    <button class="reset-btn" onclick="resetWeek()">↺ ลองสัปดาห์อื่น</button>
+  </div>
+</section>
+
+<!-- ===== SINGLE DAY RESULT ===== -->
 <section class="result-section" id="result">
   <div class="day-header">
     <div class="date-display" id="dateDisplay">—</div>
@@ -720,13 +936,15 @@
 </footer>
 
 <script>
-// === Populate day dropdown ===
-const daySelect = document.getElementById('day');
-for (let i = 1; i <= 31; i++) {
-  const opt = document.createElement('option');
-  opt.value = i; opt.textContent = i;
-  daySelect.appendChild(opt);
-}
+// === Populate day dropdowns (single + week forms) ===
+['day', 'wDay'].forEach(id => {
+  const sel = document.getElementById(id);
+  for (let i = 1; i <= 31; i++) {
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = i;
+    sel.appendChild(opt);
+  }
+});
 
 // === Archetype Calculation (Russian DM) ===
 function reduceTo22(n) { while (n > 22) n -= 22; return n; }
@@ -1307,6 +1525,201 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// === Mode Tabs (Single / Week) ===
+document.querySelectorAll('.mode-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const mode = tab.dataset.mode;
+    if (mode === 'week') {
+      document.querySelector('.single-form').classList.add('hidden');
+      document.querySelector('.week-form').classList.add('active');
+      // Sync birth date if already filled
+      const d = document.getElementById('day').value;
+      const m = document.getElementById('month').value;
+      const y = document.getElementById('year').value;
+      if (d) document.getElementById('wDay').value = d;
+      if (m) document.getElementById('wMonth').value = m;
+      if (y) document.getElementById('wYear').value = y;
+      // Init week start to today + render rows
+      if (!document.getElementById('weekStart').value) {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('weekStart').value = `${yyyy}-${mm}-${dd}`;
+      }
+      renderWeekRows();
+    } else {
+      document.querySelector('.single-form').classList.remove('hidden');
+      document.querySelector('.week-form').classList.remove('active');
+    }
+  });
+});
+
+// === Render 7 day rows when start date changes ===
+const weekDayNames = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
+const weekDayShort = ['อา','จ','อ','พ','พฤ','ศ','ส'];
+
+function renderWeekRows() {
+  const startStr = document.getElementById('weekStart').value;
+  if (!startStr) return;
+  const start = new Date(startStr + 'T12:00:00');
+  const container = document.getElementById('weekEvents');
+  container.innerHTML = '';
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(start);
+    date.setDate(start.getDate() + i);
+    const dow = date.getDay();
+    const dateStr = date.toISOString().split('T')[0];
+    const display = `${weekDayNames[dow]} ${date.getDate()} ${monthNames[date.getMonth()+1]}`;
+
+    const row = document.createElement('div');
+    row.className = 'week-row';
+    row.innerHTML = `
+      <div class="day-label">${weekDayNames[dow]} <span class="date-num">${date.getDate()}</span></div>
+      <select data-date="${dateStr}">
+        <option value="general">ว่าง · ทั่วไป</option>
+        <option value="presentation">💼 Presentation</option>
+        <option value="date">💕 Date</option>
+        <option value="exam">📚 Exam</option>
+        <option value="meeting">🤝 Meeting</option>
+        <option value="creative">🎨 Creative</option>
+        <option value="important_talk">💬 คุยสำคัญ</option>
+        <option value="celebration">🎉 ฉลอง</option>
+      </select>
+    `;
+    container.appendChild(row);
+  }
+}
+
+document.getElementById('weekStart').addEventListener('change', renderWeekRows);
+
+// === Calculate vibe data (lightweight, for week grid) ===
+function calculateVibeData(d, m, y, dateObj, eventKey) {
+  const archNum = calculateMatrix(d, m, y);
+  const arch = archetypes[archNum];
+  const dow = dateObj.getDay();
+  const day = dayInfo[dow];
+  const event = events[eventKey];
+  const primaryColor = shiftColor(day.baseColor, event.colorShift);
+  const accentColor = arch.color;
+  const lucky = ((archNum + dow + d) % 22) + 1;
+  return { archNum, arch, day, event, primaryColor, accentColor, lucky, dateObj };
+}
+
+// === Week form submit ===
+document.getElementById('weekForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const d = parseInt(document.getElementById('wDay').value);
+  const m = parseInt(document.getElementById('wMonth').value);
+  const y = parseInt(document.getElementById('wYear').value);
+  const startStr = document.getElementById('weekStart').value;
+  if (!d || !m || !y || !startStr) return;
+
+  // Save birth date
+  localStorage.setItem('moome_birth', JSON.stringify({d, m, y}));
+
+  const start = new Date(startStr + 'T12:00:00');
+  const archNum = calculateMatrix(d, m, y);
+  const arch = archetypes[archNum];
+
+  // Update header
+  document.getElementById('weekTitle').innerHTML = `สัปดาห์ของ <em>${arch.th}</em>`;
+  const endDate = new Date(start);
+  endDate.setDate(start.getDate() + 6);
+  document.getElementById('weekRange').textContent =
+    `${start.getDate()} ${monthNames[start.getMonth()+1]} – ${endDate.getDate()} ${monthNames[endDate.getMonth()+1]} ${start.getFullYear() + 543}`;
+
+  // Get event picks
+  const selects = document.querySelectorAll('#weekEvents select');
+  const grid = document.getElementById('weekGrid');
+  grid.innerHTML = '';
+
+  selects.forEach((sel, i) => {
+    const eventKey = sel.value;
+    const dateObj = new Date(sel.dataset.date + 'T12:00:00');
+    const data = calculateVibeData(d, m, y, dateObj, eventKey);
+    const dow = dateObj.getDay();
+
+    // Event icon mapping
+    const eventIcon = {
+      general: '☀️', presentation: '💼', date: '💕', exam: '📚',
+      meeting: '🤝', creative: '🎨', important_talk: '💬', celebration: '🎉'
+    }[eventKey];
+
+    // Build summary
+    const stoneShort = data.event.stone.name.split('+')[0].trim();
+    const colorText = `${data.day.baseName}${data.event.colorShift !== 'balanced' ? ' โทน' + (data.event.colorShift === 'authority' ? 'เข้ม' : data.event.colorShift === 'warm' ? 'อุ่น' : 'อ่อน') : ''}`;
+
+    const card = document.createElement('div');
+    card.className = 'week-day-card';
+    card.style.setProperty('--c1', data.primaryColor);
+    card.style.setProperty('--c2', data.accentColor);
+    card.dataset.dateStr = sel.dataset.date;
+    card.dataset.eventKey = eventKey;
+    card.innerHTML = `
+      <div class="header-row">
+        <div class="day-name">${weekDayNames[dow]}</div>
+        <div class="day-date">${dateObj.getDate()} ${monthNames[dateObj.getMonth()+1]}</div>
+      </div>
+      <div class="color-stripe"></div>
+      <div class="archetype-line">${eventIcon} ${data.event.name}</div>
+      <div class="arch-name">${data.day.thai} · ${data.arch.th}</div>
+      <div class="vibe-summary">
+        <strong>🎨</strong> ${colorText}<br>
+        <strong>💎</strong> ${stoneShort}<br>
+        <strong>🔢</strong> Lucky #${data.lucky}
+      </div>
+      <div class="view-detail">ดูละเอียด →</div>
+    `;
+    card.addEventListener('click', () => {
+      // Switch to single mode + load this day
+      document.querySelector('.mode-tab[data-mode="single"]').click();
+      document.getElementById('day').value = d;
+      document.getElementById('month').value = m;
+      document.getElementById('year').value = y;
+      document.getElementById('targetDate').value = sel.dataset.date;
+      document.getElementById('event').value = eventKey;
+      calculate(d, m, y, eventKey, sel.dataset.date);
+    });
+    grid.appendChild(card);
+  });
+
+  // Hide single result, show week result
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('weekResult').classList.add('show');
+
+  setTimeout(() => {
+    document.getElementById('weekResult').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+
+  // Update URL
+  const eventStr = Array.from(selects).map(s => s.value).join(',');
+  const newUrl = window.location.pathname + '?week=' + startStr + '&events=' + eventStr;
+  window.history.replaceState({}, '', newUrl);
+  document.title = `Week of ${arch.th} · ${start.getDate()} ${monthNames[start.getMonth()+1]} | Moome`;
+});
+
+function shareWeekToLine() {
+  const text = '🗓 ดู Vibe ทั้งสัปดาห์ของฉันใน Moome\nสีและ outfit เสริมพลังแต่ละวัน · ฟรี';
+  const url = window.location.href;
+  const lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text + '\n' + url);
+  window.open(lineUrl, '_blank');
+}
+
+function copyWeekLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => showToast('✓ คัดลอกลิงก์แล้ว'));
+}
+
+function resetWeek() {
+  document.getElementById('weekResult').classList.remove('show');
+  window.history.replaceState({}, '', window.location.pathname);
+  document.title = 'Daily Vibe · สีและ outfit เสริมพลังประจำวัน | Moome';
+  document.querySelector('.week-form').scrollIntoView({behavior:'smooth', block:'center'});
 }
 </script>
 
