@@ -586,11 +586,11 @@
 
 <section class="hero">
   <div class="hero-content">
-    <div class="eyebrow">DAILY VIBE · TODAY</div>
-    <h1>วันนี้ <em>ใส่อะไรดี</em>?</h1>
+    <div class="eyebrow">DAILY VIBE</div>
+    <h1>วันสำคัญ · <em>ใส่อะไรดี</em>?</h1>
     <p class="subtitle">
-      สีเสริมพลัง · outfit · ritual · affirmation<br>
-      ปรับตาม archetype + วัน + event ของคุณ
+      เลือกวันที่ + event → ได้สี · outfit · ritual · affirmation<br>
+      เตรียมตัวล่วงหน้าได้ · ปรับตาม archetype + วัน + บริบท
     </p>
 
     <form class="vibe-form" id="vibeForm">
@@ -612,7 +612,13 @@
       </div>
 
       <div class="form-block">
-        <label class="form-label">วันนี้คุณมีอะไร?</label>
+        <label class="form-label">📅 วันที่อยากดู Vibe</label>
+        <input type="date" id="targetDate" required>
+        <p style="font-size:12px;color:var(--lavender);margin-top:6px;">เลือกวันนี้ · พรุ่งนี้ · หรือล่วงหน้าเพื่อเตรียมตัว</p>
+      </div>
+
+      <div class="form-block">
+        <label class="form-label">วันนั้นคุณมีอะไร?</label>
         <select id="event" required>
           <option value="general">วันธรรมดา · ดู vibe ทั่วไป</option>
           <option value="presentation">💼 Presentation / Pitch / Interview</option>
@@ -1095,11 +1101,12 @@ const fullMonths = ['','มกราคม','กุมภาพันธ์','�
 let currentVibe = null;
 let currentLevel = 'casual';
 
-function calculate(d, m, y, eventKey) {
+function calculate(d, m, y, eventKey, targetDateStr) {
   const archNum = calculateMatrix(d, m, y);
   const arch = archetypes[archNum];
 
-  const today = new Date();
+  // Use target date if provided, else today
+  const today = targetDateStr ? new Date(targetDateStr + 'T12:00:00') : new Date();
   const dow = today.getDay();
   const day = dayInfo[dow];
   const event = events[eventKey];
@@ -1165,14 +1172,14 @@ function calculate(d, m, y, eventKey) {
   });
 
   currentVibe = {
-    archNum, archTh: arch.th, day: day.thai, primaryColor, accentColor, lucky, eventName: event.name
+    archNum, archTh: arch.th, day: day.thai, primaryColor, accentColor, lucky, eventName: event.name, targetDateStr
   };
 
   // Save birth date
   localStorage.setItem('moome_birth', JSON.stringify({d, m, y}));
 
-  // Update URL with event for sharing
-  const newUrl = window.location.pathname + '?event=' + eventKey;
+  // Update URL with event + date for sharing
+  const newUrl = window.location.pathname + '?event=' + eventKey + (targetDateStr ? '&date=' + targetDateStr : '');
   window.history.replaceState({}, '', newUrl);
 
   // Show result
@@ -1202,9 +1209,20 @@ document.getElementById('vibeForm').addEventListener('submit', function(e) {
   const m = parseInt(document.getElementById('month').value);
   const y = parseInt(document.getElementById('year').value);
   const eventKey = document.getElementById('event').value;
+  const targetDateStr = document.getElementById('targetDate').value;
   if (!d || !m || !y) return;
-  calculate(d, m, y, eventKey);
+  calculate(d, m, y, eventKey, targetDateStr);
 });
+
+// === Set default date to today (any date pickable) ===
+(function() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  document.getElementById('targetDate').value = `${yyyy}-${mm}-${dd}`;
+  // No min/max — user can pick any date for past reflection or future planning
+})();
 
 // === Outfit tabs ===
 document.querySelectorAll('.outfit-tab').forEach(tab => {
@@ -1222,6 +1240,11 @@ document.querySelectorAll('.outfit-tab').forEach(tab => {
   const saved = localStorage.getItem('moome_birth');
   const params = new URLSearchParams(window.location.search);
   const eventParam = params.get('event');
+  const dateParam = params.get('date');
+
+  if (dateParam) {
+    document.getElementById('targetDate').value = dateParam;
+  }
 
   if (saved) {
     try {
@@ -1234,9 +1257,10 @@ document.querySelectorAll('.outfit-tab').forEach(tab => {
         document.getElementById('event').value = eventParam;
       }
 
-      // Auto-calculate
+      // Auto-calculate with date
       const ek = document.getElementById('event').value;
-      calculate(d, m, y, ek);
+      const td = document.getElementById('targetDate').value;
+      calculate(d, m, y, ek, td);
     } catch (e) {}
   }
 })();
@@ -1250,8 +1274,10 @@ document.getElementById('clearStored').addEventListener('click', (e) => {
 
 // === Share functions ===
 function getShareUrl() {
+  const td = document.getElementById('targetDate').value;
   return window.location.origin + window.location.pathname +
-    '?event=' + document.getElementById('event').value;
+    '?event=' + document.getElementById('event').value +
+    (td ? '&date=' + td : '');
 }
 
 function copyLink() {
