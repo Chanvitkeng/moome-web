@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ===== SEO meta ===== -->
-<title>Moome · มู-มี — ดูดวง 4 ศาสตร์ + Self-Awareness · ดูดวงรายวัน ดวงคู่ Destiny Matrix</title>
-<meta name="description" content="Moome คือแอปดูดวงและ Self-Awareness Platform ที่ใช้ 4 ศาสตร์เปรียบเทียบ (Destiny Matrix, Western Astrology, Vedic, BaZi) + Companion AI · ลองฟรีใน LINE">
-<meta name="keywords" content="ดูดวง, Destiny Matrix, ดวงคู่, ดูดวงรายวัน, ราศี, ฤกษ์, สีมงคล, 22 archetypes, ดูดวงไทย, ดูดวง AI, แอปดูดวง">
+<title>Moome · ดวงที่ฟัง ก่อนพูด — Destiny Matrix · Compatibility · Daily Vibe ฟรี</title>
+<meta name="description" content="Moome · ดวงที่ฟัง ก่อนพูด · 3 เครื่องมือฟรี: Destiny Matrix calculator · Compatibility match · Daily Vibe (สีและ outfit ประจำวัน) · ผสาน 22 archetypes + จิตวิทยา + คำถามชวนคิด">
+<meta name="keywords" content="ดูดวง, Destiny Matrix, ดวงคู่, สีมงคลรายวัน, archetype, 22 archetypes, ดูดวงไทย, daily vibe, compatibility, self awareness">
 <meta name="author" content="Moome">
 <link rel="canonical" href="https://moome.app/">
 
@@ -26,8 +26,8 @@
 <!-- ===== Open Graph ===== -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://moome.app/">
-<meta property="og:title" content="Moome · มู-มี — ดูดวง 4 ศาสตร์ + Self-Awareness">
-<meta property="og:description" content="ดูดวงที่มีหลักการ · เปรียบเทียบ 4 ศาสตร์ + Companion AI · ใช้ฟรีใน LINE">
+<meta property="og:title" content="Moome · ดวงที่ฟัง ก่อนพูด · 3 เครื่องมือฟรีรู้จักตัวเอง">
+<meta property="og:description" content="Destiny Matrix · Compatibility · Daily Vibe — 3 เครื่องมือฟรี ผสานศาสตร์โบราณกับจิตวิทยาสมัยใหม่">
 <meta property="og:image" content="https://moome.app/og/default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -36,8 +36,8 @@
 
 <!-- ===== Twitter Card ===== -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Moome · มู-มี — ดูดวง 4 ศาสตร์ + Self-Awareness">
-<meta name="twitter:description" content="ดูดวงที่มีหลักการ · เปรียบเทียบ 4 ศาสตร์ + Companion AI · ใช้ฟรีใน LINE">
+<meta name="twitter:title" content="Moome · ดวงที่ฟัง ก่อนพูด · 3 เครื่องมือฟรี">
+<meta name="twitter:description" content="Destiny Matrix · Compatibility · Daily Vibe — ผสานศาสตร์โบราณกับจิตวิทยาสมัยใหม่">
 <meta name="twitter:image" content="https://moome.app/og/default.png">
 
 <!-- ===== Structured Data: Organization + WebSite + SoftwareApplication ===== -->
@@ -220,6 +220,121 @@
     letter-spacing: 0.05em;
   }
   .hero-trust strong { color: var(--gold); }
+
+  /* === 3 TOOLS SHOWCASE === */
+  .tools-section {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .tool-card {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 28px;
+    border: 1px solid rgba(61,44,78,0.08);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .tool-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px -20px rgba(61,44,78,0.25);
+    border-color: var(--gold);
+  }
+  .tool-card:hover::before { opacity: 1; }
+
+  .tool-card.calc::before { background: var(--gold); }
+  .tool-card.match::before { background: var(--rose); }
+  .tool-card.today::before { background: var(--sage); }
+
+  .tool-icon {
+    font-size: 56px;
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+  .tool-card h3 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--midnight);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .tool-card .tool-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tool-card .tool-desc {
+    color: var(--plum);
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+  .tool-card .tool-features {
+    background: rgba(245,239,230,0.6);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  .tool-card .tool-features li {
+    color: var(--plum);
+    font-size: 13.5px;
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 6px;
+    list-style: none;
+    line-height: 1.6;
+  }
+  .tool-card .tool-features li:last-child { margin-bottom: 0; }
+  .tool-card .tool-features li::before {
+    content: '✦';
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+  }
+  .tool-card.match .tool-features li::before { color: var(--rose); }
+  .tool-card.today .tool-features li::before { color: var(--sage); }
+
+  .tool-card .tool-cta {
+    display: inline-block;
+    padding: 14px 26px;
+    background: var(--plum);
+    color: var(--cream);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14.5px;
+    transition: all 0.2s;
+    align-self: center;
+  }
+  .tool-card.match .tool-cta { background: linear-gradient(135deg, var(--rose), var(--plum)); }
+  .tool-card.today .tool-cta { background: linear-gradient(135deg, var(--gold), var(--rose)); color: var(--midnight); }
+  .tool-card .tool-cta:hover { transform: scale(1.05); }
 
   /* === SECTION wrappers === */
   section.content {
@@ -511,20 +626,72 @@
     <div class="hero-eyebrow">Self-Awareness Platform · Coaching-Inspired</div>
     <h1>ดูดวง<em>ที่มีหลักการ</em><br>เพื่อนคู่คิดที่<em>รู้จักคุณ</em></h1>
     <p class="subtitle">
-      Moome (มู-มี) — ดูดวงด้วย <strong>4 ศาสตร์</strong> เปรียบเทียบ (Destiny Matrix · Western · Vedic · Chinese BaZi)
-      + Companion AI ที่ถามคำถามชวนคิด ไม่ทำนายโชคชะตา
+      Moome (มู-มี) — ผสาน <strong>Destiny Matrix</strong> + จิตวิทยาสมัยใหม่ + วิธีโค้ชชิ่ง<br>
+      เพื่อช่วยให้คุณ<em>รู้จักตัวเอง</em>ลึกขึ้น · ไม่ทำนายโชคชะตา
     </p>
     <div class="hero-cta-row">
       <a href="/calculate/" class="btn btn-primary">
-        ✦ คำนวณ Destiny Matrix ฟรี
+        ✦ ลองฟรี · คำนวณตัวตน
       </a>
-      <a href="https://line.me/R/ti/p/@moome" class="btn btn-secondary">
-        💬 Add LINE
+      <a href="#tools" class="btn btn-secondary">
+        ดูเครื่องมือทั้งหมด ↓
       </a>
     </div>
     <div class="hero-trust">
-      <strong>50,000+</strong> ใช้ Moome ค้นหาตัวเอง · <strong>22 archetypes</strong> · ฟรี · ไม่ต้องดาวน์โหลด
+      <strong>3 เครื่องมือฟรี</strong> · <strong>22 archetypes</strong> · ไม่ต้องสมัคร · ไม่ต้องดาวน์โหลด
     </div>
+  </div>
+</section>
+
+<!-- ===== 3 TOOLS SHOWCASE ===== -->
+<section id="tools" class="tools-section">
+  <div style="text-align:center;margin-bottom:48px;">
+    <div class="section-eyebrow" style="text-align:center;margin:0 auto 12px;">3 FREE TOOLS</div>
+    <h2 class="section-title" style="text-align:center;margin:0 auto 14px;">เครื่องมือ <em>ฟรี</em> ที่ใช้ได้เลย</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 0;">ไม่ต้องสมัคร · ไม่ต้องดาวน์โหลด · เริ่มต้นใน 30 วินาที</p>
+  </div>
+
+  <div class="tools-grid">
+
+    <a href="/calculate/" class="tool-card calc">
+      <div class="tool-icon">✦</div>
+      <div class="tool-eyebrow">DESTINY MATRIX</div>
+      <h3>คำนวณ Archetype</h3>
+      <p class="tool-desc">ใส่วันเกิด · เจอตัวตน 1 ใน 22 archetypes · ตามศาสตร์รัสเซีย</p>
+      <ul class="tool-features">
+        <li>22 archetypes ตัวตน</li>
+        <li>จุดแข็ง · พื้นที่เติบโต</li>
+        <li>เสียงของศาสตร์ × จิตวิทยา × คำถามชวนคิด</li>
+      </ul>
+      <span class="tool-cta">เริ่มคำนวณ →</span>
+    </a>
+
+    <a href="/match/" class="tool-card match">
+      <div class="tool-icon">💞</div>
+      <div class="tool-eyebrow">COMPATIBILITY</div>
+      <h3>เช็คดวงคู่</h3>
+      <p class="tool-desc">ใส่วันเกิด 2 คน · ดู match score · พร้อมจุดเสริมและจุดท้าทาย</p>
+      <ul class="tool-features">
+        <li>5 ระดับ Match (Soulmate → Challenging)</li>
+        <li>ใช้ได้กับคู่รัก · เพื่อน · ครอบครัว</li>
+        <li>คำแนะนำเฉพาะคู่</li>
+      </ul>
+      <span class="tool-cta">เช็คคู่ของคุณ →</span>
+    </a>
+
+    <a href="/today/" class="tool-card today">
+      <div class="tool-icon">🌅</div>
+      <div class="tool-eyebrow">DAILY VIBE</div>
+      <h3>วันนี้ใส่อะไรดี?</h3>
+      <p class="tool-desc">เลือกวันที่ + event → ได้สี · outfit · ritual · affirmation</p>
+      <ul class="tool-features">
+        <li>8 ประเภท event (Presentation · Date · Exam ฯลฯ)</li>
+        <li>Plan ทั้งสัปดาห์ในที่เดียว</li>
+        <li>หินมงคล · lucky number · ritual</li>
+      </ul>
+      <span class="tool-cta">ดู Vibe ของวัน →</span>
+    </a>
+
   </div>
 </section>
 
