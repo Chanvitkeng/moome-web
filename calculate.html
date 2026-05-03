@@ -559,6 +559,149 @@
   .next-step-card.line { background: linear-gradient(180deg, white, #f0fbf3); }
   .next-step-card.line .ns-cta { color: #06C755; }
 
+  /* === EMAIL CAPTURE === */
+  .email-capture {
+    max-width: 720px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+  }
+  .email-capture-card {
+    background: linear-gradient(135deg, #fffbf2, #fef5e1);
+    border: 1.5px solid rgba(201,169,97,0.4);
+    border-radius: 22px;
+    padding: 36px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .email-capture-card::before {
+    content: ''; position: absolute; inset: -50%;
+    background: radial-gradient(circle at 30% 20%, rgba(201,169,97,0.15), transparent 60%);
+    pointer-events: none;
+  }
+  .email-eyebrow {
+    display: inline-block;
+    background: rgba(201,169,97,0.15);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .email-capture h2 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 4vw, 28px);
+    color: var(--midnight);
+    line-height: 1.35;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .email-capture h2 em {
+    font-style: normal; font-weight: 700;
+    color: var(--gold);
+    margin-inline-start: 0.1em;
+  }
+  .email-capture .ec-sub {
+    color: var(--plum);
+    font-size: 15px;
+    margin-bottom: 22px;
+    position: relative;
+  }
+  .email-capture .ec-bullets {
+    display: inline-block;
+    text-align: left;
+    color: var(--plum);
+    font-size: 14px;
+    margin-bottom: 24px;
+    list-style: none;
+    padding: 0;
+    position: relative;
+  }
+  .email-capture .ec-bullets li {
+    margin-bottom: 6px;
+    padding-left: 22px;
+    position: relative;
+  }
+  .email-capture .ec-bullets li::before {
+    content: '✦';
+    position: absolute; left: 0;
+    color: var(--gold);
+  }
+  .email-form {
+    display: flex; gap: 8px;
+    max-width: 460px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .email-form input[type="email"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(61,44,78,0.15);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--midnight);
+    background: white;
+    -webkit-appearance: none;
+  }
+  .email-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .email-form button {
+    padding: 14px 26px;
+    border-radius: 999px;
+    background: var(--plum);
+    color: var(--cream);
+    border: none;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .email-form button:hover { background: var(--midnight); transform: translateY(-1px); }
+  .email-form button:disabled { opacity: 0.5; cursor: wait; }
+  .email-trust {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--lavender);
+    position: relative;
+  }
+  .email-success {
+    display: none;
+    background: linear-gradient(135deg, #f0fbf3, #d8f2e0);
+    border: 1.5px solid rgba(6,199,85,0.3);
+    border-radius: 22px;
+    padding: 36px 28px;
+    text-align: center;
+  }
+  .email-success.show { display: block; }
+  .email-success .check-icon {
+    font-size: 48px;
+    color: #06C755;
+    margin-bottom: 12px;
+  }
+  .email-success h2 {
+    color: var(--midnight);
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .email-success p {
+    color: var(--plum);
+    font-size: 15px;
+  }
+  .honeypot { position: absolute; left: -10000px; opacity: 0; pointer-events: none; }
+
   /* === DISCLAIMER === */
   .disclaimer {
     max-width: 640px;
@@ -625,7 +768,7 @@
     <a href="/match/">💞 ดวงคู่</a>
     <a href="/today/">🌅 Today</a>
     <a href="/blog/">Blog</a>
-    <a href="https://line.me/R/ti/p/@moome" class="cta">Add LINE</a>
+    <a href="https://line.me/R/ti/p/@262zpsua" class="cta">Add LINE</a>
   </div>
 </nav>
 
@@ -706,6 +849,46 @@
 
 <div class="toast" id="toast">✓ คัดลอกลิงก์แล้ว</div>
 
+<!-- ===== EMAIL CAPTURE — รับ PDF Report ===== -->
+<section class="email-capture" id="emailCaptureSection" style="display:none;">
+  <div class="email-capture-card" id="emailCaptureCard">
+    <div class="email-eyebrow">🎁 ของขวัญพิเศษ</div>
+    <h2>รับ <em>PDF Report</em> เจาะลึก<br>archetype ของคุณ — ฟรี</h2>
+    <p class="ec-sub">ส่งให้ทาง email ภายใน 24 ชม. · ไม่มีค่าใช้จ่าย</p>
+
+    <ul class="ec-bullets">
+      <li>12 หน้า เจาะลึก archetype ของคุณ</li>
+      <li>อาชีพแนะนำ + จุดแข็งตามวัย</li>
+      <li>ดวงคู่ที่เข้ากันที่สุด · พร้อมเหตุผล</li>
+      <li>พลังประจำเดือนถัดไป</li>
+    </ul>
+
+    <form class="email-form" id="emailForm">
+      <input type="email" name="email" id="emailInput" placeholder="your@email.com" required>
+      <button type="submit" id="emailSubmit">📩 รับฟรี →</button>
+      <!-- Web3Forms required + hidden fields -->
+      <input type="hidden" name="access_key" value="37459458-6757-4502-ab79-8d8186b3c3d1">
+      <input type="hidden" name="subject" id="emailSubject" value="✦ Moome PDF Request">
+      <input type="hidden" name="from_name" value="Moome.app">
+      <input type="hidden" name="archetype" id="emailArchetype" value="">
+      <input type="hidden" name="archetype_name" id="emailArchetypeName" value="">
+      <input type="hidden" name="birth_date" id="emailBirthDate" value="">
+      <input type="hidden" name="source" value="calculate-result">
+      <!-- Honeypot anti-spam -->
+      <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off">
+    </form>
+
+    <p class="email-trust">🔒 ใช้ครั้งเดียวสำหรับส่ง PDF · ไม่ส่ง spam · ไม่แชร์ให้ใคร</p>
+  </div>
+
+  <!-- Success state -->
+  <div class="email-success" id="emailSuccess">
+    <div class="check-icon">✓</div>
+    <h2>ส่งคำขอแล้ว!</h2>
+    <p>เราจะส่ง PDF report ไปที่ email ของคุณภายใน 24 ชม.<br>โปรดเช็ค Inbox + Spam folder</p>
+  </div>
+</section>
+
 <!-- ===== NEXT STEPS (cross-tool funnel) ===== -->
 <section class="next-steps-section" id="nextStepsSection" style="display:none;">
   <div class="next-steps-eyebrow">— STEP 2 —</div>
@@ -729,7 +912,7 @@
       <div class="ns-cta">ดูวันนี้ →</div>
     </a>
 
-    <a href="https://line.me/R/ti/p/@moome" class="next-step-card line">
+    <a href="https://line.me/R/ti/p/@262zpsua" class="next-step-card line">
       <div class="ns-icon">💬</div>
       <div class="ns-eyebrow">LINE OFFICIAL</div>
       <h3>Add LINE — รับฟรี</h3>
@@ -770,7 +953,7 @@
     <a href="/match/">💞 ดวงคู่</a>
     <a href="/today/">🌅 Today</a>
     <a href="/blog/">Blog</a>
-    <a href="https://line.me/R/ti/p/@moome">Add LINE</a>
+    <a href="https://line.me/R/ti/p/@262zpsua">Add LINE</a>
   </div>
   <div class="copyright">© 2026 Moome · ดูดวงที่มีหลักการ</div>
 </footer>
@@ -1002,10 +1185,17 @@ function calculate(day, month, year, isShared) {
   const newUrl = window.location.pathname + '?d=' + day + '&m=' + month + '&y=' + year;
   window.history.replaceState({}, '', newUrl);
 
-  // Show result + Next Steps + CTA
+  // Show result + Next Steps + CTA + Email Capture
   document.getElementById('result').classList.add('show');
   document.getElementById('nextStepsSection').style.display = 'block';
   document.getElementById('ctaSection').style.display = 'block';
+  document.getElementById('emailCaptureSection').style.display = 'block';
+
+  // Pre-fill email capture hidden fields
+  document.getElementById('emailArchetype').value = '#' + archNum;
+  document.getElementById('emailArchetypeName').value = arch.th + ' (' + arch.eng + ')';
+  document.getElementById('emailBirthDate').value = day + '/' + month + '/' + year;
+  document.getElementById('emailSubject').value = '✦ PDF Request · #' + archNum + ' ' + arch.th + ' · ' + day + '/' + month + '/' + year;
 
   // Pre-fill /match link with user's birth as person 1 (only if NOT shared)
   if (!isShared) {
@@ -1067,6 +1257,49 @@ document.getElementById('calcForm').addEventListener('submit', function(e) {
   }
 })();
 
+// === Email capture submit (Web3Forms) ===
+document.getElementById('emailForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const submitBtn = document.getElementById('emailSubmit');
+  const emailInput = document.getElementById('emailInput');
+  const card = document.getElementById('emailCaptureCard');
+  const success = document.getElementById('emailSuccess');
+
+  // Honeypot — if filled = bot
+  if (this.botcheck && this.botcheck.checked) return;
+
+  // Validate
+  if (!emailInput.value || !emailInput.value.includes('@')) {
+    emailInput.focus();
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '⏳ กำลังส่ง...';
+
+  try {
+    const formData = new FormData(this);
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      card.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      throw new Error(result.message || 'ส่งไม่สำเร็จ');
+    }
+  } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = '📩 รับฟรี →';
+    alert('เกิดข้อผิดพลาด · กรุณาลองใหม่ · หรือทักมาที่ LINE @262zpsua\n\n(' + err.message + ')');
+  }
+});
+
 // === Share functions ===
 function copyLink() {
   const url = getShareUrl();
@@ -1107,11 +1340,16 @@ function resetForm() {
   document.getElementById('month').value = '';
   document.getElementById('year').value = '';
 
-  // Hide result + banner + next steps
+  // Hide result + banner + next steps + email capture
   document.getElementById('result').classList.remove('show');
   document.getElementById('sharedBanner').classList.remove('show');
   document.getElementById('nextStepsSection').style.display = 'none';
   document.getElementById('ctaSection').style.display = 'none';
+  document.getElementById('emailCaptureSection').style.display = 'none';
+  // Reset email form to capture state
+  document.getElementById('emailCaptureCard').style.display = 'block';
+  document.getElementById('emailSuccess').classList.remove('show');
+  document.getElementById('emailInput').value = '';
 
   // Reset URL
   window.history.replaceState({}, '', window.location.pathname);
