@@ -1,6 +1,5 @@
 // Rich content for 22 Destiny Matrix Archetypes
-// ใช้ใน email "PDF Report" — ลึก แต่กระชับ
-// Each archetype ~ 350-400 Thai words across 8 sections
+// V1.9 — เพิ่ม life-stage section (มปลาย/มหาลัย/วัยทำงาน)
 
 export const archetypesContent = {
 
@@ -24,7 +23,12 @@ export const archetypesContent = {
     color: "ทอง (Gold) — สีของพลังการสร้างและคำพูดทรงพลัง",
     symbol: "✦ ดาว 4 แฉก — สัญลักษณ์ของการมีเครื่องมือพร้อมทั้ง 4 ทิศ",
     monthlyEnergy: "เดือนนี้พลังการเริ่มต้นแรงสูง · เหมาะกับการลอง side project ใหม่ · เซ็นสัญญา · เปิดตัวสิ่งที่ค้างไว้ · แต่ระวังความหุนหันใน 7 วันแรกของเดือน",
-    affirmation: "ฉันมีทุกอย่างที่ต้องการเริ่มแล้ว · ตอนนี้คือเวลา"
+    affirmation: "ฉันมีทุกอย่างที่ต้องการเริ่มแล้ว · ตอนนี้คือเวลา",
+    lifeStage: {
+      teen: "ม.ปลาย: อย่าเครียดกับการเลือกสายเดียว · ความหลากหลายคือพลังของคุณ · ลองเรียน + กิจกรรม 2-3 อย่างพร้อมกัน · ฝึกพรีเซนต์/พูดในที่ประชุม — สกิลนี้จะติดตัวยาว · ทุกการ \"ลอง\" คือการสร้าง portfolio",
+      university: "มหาลัย: เลือก major ที่เปิด door กว้าง · เริ่ม side project (blog, podcast, freelance) ตั้งแต่ปี 2 · network กับคนต่างคณะ · จุดเปลี่ยนของ #1 มักไม่ใช่ใน classroom · เป็นใน real-world experiments",
+      working: "วัยทำงาน: หลีกเลี่ยงงาน routine 100% · มองหาตำแหน่งที่ใช้หลายทักษะ · พิจารณา multi-stream income (full-time + consulting + content) · ไม่จำเป็นต้องลาออกไปเป็น founder — แค่หางานที่ให้คุณ \"create\" ได้"
+    }
   },
 
   2: {
@@ -47,7 +51,12 @@ export const archetypesContent = {
     color: "น้ำเงินเข้ม (Deep Blue) — สีพระจันทร์ · ของ subconscious",
     symbol: "🌙 พระจันทร์เสี้ยว — สัญลักษณ์ของจิตใต้สำนึกและความรู้ที่ซ่อน",
     monthlyEnergy: "เดือนนี้สัญชาตญาณคุณคมเป็นพิเศษ · ฟังเสียงในใจให้มากขึ้น · เก็บ journal กลางคืน · ความฝันจะมีนัยยะ · 10-15 ของเดือน = ช่วงรับ insight สำคัญ",
-    affirmation: "ฉันไว้ใจสิ่งที่ฉันรู้ · แม้ยังไม่มีใครเห็นเหมือนกัน"
+    affirmation: "ฉันไว้ใจสิ่งที่ฉันรู้ · แม้ยังไม่มีใครเห็นเหมือนกัน",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณ sensitive กว่าเพื่อน · อาจรู้สึกแปลก · จำไว้นี่คือ gift · หา 1-2 คนที่คุยลึกได้ · ไม่ต้อง popular · เริ่ม journal กลางคืน · เก็บความคิดที่ลึก · จะใช้ในอนาคต",
+      university: "มหาลัย: หลีกเลี่ยง over-stimulation (party ทุกคืน) · ค้นหาความสนใจที่ลึก (psychology · anthropology · literature) · find professor ที่ mentor ได้ · ความสัมพันธ์ลึก > เพื่อนเยอะ",
+      working: "วัยทำงาน: หลีกเลี่ยง open office หรืองาน high-noise · เลือกงาน research/strategy/therapy ที่ใช้ความลึก · กำหนด recharge time หลังประชุม · ระวัง emotional labor จาก colleagues · learn boundary"
+    }
   },
 
   3: {
@@ -70,7 +79,12 @@ export const archetypesContent = {
     color: "เขียวมรกต (Emerald) — สีของธรรมชาติและความเจริญ",
     symbol: "🌿 ใบไม้ + ดอกกุหลาบ — สัญลักษณ์ของการเติบโตและความรัก",
     monthlyEnergy: "เดือนนี้พลัง creation สูง · เหมาะแต่งบ้าน · ทำสวน · cooking project · ระวัง give-give-give · ตั้ง rule: 1 อย่างทำเพื่อตัวเองทุกสัปดาห์",
-    affirmation: "ฉันได้รับเหมือนที่ฉันให้ · นี่คือสมดุลของจักรพรรดินี"
+    affirmation: "ฉันได้รับเหมือนที่ฉันให้ · นี่คือสมดุลของจักรพรรดินี",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณคือคนที่กลุ่มเพื่อนจะมาหาเวลามีปัญหา · ดี · แต่อย่ารับ drama ของเพื่อนทั้งหมด · ลองศิลปะ/ดนตรี/cooking · จุดแข็งของ #3 มักโผล่ผ่าน creative outlet ตอนนี้",
+      university: "มหาลัย: เลือกสายที่สร้างของได้ (design · hospitality · food · wellness) · เริ่มเก็บ portfolio งานสวยๆ · หา friend group ที่ celebrate ความ creative ของคุณ · หลีกเลี่ยงสายที่ pure analytical",
+      working: "วัยทำงาน: เลือกงานที่สร้าง 'experience' ให้คนอื่น · F&B · interior · brand · wellness · จงระวัง burnout จากการ care งาน + ครอบครัว + แฟน พร้อมกัน · ตั้ง care budget ให้ตัวเอง"
+    }
   },
 
   4: {
@@ -93,7 +107,12 @@ export const archetypesContent = {
     color: "แดง burgundy — สีของอำนาจและความมั่นคง",
     symbol: "♛ มงกุฎ + ลูกศร — สัญลักษณ์ของการนำและการมุ่งเป้า",
     monthlyEnergy: "เดือนนี้พลัง execution สูง · เหมาะ launch project ใหญ่ · เซ็นสัญญา · ตั้งระบบใหม่ · 1-15 = build phase / 16-30 = scale phase",
-    affirmation: "ฉันสร้างฐานที่คนอื่นยืนได้ · นี่คือ legacy ของฉัน"
+    affirmation: "ฉันสร้างฐานที่คนอื่นยืนได้ · นี่คือ legacy ของฉัน",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณมักเป็นหัวหน้าโดยไม่ตั้งใจ · ลองเป็นประธานชมรม/สภานักเรียน · ฝึกบริหารโปรเจ็ค ม. 5-6 · เลือกสายที่ใช้ logic (สาย วิทย์/บัญชี) · ระวังเครียดเกินไปกับเกรด",
+      university: "มหาลัย: เป็นผู้นำกลุ่มได้ดี · ลอง business club / hackathon / debate · เริ่มลงทุน (หุ้น · ETF) แต่เนิ่นๆ · เลือกสายที่ scale ได้ (engineering · business · law) · build network ตั้งแต่นี้",
+      working: "วัยทำงาน: คุณคือ candidate สำหรับ leadership track · ขอ stretch project · build team · 30+ ควร startup เอง หรือ C-level · ระวัง work-life balance — Emperor มักทำงานเกิน · กำหนดเวลาครอบครัว"
+    }
   },
 
   5: {
@@ -116,7 +135,12 @@ export const archetypesContent = {
     color: "ม่วงเข้ม (Deep Purple) — สีของ wisdom และ spirituality",
     symbol: "📿 กุญแจ + คัมภีร์ — สัญลักษณ์ของการเปิดประตูความรู้",
     monthlyEnergy: "เดือนนี้พลัง teaching สูง · เหมาะเปิดคอร์ส · เขียน book · บันทึก podcast · 7-14 ของเดือน = ช่วงรับ download ความรู้ใหม่",
-    affirmation: "ฉันคือสะพาน · ความรู้ผ่านฉันไปสู่คนที่ต้องการ"
+    affirmation: "ฉันคือสะพาน · ความรู้ผ่านฉันไปสู่คนที่ต้องการ",
+    lifeStage: {
+      teen: "ม.ปลาย: เพื่อนมักมาขอคำปรึกษาคุณ · คุณเก่งติว · ลองเป็นติวเตอร์น้องๆ ม.ต้น (มีรายได้ + ฝึก teaching) · อ่านหนังสือนอกเหนือ textbook · เริ่ม build personal library",
+      university: "มหาลัย: ลอง TA (teaching assistant) · เขียน blog หรือ YouTube channel เกี่ยวกับสาขาที่เรียน · ฝึก public speaking · networking กับ professors · บางคน #5 จะรู้ว่าอยากเป็นอาจารย์/นักวิจัยตอนนี้",
+      working: "วัยทำงาน: หางานที่ involve teaching/mentoring (corporate trainer · L&D · senior consultant) · เปิดคอร์สออนไลน์ · เขียนหนังสือ · ระวังงาน pure execution — คุณจะเบื่อ · ต้องการ knowledge transfer"
+    }
   },
 
   6: {
@@ -139,7 +163,12 @@ export const archetypesContent = {
     color: "ชมพูกุหลาบ (Rose Pink) — สีของความรักโรแมนติก",
     symbol: "♥♥ หัวใจคู่ — สัญลักษณ์ของการเชื่อมต่อสองดวงใจ",
     monthlyEnergy: "เดือนนี้พลังความสัมพันธ์เด่น · เหมาะ DTR (define the relationship) · proposal · เริ่มต้นสัมพันธ์ใหม่ · 14 ของเดือน = peak energy",
-    affirmation: "ฉันเลือกความรักด้วยตาที่เปิด · ใจที่กล้า"
+    affirmation: "ฉันเลือกความรักด้วยตาที่เปิด · ใจที่กล้า",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณอาจจริงจังกับ first love เกินอายุ · ระวัง · แต่มันคือ pattern ของ #6 · บทเรียนสำคัญตอนนี้ = แยก love จาก attachment · มีเพื่อนสนิท 2-3 คนที่ลึก > เพื่อน 30 คน",
+      university: "มหาลัย: ความสัมพันธ์โรแมนติก formative — บางคนเจอคู่ชีวิตตอนนี้ · เลือกอย่างมี awareness · ลงทุนในเพื่อนสนิท · ลองสายที่เกี่ยวกับ human relationship (psychology · HR · social work)",
+      working: "วัยทำงาน: priority อันดับ 1 = relationship · จะ rich ในอาชีพแต่ unhappy ถ้า love life ไม่ดี · invest ในการ communicate · couples therapy ก่อนจะแย่ · เลือกอาชีพที่ involve helping people connect"
+    }
   },
 
   7: {
@@ -162,7 +191,12 @@ export const archetypesContent = {
     color: "น้ำเงินไฟฟ้า (Electric Blue) — สีของพลังและความเร็ว",
     symbol: "⚡ สายฟ้า — สัญลักษณ์ของพลังที่ unstoppable",
     monthlyEnergy: "เดือนนี้พลังลุยสูงสุด · เหมาะ deadline สำคัญ · ทำ marathon project · ระวัง 25-30 ของเดือน = สัญญาณ burnout · พักก่อน",
-    affirmation: "ฉันคุมม้าสองตัวด้วยมือเดียว · ทุกอุปสรรคคือเชื้อเพลิง"
+    affirmation: "ฉันคุมม้าสองตัวด้วยมือเดียว · ทุกอุปสรรคคือเชื้อเพลิง",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณมักเป็น top student หรือ top athlete · ใช้ energy นี้ฉลาด · อย่า burn out ก่อนจบ · เลือก 1 main goal (เกรด หรือ กีฬา หรือ ดนตรี) · ระวัง compare กับเพื่อน — race ของคุณคือ self vs self",
+      university: "มหาลัย: เป็น overachiever ได้ง่าย · ลอง startup competition · join military reserve / ROTC · ระวัง over-commit (เรียน + จบ.บ. + part-time + กีฬา = burn out) · เลือก 2 อย่างทำให้สุด",
+      working: "วัยทำงาน: career fast-track เป็น natural · sales · biz dev · founder · ระวัง work-life balance — ตอน 30 จะถึงจุด realization ว่า \"ชนะเพื่ออะไร?\" · เริ่มหา meaning early · ไม่ใช่หลังเหนื่อยแล้ว"
+    }
   },
 
   8: {
@@ -185,7 +219,12 @@ export const archetypesContent = {
     color: "ทองแดง (Copper) — สีของความอบอุ่นที่ทรงพลัง",
     symbol: "🦁 สิงโตและมือ — สัญลักษณ์ของการ tame wild ด้วยความรัก",
     monthlyEnergy: "เดือนนี้พลังสมานฉันท์สูง · เหมาะ heal ความสัมพันธ์เก่า · ขอโทษ · ให้อภัย · 8-15 ของเดือน = peak energy ของการ reconcile",
-    affirmation: "ฉันแข็งแกร่งเพราะใจอ่อน · ไม่ใช่แม้กระทั่งใจ"
+    affirmation: "ฉันแข็งแกร่งเพราะใจอ่อน · ไม่ใช่แม้กระทั่งใจ",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณคือคนที่ไม่ join bullying · ปกป้องเพื่อนที่อ่อนแอกว่า · จุดแข็งสำคัญ · แต่ระวัง absorb stress ของคนอื่น · ลองเรียน yoga/martial arts ที่สอน inner control · เพิ่ม journaling",
+      university: "มหาลัย: คุณคือ \"safe person\" ของกลุ่ม · เพื่อนมาระบายให้ฟัง · ดี · แต่ตั้ง emotional limit · ลอง psychology / social work / counseling · ฝึก therapy work · จะใช้ตลอดชีวิต",
+      working: "วัยทำงาน: สายที่ดีคือ helping professions · therapist · coach · veterinarian · NGO · regular self-care = non-negotiable · เก็บเงินเป็น 'care fund' สำหรับ retreat ทุก 6 เดือน · sustain ใจตัวเอง"
+    }
   },
 
   9: {
@@ -208,7 +247,12 @@ export const archetypesContent = {
     color: "เทาเงิน (Silver Grey) — สีของ wisdom และ solitude",
     symbol: "🏮 โคมไฟ + ดาว — สัญลักษณ์ของการนำทางตัวเอง",
     monthlyEnergy: "เดือนนี้พลัง introspection สูง · เหมาะ retreat · journal · ตัด social media 1 สัปดาห์ · 1-7 ของเดือน = ช่วง insight สำคัญที่สุด",
-    affirmation: "ฉันส่องโคมไฟให้ตัวเองก่อน · จึงส่องให้คนอื่นได้"
+    affirmation: "ฉันส่องโคมไฟให้ตัวเองก่อน · จึงส่องให้คนอื่นได้",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณ introvert ในห้องที่เด็กส่วนใหญ่ extrovert · OK · ไม่ผิดปกติ · อ่านหนังสือนอกหลักสูตรเยอะๆ · เลือกเพื่อน 1-2 คนที่ลึก · เลี่ยงสายที่ต้อง group work ตลอด · solo work เก่ง",
+      university: "มหาลัย: หา quiet study spots · researcher track เหมาะ · ลอง independent study · TA งาน research · บางคน #9 จะค้นพบ academic path ตอนนี้ · ระวัง social isolation — ตั้ง quota ออกพบเพื่อน",
+      working: "วัยทำงาน: หางาน remote / freelance / specialist consulting · เลี่ยง open office · ลงลึก 1-2 หัวข้อจนเป็น expert ระดับชาติ · เริ่ม blog/newsletter ของตัวเอง · build audience ผ่านความลึก ไม่ใช่ความถี่"
+    }
   },
 
   10: {
@@ -231,7 +275,12 @@ export const archetypesContent = {
     color: "ส้มทอง (Saffron) — สีของพลังที่หมุนเวียน",
     symbol: "☸ วงล้อ — สัญลักษณ์ของ cycle ของชีวิต",
     monthlyEnergy: "เดือนนี้คาดเดายาก · ทุก 7 วันมี shift · บันทึก journal เพื่อเห็น pattern · 11 ของเดือน = pivot point สำคัญ",
-    affirmation: "ฉันโต้คลื่น · ไม่ต้านทาน · ใช้ momentum ของวงล้อ"
+    affirmation: "ฉันโต้คลื่น · ไม่ต้านทาน · ใช้ momentum ของวงล้อ",
+    lifeStage: {
+      teen: "ม.ปลาย: เกรดอาจขึ้นๆ ลงๆ · เพื่อนกลุ่มเปลี่ยนบ่อย · OK เป็นปกติของ #10 · ฝึก journal เห็น pattern · ลองหลายๆ activity ก่อนเลือก · จุดเปลี่ยนสำคัญมัก zigzag · trust the process",
+      university: "มหาลัย: อาจเปลี่ยน major กลางคัน · OK · ทดลองหลาย major minor · ลอง exchange / gap year · บางคน #10 ค้นพบ passion ผ่านการเดินทาง · ระวังเรื่องเงิน — sometimes peak/valley financially",
+      working: "วัยทำงาน: career อาจเปลี่ยน 3-5 ครั้ง · ไม่ใช่ความล้มเหลว · learn to save ตอน peak (3-6 เดือน emergency fund) · diversify income · เลือกอาชีพที่ rotation = feature ไม่ใช่ bug (consulting · trading · events)"
+    }
   },
 
   11: {
@@ -254,7 +303,12 @@ export const archetypesContent = {
     color: "เทอร์ควอยซ์ (Turquoise) — สีของ clarity",
     symbol: "⚖ ตาชั่ง + ดาบ — สัญลักษณ์ของการตัดสินด้วย wisdom",
     monthlyEnergy: "เดือนนี้พลังตัดสินใจสูง · เหมาะแก้ปัญหาค้าง · เซ็นเอกสาร · ปิด case · 11 ของเดือน = clarity peak",
-    affirmation: "ฉันเห็น 2 ฝั่ง · เลือกฝั่งที่ใจรู้ว่าถูก"
+    affirmation: "ฉันเห็น 2 ฝั่ง · เลือกฝั่งที่ใจรู้ว่าถูก",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณคือคนที่ครู/เพื่อนปรึกษาเวลามีปัญหา · ฝึก debate club · model UN · law track เริ่ม consider · ระวัง over-thinking ในทุกการตัดสินใจเล็ก (เลือกเสื้อ 30 นาที) · trust gut เพิ่มขึ้น",
+      university: "มหาลัย: นิติ · บัญชี · รัฐศาสตร์ เป็น natural fit · join debate / mock trial / model UN · ฝึก analytical writing · บางคน #11 ค้นพบสาย ethics / philosophy ตอนนี้ · ลอง internship ที่ involve judgement",
+      working: "วัยทำงาน: บริษัทใหญ่ยินดีจ้าง #11 ทำ compliance / audit / legal / strategy · เริ่มเป็น board member ขององค์กรไม่แสวงผลกำไร · เป็น 'wise voice' ในวงการ · ระวัง work-only — ต้องดูแล emotional life"
+    }
   },
 
   12: {
@@ -277,7 +331,12 @@ export const archetypesContent = {
     color: "ม่วงพลัม (Plum Purple) — สีของ transformation",
     symbol: "♾ infinity inverted — สัญลักษณ์ของมุมมองกลับด้าน",
     monthlyEnergy: "เดือนนี้พลัง insight สูง · เหมาะ contemplation · ตอบคำถามเก่าด้วยมุมใหม่ · 12 ของเดือน = breakthrough day",
-    affirmation: "ฉันแขวนคว่ำเพราะเลือก · ไม่ใช่เพราะแพ้"
+    affirmation: "ฉันแขวนคว่ำเพราะเลือก · ไม่ใช่เพราะแพ้",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณ feel different · ไม่เหมือนเพื่อน · OK · นี่คือ #12 · อ่านหนังสือ unconventional (philosophy · spirituality · counter-culture) · ระวังถูก label \"ประหลาด\" — มันคือ early sign ของพลังคุณ",
+      university: "มหาลัย: เลือกสายที่ encourage critical thinking · liberal arts · anthropology · documentary film · gap year ก็ดี · ลอง travel solo · บางคน #12 ค้นพบ life path ผ่าน \"phase ที่ดูเหมือนหยุด\" · trust",
+      working: "วัยทำงาน: หางานที่ value contrarian thinking · innovation lab · research · investigative journalism · contrarian investing · ระวังงาน corporate ที่ต้อง conform · #12 จะ suffocate · seek out edge industries"
+    }
   },
 
   13: {
@@ -300,7 +359,12 @@ export const archetypesContent = {
     color: "ดำเข้ม + ขาว — สีของการสิ้นสุดและการเริ่มต้น",
     symbol: "🦋 ผีเสื้อ — สัญลักษณ์ของ metamorphosis",
     monthlyEnergy: "เดือนนี้พลังจบ + เริ่ม สูง · เหมาะลาออก · ปิด chapter เก่า · ทิ้งของรก · 13 ของเดือน = release day",
-    affirmation: "ฉันยอมตายของเดิม · เพื่อเกิดเป็นของใหม่"
+    affirmation: "ฉันยอมตายของเดิม · เพื่อเกิดเป็นของใหม่",
+    lifeStage: {
+      teen: "ม.ปลาย: อาจเปลี่ยนกลุ่มเพื่อน 1-2 ครั้งใน 3 ปี · OK สำหรับ #13 · เพื่อนเก่าอาจไม่ fit อนาคต · ระวังตัด ความสัมพันธ์ครอบครัวด้วย — keep that anchor · learn to grieve เล็กๆ ก่อนจะใหญ่",
+      university: "มหาลัย: อาจเปลี่ยน major / มหาลัย · OK · บางคน #13 drop out แล้วค้นพบ path · ใช้พลัง transformation นี้ฉลาด · มีคนรอบข้างที่ stable (mentor · เพื่อนเก่า) · ไม่ใช่เปลี่ยนเพราะหนี",
+      working: "วัยทำงาน: คุณคือ specialist ของการ \"turnaround\" — บริษัทพังคุณซ่อมได้ · career change ไม่ใช่ failure ของคุณ · เลือกอาชีพที่ embrace cycle (consulting · M&A · turnaround CEO) · regular career review ทุก 2-3 ปี"
+    }
   },
 
   14: {
@@ -323,7 +387,12 @@ export const archetypesContent = {
     color: "เขียว sage — สีของ balance + healing",
     symbol: "♾ infinity + ถ้วยน้ำ — สัญลักษณ์ของการไหล",
     monthlyEnergy: "เดือนนี้พลัง equilibrium สูง · เหมาะ rebalance ชีวิต · routine reset · 14 ของเดือน = harmony peak",
-    affirmation: "ฉันคือสะพานระหว่างสิ่งตรงข้าม · ทั้งคู่อยู่ในตัวฉัน"
+    affirmation: "ฉันคือสะพานระหว่างสิ่งตรงข้าม · ทั้งคู่อยู่ในตัวฉัน",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณคือ \"middle child energy\" · เพื่อนทะเลาะ · คุณ mediate · ดี · ลอง student council / club president (ที่ต้อง balance หลายฝ่าย) · เลือกสายที่ใช้ทั้ง art + science (architecture · design)",
+      university: "มหาลัย: ลอง interdisciplinary studies · สาย design · architecture · brand · mediation studies · TA งานที่ต้อง coordinate stakeholders · ระวังตามใจคนรอบข้างจน lose self · ฝึกพูด \"no\"",
+      working: "วัยทำงาน: บริษัทรัก #14 เพื่อ cross-functional roles · brand strategy · product (form+function) · diplomatic roles · ระวังไม่ progress เร็วเพราะ avoid conflict · เรียน assertive communication"
+    }
   },
 
   15: {
@@ -346,7 +415,12 @@ export const archetypesContent = {
     color: "แดงเลือดหมู (Crimson) — สีของ raw desire",
     symbol: "🔓 โซ่ที่ปลดออก — สัญลักษณ์ของ awareness ปลดเปลือง",
     monthlyEnergy: "เดือนนี้พลัง shadow work สูง · เหมาะ confront ปัญหาลึก · therapy session · 15 ของเดือน = breakthrough moment",
-    affirmation: "ฉันยอมรับเงา · จึงเป็นอิสระจากมัน"
+    affirmation: "ฉันยอมรับเงา · จึงเป็นอิสระจากมัน",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณ feel things deeply · อาจมี dark thoughts ที่กลัวบอกใคร · OK · เป็น part ของ #15 · หา trusted adult / counselor · ฝึก journal · ระวังพฤติกรรม risky (สาร · self-harm) — get support เร็ว",
+      university: "มหาลัย: ลอง psychology · creative writing · performance art · therapy work เริ่ม useful ตอนนี้ · ระวัง toxic relationships ที่ดูดพลัง · #15 ดึง intense people · ฝึก discernment",
+      working: "วัยทำงาน: career ที่ fit = ที่ embrace human shadow (therapist · investigative · crisis · edgy art) · regular self-work non-negotiable · ลงทุนใน therapy · ความสัมพันธ์ที่ deep + real ไม่ใช่ surface"
+    }
   },
 
   16: {
@@ -369,7 +443,12 @@ export const archetypesContent = {
     color: "ส้มไฟ (Fire Orange) — สีของ destruction ที่ purify",
     symbol: "⚡ + 🏗 — สัญลักษณ์ของพังและสร้าง",
     monthlyEnergy: "เดือนนี้พลังเปลี่ยนแรง · บางอย่างจะ end abruptly · trust the process · 16 ของเดือน = pivot point",
-    affirmation: "ฉันให้สิ่งที่ไม่จริงพังลง · เพื่อสิ่งที่จริงจะเกิด"
+    affirmation: "ฉันให้สิ่งที่ไม่จริงพังลง · เพื่อสิ่งที่จริงจะเกิด",
+    lifeStage: {
+      teen: "ม.ปลาย: ชีวิตอาจมี shock — ครอบครัวเปลี่ยน · เพื่อนสนิทย้าย · ความรักจบ · OK · นี่คือ #16 · learn coping mechanisms (therapy · sport · art) · trust ว่าจะ rebuild · เก็บ journal เห็น strength",
+      university: "มหาลัย: อาจมี crisis ที่ทำให้ pivot — failed exam · breakup · health issue · trust ว่าหลังพายุมี clarity · เลือก major ที่ resilient (ไม่ใช่ niche เกินไป) · ลงทุนใน mental health support",
+      working: "วัยทำงาน: career อาจมี \"tower moment\" — โดน lay off · บริษัทล่ม · scandal · นี่คือ chapter ของ rebuild · skill ของ #16 = bounce back · build emergency fund · network ตลอด · ไม่ pull all eggs in one basket"
+    }
   },
 
   17: {
@@ -392,7 +471,12 @@ export const archetypesContent = {
     color: "ฟ้าใส (Sky Blue) — สีของ hope + clarity",
     symbol: "⭐ ดาว 7 แฉก — สัญลักษณ์ของ guidance",
     monthlyEnergy: "เดือนนี้พลังหวังสูง · เหมาะ vision-setting · vision board · pray · 17 ของเดือน = peak inspiration",
-    affirmation: "ฉันคือแสงเล็กๆ · ที่ remind คนว่ายังมีหวัง"
+    affirmation: "ฉันคือแสงเล็กๆ · ที่ remind คนว่ายังมีหวัง",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณคือคนที่กลุ่มเพื่อนพึ่งเวลาเศร้า · มีพลัง uplift คน · ลอง volunteer งานเด็ก/ผู้ป่วย · เริ่ม journal vision ของตัวเอง · ระวังเครียดจาก absorbing emotions ของเพื่อน · self-care ด้วย",
+      university: "มหาลัย: เลือกสายที่ involve hope (psychology · social work · NGO · children's education) · เริ่ม Instagram/TikTok ที่ uplift · กระจายไปต่างประเทศได้เร็ว · ระวัง burn out จาก over-care · 1 day off / week = mandatory",
+      working: "วัยทำงาน: เป็น speaker · author · coach · NGO leader · เป็น \"hope figure\" ของวงการ · ระวังกลายเป็น 'always on' · ตั้ง healthy distance from clients/audience · ลงทุน therapy ของตัวเอง · star ที่ไม่ดับ"
+    }
   },
 
   18: {
@@ -415,7 +499,12 @@ export const archetypesContent = {
     color: "เงิน + น้ำเงินกลางคืน — สีของพระจันทร์",
     symbol: "🌙 + 🌊 — สัญลักษณ์ของ tide + cycle",
     monthlyEnergy: "เดือนนี้พลังฝันสูง · เหมาะ dream journal · meditation · creative writing · 18 ของเดือน = lucid moment",
-    affirmation: "ฉันฟังเสียงของจิตใต้สำนึก · ที่ซื่อสัตย์กับฉัน"
+    affirmation: "ฉันฟังเสียงของจิตใต้สำนึก · ที่ซื่อสัตย์กับฉัน",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณ daydream เยอะ · ครู label ว่า \"distracted\" · จริงๆ คือ rich inner world · เริ่ม journal · เขียน poetry/short story · ลองศิลปะ surrealist · ระวัง depression/anxiety — get help เร็วถ้ามี",
+      university: "มหาลัย: art · creative writing · psychology · film studies เป็น natural fit · ฝึก dream journaling แบบ disciplined · บางคน #18 ค้นพบ creative path ตอนนี้ · need quiet time daily · roommate ที่เข้าใจ",
+      working: "วัยทำงาน: หางานที่ value imagination (writer · designer · composer · therapist · researcher) · ระวังงาน corporate ที่ literal เกิน · regular practice (meditation · art) · ลงทุน therapist ที่ใช้ Jungian / dream analysis"
+    }
   },
 
   19: {
@@ -438,7 +527,12 @@ export const archetypesContent = {
     color: "เหลืองสด (Bright Yellow) — สีของพลังบวก",
     symbol: "☀ ดวงอาทิตย์ + ทานตะวัน — สัญลักษณ์ของ life force",
     monthlyEnergy: "เดือนนี้พลังบวกสูงสุดในปี · ใช้สร้าง launch · งาน social · เดท · 19 ของเดือน = peak shine",
-    affirmation: "ฉันเปล่งแสง · เพราะภายในฉันมีอาทิตย์"
+    affirmation: "ฉันเปล่งแสง · เพราะภายในฉันมีอาทิตย์",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณคือ popular kid โดยธรรมชาติ · ระวังใช้เป็น identity เดียว · ลองศิลปะ/ดนตรี/กีฬา ที่ challenge · social skill เก่ง · ใช้ build เพื่อนแท้ ไม่ใช่ surface · ระวัง toxic positivity culture",
+      university: "มหาลัย: เป็น face ของกิจกรรม/ชมรม · ลอง performance art · MC · stage · marketing · ระวัง over-commit social · need 'down day' ทุกสัปดาห์ · เลือกเพื่อนที่ accept ตอนคุณไม่ on",
+      working: "วัยทำงาน: career ที่ shine = entertainment · brand · hospitality · public speaking · sales · ระวัง persona × real self gap · ลงทุนใน private therapy / coach ที่เห็น real you · sustain shine ระยะยาว"
+    }
   },
 
   20: {
@@ -461,7 +555,12 @@ export const archetypesContent = {
     color: "ทองส้ม (Amber) — สีของ awakening",
     symbol: "🎺 แตร + 🦅 นกอินทรี — สัญลักษณ์ของการเรียก",
     monthlyEnergy: "เดือนนี้พลังตื่นรู้สูง · เหมาะ life review · ตัดสินใจใหญ่ที่ค้าง · 20 ของเดือน = call moment",
-    affirmation: "ฉันได้ยินเสียงเรียก · ตอบรับ · live my second life"
+    affirmation: "ฉันได้ยินเสียงเรียก · ตอบรับ · live my second life",
+    lifeStage: {
+      teen: "ม.ปลาย: อาจ question ครอบครัว/ศาสนา/society เร็วกว่าวัย · ดี · นี่คือ early awakening · keep journal · อ่าน philosophy/spirituality · respect parents แม้ไม่เห็นด้วย · timing ของคุณยังไม่ใช่ของเขา",
+      university: "มหาลัย: อาจ pivot major / drop out กลางคัน · OK · นี่คือ #20 calling · ระวัง spiritual bypass — ใช้เป็น escape · ลอง gap year + travel · บางคน #20 ค้นพบ life path ตอน 20-22",
+      working: "วัยทำงาน: อาจมี \"midlife crisis\" ก่อนวัย — รู้สึกชีวิตที่ทำไม่ใช่ · OK · ใช้พลังนี้ pivot · งานที่ fit = coaching · therapy · cause-driven · spiritual leader · ระวัง income gap ตอน transition · save 6 mo cushion ก่อน leap"
+    }
   },
 
   21: {
@@ -484,7 +583,12 @@ export const archetypesContent = {
     color: "ทอง royal — สีของ completion",
     symbol: "🌍 + 🌿 — สัญลักษณ์ของวงจรครบ",
     monthlyEnergy: "เดือนนี้พลัง closure สูง · เหมาะปิด project ใหญ่ · graduation · ขายธุรกิจ · 21 ของเดือน = completion peak",
-    affirmation: "ฉันครบ · ไม่ใช่เพราะมีทุกอย่าง · เพราะรู้ว่ามีพอแล้ว"
+    affirmation: "ฉันครบ · ไม่ใช่เพราะมีทุกอย่าง · เพราะรู้ว่ามีพอแล้ว",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณดู \"old soul\" · ผู้ใหญ่กว่าอายุ · เพื่อนวัยเดียวกันอาจดู immature · มอง mentor จากผู้ใหญ่ · เลือกสายที่ holistic (philosophy · architecture · medicine) · ระวัง over-responsible — let yourself be teen",
+      university: "มหาลัย: เก่งหลายด้าน · TA · leader · academic · ระวัง burn out จาก overachievement · เริ่ม think legacy เร็ว · ลอง interdisciplinary studies · ค้นพบ life calling ตอนนี้บางคน",
+      working: "วัยทำงาน: career trajectory คือ leadership ในวัย 35-40 · CEO · senior mentor · cultural figure · เริ่ม mentor next generation ตั้งแต่ 30 · ลงทุน legacy projects · ระวัง over-identify กับ status — keep grounded"
+    }
   },
 
   22: {
@@ -507,7 +611,12 @@ export const archetypesContent = {
     color: "ขาวบริสุทธิ์ + เหลือง — สีของ new beginning",
     symbol: "🐕 หมา + 🌹 ดอกกุหลาบ — สัญลักษณ์ของ loyal heart + open trust",
     monthlyEnergy: "เดือนนี้พลังเริ่มต้นบริสุทธิ์ · เหมาะ launch · move · เปลี่ยนสาย · 22 / 1 ของเดือน = leap day",
-    affirmation: "ฉันก้าวสู่สิ่งใหม่ · ใจเปิด · มือว่าง · พร้อม"
+    affirmation: "ฉันก้าวสู่สิ่งใหม่ · ใจเปิด · มือว่าง · พร้อม",
+    lifeStage: {
+      teen: "ม.ปลาย: คุณมี wonder ที่เพื่อนหายไป · keep that · ลองทุกอย่าง 1 ครั้ง · sport · art · club · workshop · บางคน #22 ยังไม่รู้ว่าชอบอะไรตอน ม.ปลาย · OK · ทุกการลอง = data · ระวังเชื่อคน too easily",
+      university: "มหาลัย: gap year ดี · exchange program · travel · ลอง 2-3 internship ต่างสาย · บางคน #22 ค้นพบ path กลางวัย 20s · OK ไม่ตามเพื่อนที่ลง professional path · ระวัง financial — มี budget plan แม้คร่าวๆ",
+      working: "วัยทำงาน: career changer · #22 อาจมี 4-5 careers ใน lifetime · OK · เลือกอาชีพที่ embrace freshness (explorer · researcher · founder · coach for transitions) · build skills ที่ transferable · ระวังเก็บออม — fresh starts กิน cash"
+    }
   }
 
 };

@@ -117,7 +117,24 @@ function buildUserEmailHTML(num, archData, birthDate) {
     ${archData.monthlyEnergy}
   </div>
 
-  <!-- 8. Affirmation -->
+  <!-- 8. Life Stage Guide -->
+  ${sectionHeader('🎓', 'ตามวัยของคุณ — เลือกอ่านอันที่ตรงใจ')}
+  <div style="background:white;border-radius:14px;padding:6px;border:1px solid rgba(61,44,78,0.08);">
+    <div style="background:#f4faf4;border-radius:10px;padding:18px 20px;margin-bottom:6px;">
+      <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.sage};text-transform:uppercase;font-weight:700;margin-bottom:8px;">📚 มัธยมปลาย (15-18)</div>
+      <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.75;">${archData.lifeStage?.teen || ''}</div>
+    </div>
+    <div style="background:#fdf6f8;border-radius:10px;padding:18px 20px;margin-bottom:6px;">
+      <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.rose};text-transform:uppercase;font-weight:700;margin-bottom:8px;">🎒 มหาวิทยาลัย (18-23)</div>
+      <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.75;">${archData.lifeStage?.university || ''}</div>
+    </div>
+    <div style="background:#fffbf2;border-radius:10px;padding:18px 20px;">
+      <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.gold};text-transform:uppercase;font-weight:700;margin-bottom:8px;">💼 วัยทำงาน (23+)</div>
+      <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.75;">${archData.lifeStage?.working || ''}</div>
+    </div>
+  </div>
+
+  <!-- 9. Affirmation -->
   ${sectionHeader('🙏', 'Affirmation ของคุณ')}
   <blockquote style="background:linear-gradient(135deg,${PALETTE.plum},${PALETTE.midnight});color:${PALETTE.goldSoft};border-radius:14px;padding:32px 24px;font-size:18px;font-style:italic;text-align:center;line-height:1.6;margin:0;">
     "${archData.affirmation}"
