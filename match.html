@@ -505,6 +505,26 @@
     display: inline-flex; align-items: center; gap: 8px;
   }
   .btn-primary { background: var(--plum); color: var(--cream); }
+
+  /* Next Steps cross-tool */
+  .next-steps-section { max-width: 980px; margin: 0 auto; padding: 56px 24px 16px; }
+  .next-steps-eyebrow { text-align:center; font-size:11px; letter-spacing:0.32em; color:var(--gold); text-transform:uppercase; font-weight:600; margin-bottom:12px; }
+  .next-steps-section h2 { font-family:'IBM Plex Sans Thai',sans-serif; font-weight:700; text-align:center; font-size:clamp(22px,4vw,30px); color:var(--midnight); line-height:1.3; margin-bottom:12px; letter-spacing:-0.01em; }
+  .next-steps-section h2 em { font-style:normal; font-weight:600; color:var(--gold); margin-inline-start:0.15em; }
+  .next-steps-section .ns-sub { text-align:center; color:var(--plum); max-width:540px; margin:0 auto 32px; font-size:15px; }
+  .next-steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:720px){ .next-steps-grid{ grid-template-columns:1fr; } }
+  .next-step-card { background:white; border:1px solid rgba(61,44,78,0.1); border-radius:18px; padding:26px 22px; text-align:center; text-decoration:none; color:var(--plum); transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .next-step-card:hover { transform:translateY(-3px); box-shadow:0 18px 40px -22px rgba(61,44,78,0.18); border-color:var(--gold); }
+  .next-step-card .ns-icon { font-size:30px; line-height:1; }
+  .next-step-card .ns-eyebrow { font-size:10px; letter-spacing:0.28em; color:var(--gold); text-transform:uppercase; font-weight:600; }
+  .next-step-card h3 { font-family:'IBM Plex Sans Thai',sans-serif; font-size:17px; font-weight:700; color:var(--midnight); line-height:1.35; }
+  .next-step-card .ns-desc { font-size:14px; color:var(--plum); line-height:1.55; flex-grow:1; }
+  .next-step-card .ns-cta { margin-top:6px; font-size:13px; color:var(--gold); font-weight:600; letter-spacing:0.05em; }
+  .next-step-card.calc { background:linear-gradient(180deg,white,#fdf9f0); }
+  .next-step-card.today { background:linear-gradient(180deg,white,#f4faf4); }
+  .next-step-card.line { background:linear-gradient(180deg,white,#f0fbf3); }
+  .next-step-card.line .ns-cta { color:#06C755; }
   .btn-secondary {
     background: transparent;
     color: var(--plum);
@@ -671,12 +691,45 @@
 
 <div class="toast" id="toast">✓ คัดลอกลิงก์แล้ว</div>
 
+<section class="next-steps-section" id="nextStepsSection" style="display:none;">
+  <div class="next-steps-eyebrow">— STEP 2 —</div>
+  <h2>เครื่องมืออื่น <em>ของ Moome</em></h2>
+  <p class="ns-sub">รู้ผลคู่แล้ว · ลองรู้จักตัวเองลึกขึ้น หรือดูพลังประจำวัน</p>
+  <div class="next-steps-grid">
+
+    <a href="/calculate/" id="calcLink" class="next-step-card calc">
+      <div class="ns-icon">✦</div>
+      <div class="ns-eyebrow">DESTINY MATRIX</div>
+      <h3>คำนวณของคุณ</h3>
+      <p class="ns-desc">รู้ archetype ของตัวเอง + จุดแข็ง + พื้นที่เติบโต · ละเอียดกว่าหน้านี้</p>
+      <div class="ns-cta">คำนวณ →</div>
+    </a>
+
+    <a href="/today/" class="next-step-card today">
+      <div class="ns-icon">🌅</div>
+      <div class="ns-eyebrow">DAILY VIBE</div>
+      <h3>วันนี้ของคุณ</h3>
+      <p class="ns-desc">สี · ลุค · จังหวะ · พลังประจำวัน — ตาม archetype ของคุณ</p>
+      <div class="ns-cta">ดูวันนี้ →</div>
+    </a>
+
+    <a href="https://line.me/R/ti/p/@moome" class="next-step-card line">
+      <div class="ns-icon">💬</div>
+      <div class="ns-eyebrow">LINE OFFICIAL</div>
+      <h3>Add LINE — รับฟรี</h3>
+      <p class="ns-desc">insights ประจำวัน · เปรียบเทียบ 4 ศาสตร์ · ฟรีตลอด</p>
+      <div class="ns-cta">เพิ่มเพื่อน →</div>
+    </a>
+
+  </div>
+</section>
+
 <section class="cta-section" id="ctaSection">
   <h2>อยากเข้าใจ <em>ตัวเอง</em> ลึกขึ้น?</h2>
-  <p>คำนวณ Destiny Matrix ของตัวเองเดี่ยว ๆ + รับ insights รายวันใน LINE</p>
+  <p>อ่านบทความเจาะลึก archetype 22 แบบ · พร้อมจุดแข็ง อาชีพ และดวงคู่ที่เหมาะ</p>
   <div class="cta-row">
-    <a href="/calculate/" class="btn btn-primary">✦ คำนวณของฉัน</a>
-    <a href="https://line.me/R/ti/p/@moome" class="btn btn-secondary">💬 Add LINE</a>
+    <a href="/blog/" class="btn btn-primary">📖 อ่าน Blog</a>
+    <a href="/blog/destiny-matrix-คืออะไร/" class="btn btn-secondary">Destiny Matrix คืออะไร</a>
   </div>
 </section>
 
@@ -913,7 +966,14 @@ function calculate(d1, m1, y1, d2, m2, y2) {
 
   // Show result + CTA
   document.getElementById('result').classList.add('show');
+  document.getElementById('nextStepsSection').style.display = 'block';
   document.getElementById('ctaSection').classList.add('show');
+
+  // Pre-fill /calculate link with person 1's birth + save to localStorage
+  document.getElementById('calcLink').href = '/calculate/?d=' + d1 + '&m=' + m1 + '&y=' + y1;
+  try {
+    localStorage.setItem('moome_birth', JSON.stringify({ d: d1, m: m1, y: y1 }));
+  } catch (e) { /* ignore */ }
 
   // Update title for nice sharing
   document.title = score + '% Match · ' + a.th + ' × ' + b.th + ' | Moome';
@@ -992,6 +1052,7 @@ function resetForm() {
     document.getElementById(id).value = '';
   });
   document.getElementById('result').classList.remove('show');
+  document.getElementById('nextStepsSection').style.display = 'none';
   document.getElementById('ctaSection').classList.remove('show');
   window.history.replaceState({}, '', window.location.pathname);
   document.title = 'Compatibility Match · เช็คดวงคู่ Destiny Matrix ฟรี | Moome';

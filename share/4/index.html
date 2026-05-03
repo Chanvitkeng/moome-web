@@ -146,7 +146,7 @@
     border-radius: 20px;
     padding: 32px 24px;
     border: 1px solid rgba(201,169,97,0.3);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   .cta-box h2 {
     font-family: 'Italiana', serif;
@@ -177,6 +177,38 @@
     transition: transform 0.2s;
   }
   .btn:hover { transform: translateY(-2px); background: var(--midnight); }
+  .match-box {
+    background: linear-gradient(135deg, #fdf6f8, #fbe8ee);
+    border-radius: 20px;
+    padding: 28px 24px;
+    border: 1px solid rgba(185,122,139,0.3);
+    margin-bottom: 24px;
+  }
+  .match-box h2 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--midnight);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .match-box h2 em {
+    font-style: normal;
+    color: #b97a8b;
+    font-weight: 600;
+  }
+  .match-box p {
+    color: var(--plum);
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+  .btn.btn-match {
+    background: #b97a8b;
+    padding: 14px 26px;
+    font-size: 14px;
+  }
+  .btn.btn-match:hover { background: #8a5a6c; }
+
 
   footer {
     text-align: center;
@@ -210,6 +242,12 @@
     <p>ใส่วันเกิด · ฟรี ไม่ต้องสมัคร · คำนวณใน 30 วินาที</p>
     <a id="ctaBtn" href="/calculate/" class="btn">✦ คำนวณ Archetype ของฉัน</a>
   </div>
+
+  <div class="match-box">
+    <h2>💞 อยากรู้ว่า <em>เข้ากันมั้ย?</em></h2>
+    <p>เปรียบเทียบดวงคู่ของคุณกับเพื่อนคนนี้ · ระบบเทียบ archetype ให้</p>
+    <a id="matchBtn" href="/match/" class="btn btn-match">เช็คดวงคู่ →</a>
+  </div>
 </main>
 
 <footer>
@@ -225,6 +263,8 @@
     var months = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
     document.getElementById('friendLine').innerHTML =
       'เพื่อนเกิดวันที่ <strong>' + d + ' ' + months[parseInt(m)] + ' ' + y + '</strong>';
+    // Pre-fill /match with friend as person 2 — user fills in person 1 (themselves)
+    document.getElementById('matchBtn').href = '/match/?d2=' + d + '&m2=' + m + '&y2=' + y;
   }
 })();
 </script>
