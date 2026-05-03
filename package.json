@@ -2,7 +2,11 @@
   "name": "moome-web",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Moome — Self-Awareness Platform",
+  "engines": {
+    "node": ">=18.x"
+  },
   "dependencies": {
     "resend": "^4.0.0"
   }
