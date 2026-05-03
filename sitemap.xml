@@ -71,6 +71,20 @@
     <priority>0.85</priority>
   </url>
 
+  <url>
+    <loc>https://moome.app/blog/archetype-2-ผู้หยั่งรู้/</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://moome.app/blog/archetype-3-จักรพรรดินี/</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Future pages (uncomment when published) -->
   <!--
   <url>
