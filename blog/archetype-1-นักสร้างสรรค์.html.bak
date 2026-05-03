@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>#1 นักสร้างสรรค์ (The Magician) คืออะไร · Destiny Matrix Archetype 1 | Moome</title>
+<meta name="description" content="Archetype #1 นักสร้างสรรค์ ใน Destiny Matrix · คนที่เปลี่ยนความคิดให้กลายเป็นจริง · จุดแข็ง อาชีพที่เหมาะ พื้นที่เติบโต และวิธีรู้ว่าคุณเป็น #1">
+<meta name="keywords" content="archetype 1, นักสร้างสรรค์, the magician, destiny matrix, ดวงรัสเซีย archetype, ไพ่ทาโรต์ the magician">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://moome.app/blog/archetype-1-นักสร้างสรรค์/">
+<meta property="og:title" content="#1 นักสร้างสรรค์ (The Magician) · Destiny Matrix Archetype 1">
+<meta property="og:description" content="คนที่เปลี่ยนความคิดให้กลายเป็นจริง · ใช้ทักษะหลายด้าน · กล้าทดลอง · อ่านลึกเรื่อง archetype #1 ใน Destiny Matrix">
+<meta property="og:image" content="https://moome.app/og/1.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="th_TH">
+<meta property="og:site_name" content="Moome">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="#1 นักสร้างสรรค์ (The Magician) · Destiny Matrix">
+<meta name="twitter:description" content="คนที่เปลี่ยนความคิดให้กลายเป็นจริง">
+<meta name="twitter:image" content="https://moome.app/og/1.png">
+
+<link rel="canonical" href="https://moome.app/blog/archetype-1-นักสร้างสรรค์/">
+
+<!-- Schema.org Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Archetype #1 นักสร้างสรรค์ (The Magician) คืออะไร",
+  "description": "Archetype #1 นักสร้างสรรค์ ใน Destiny Matrix · คนที่เปลี่ยนความคิดให้กลายเป็นจริง",
+  "image": "https://moome.app/og/1.png",
+  "author": { "@type": "Organization", "name": "Moome" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Moome",
+    "logo": { "@type": "ImageObject", "url": "https://moome.app/og/default.png" }
+  },
+  "datePublished": "2026-05-05",
+  "dateModified": "2026-05-05",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://moome.app/blog/archetype-1-นักสร้างสรรค์/" }
+}
+</script>
+
+<!-- Vercel Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F5EFE6; --plum: #3d2c4e; --gold: #c9a961;
+    --gold-soft: #ead8b8; --lavender: #b8a5c9; --midnight: #0f0a1e;
+    --rose: #b97a8b; --sage: #a8c9a8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans Thai', -apple-system, sans-serif;
+    background: var(--cream); color: var(--midnight);
+    line-height: 1.8;
+  }
+  nav { padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(61,44,78,0.08); position: sticky; top: 0; background: rgba(245,239,230,0.95); backdrop-filter: blur(8px); z-index: 100; }
+  nav .logo { font-family: 'Italiana', serif; font-size: 20px; letter-spacing: 0.32em; color: var(--plum); text-decoration: none; }
+  nav .logo::before { content: '✦ '; color: var(--gold); }
+  nav a { color: var(--plum); text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 20px; }
+  nav a.cta { background: var(--plum); color: var(--cream); padding: 8px 18px; border-radius: 999px; font-weight: 600; }
+
+  .article-hero { padding: 60px 24px 32px; max-width: 760px; margin: 0 auto; text-align: center; }
+  .breadcrumb { font-size: 13px; color: var(--lavender); margin-bottom: 18px; }
+  .breadcrumb a { color: var(--lavender); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .article-cat { font-size: 11px; color: var(--gold); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
+  h1 { font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 700; font-size: clamp(28px, 5vw, 42px); color: var(--midnight); line-height: 1.25; margin-bottom: 18px; letter-spacing: -0.02em; }
+  h1 em { font-family: 'IBM Plex Sans Thai', sans-serif; font-style: normal; font-weight: 600; color: var(--gold); margin-inline-start: 0.18em; }
+  .article-meta { font-size: 13px; color: var(--lavender); margin-top: 14px; }
+
+  .article-image-hero { aspect-ratio: 16/9; max-width: 760px; margin: 0 auto 40px; background: linear-gradient(135deg, var(--plum), var(--midnight)); border-radius: 22px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .article-image-hero::before { content: ''; position: absolute; inset: -50%; background: radial-gradient(circle at center, rgba(201,169,97,0.25), transparent 50%); }
+  .article-image-hero .arch-num { font-family: 'Italiana', serif; font-size: 140px; color: var(--gold); position: relative; }
+
+  article { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; font-size: 17px; }
+  article p { margin-bottom: 22px; color: var(--plum); }
+  article h2 { font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 700; font-size: 26px; color: var(--midnight); margin: 48px 0 20px; letter-spacing: -0.01em; line-height: 1.35; }
+  article h2 em { font-family: 'IBM Plex Sans Thai', sans-serif; font-style: normal; font-weight: 600; color: var(--gold); margin-inline-start: 0.15em; }
+  article h3 { font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 20px; color: var(--plum); margin: 32px 0 14px; letter-spacing: -0.01em; }
+  article ul, article ol { margin: 0 0 22px 24px; }
+  article li { margin-bottom: 8px; color: var(--plum); }
+  article strong { color: var(--plum); font-weight: 600; }
+  article blockquote { background: white; border-left: 4px solid var(--gold); padding: 18px 24px; margin: 24px 0; border-radius: 0 14px 14px 0; font-family: 'IBM Plex Sans Thai', sans-serif; font-style: normal; font-weight: 400; font-size: 16px; color: var(--plum); line-height: 1.7; }
+  article a { color: var(--plum); text-decoration: underline; text-decoration-color: var(--gold); }
+  article a:hover { color: var(--gold); }
+
+  .archetype-card-inline { background: linear-gradient(135deg, var(--plum), var(--midnight)); color: var(--cream); border-radius: 22px; padding: 32px 24px; margin: 32px 0; text-align: center; position: relative; overflow: hidden; }
+  .archetype-card-inline::before { content: ''; position: absolute; inset: -50%; background: radial-gradient(circle at center, rgba(201,169,97,0.2), transparent 50%); }
+  .archetype-card-inline .num { font-family: 'Italiana', serif; font-size: 80px; color: var(--gold); position: relative; line-height: 1; }
+  .archetype-card-inline .name-th { font-weight: 700; font-size: 24px; color: var(--cream); margin-top: 4px; position: relative; }
+  .archetype-card-inline .name-en { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold-soft); letter-spacing: 0.18em; text-transform: uppercase; font-size: 13px; position: relative; margin-bottom: 6px; }
+
+  .cta-box { background: linear-gradient(135deg, rgba(201,169,97,0.08), rgba(184,165,201,0.08)); border: 1px solid rgba(201,169,97,0.3); border-radius: 22px; padding: 32px 24px; margin: 48px 0; text-align: center; }
+  .cta-box h3 { font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 700; color: var(--midnight); font-size: 22px; margin-bottom: 10px; }
+  .cta-box p { color: var(--plum); margin-bottom: 24px; }
+  .cta-btn { display: inline-block; padding: 14px 28px; background: var(--plum); color: var(--cream); border-radius: 999px; text-decoration: none; font-weight: 600; }
+  .cta-btn:hover { background: var(--midnight); }
+
+  .related { max-width: 720px; margin: 0 auto; padding: 0 24px 60px; }
+  .related h3 { font-family: 'IBM Plex Sans Thai', sans-serif; color: var(--midnight); font-size: 18px; margin-bottom: 18px; letter-spacing: -0.01em; }
+  .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-card { background: white; border-radius: 14px; padding: 18px; border: 1px solid rgba(61,44,78,0.08); text-decoration: none; transition: transform 0.2s; }
+  .related-card:hover { transform: translateY(-2px); }
+  .related-card .cat { font-size: 11px; color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .related-card h4 { color: var(--plum); font-size: 15px; line-height: 1.4; }
+
+  footer { background: var(--midnight); color: var(--gold-soft); padding: 32px 24px; text-align: center; font-size: 13px; }
+  footer a { color: var(--gold-soft); text-decoration: none; margin: 0 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">MOOME</a>
+  <div style="display:flex;gap:24px;align-items:center;">
+    <a href="/calculate/">✦ คำนวณ</a>
+    <a href="/match/">💞 ดวงคู่</a>
+    <a href="/blog/">Blog</a>
+    <a href="https://line.me/R/ti/p/@moome" class="cta">Add LINE</a>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="breadcrumb">
+    <a href="/">หน้าหลัก</a> · <a href="/blog/">Blog</a> · Archetype #1
+  </div>
+  <div class="article-cat">DESTINY MATRIX · ARCHETYPE</div>
+  <h1>Archetype #1 <em>นักสร้างสรรค์</em><br>(The Magician) คืออะไร</h1>
+  <div class="article-meta">เผยแพร่ 5 พ.ค. 2026 · 7 นาทีในการอ่าน · โดย Moome</div>
+</section>
+
+<div class="article-image-hero">
+  <div class="arch-num">01</div>
+</div>
+
+<article>
+
+<p>ถ้าคุณคำนวณ <a href="/calculate/">Destiny Matrix</a> แล้วได้เลข <strong>1</strong> · ขอแสดงความยินดี — คุณคือ <strong>"นักสร้างสรรค์" (The Magician)</strong> · archetype ที่นักดูดวงรัสเซียมองว่าเป็น "ผู้เริ่มต้นของทุกอย่าง"</p>
+
+<p>ในบทความนี้เราจะเจาะลึกว่า archetype #1 คืออะไร · ทำไม Tarot เรียกว่า The Magician · จุดแข็งและจุดที่ต้องระวัง · อาชีพที่เหมาะ · และวิธีใช้ archetype นี้พัฒนาตัวเอง</p>
+
+<h2>1. <em>นักสร้างสรรค์</em> ในมุมมองของ Destiny Matrix</h2>
+
+<p><strong>The Magician</strong> ในไพ่ทาโรต์ (Major Arcana #1) คือคนที่ "มีเครื่องมือทุกอย่างพร้อม" · มีไม้กายสิทธิ์ · ดาบ · ถ้วย · เหรียญ — เครื่องมือเป็นตัวแทน 4 ธาตุ — ไฟ · ลม · น้ำ · ดิน</p>
+
+<p>Russian Destiny Matrix นำพลังของ The Magician มาปรับใช้กับ archetype #1 หมายถึง <strong>คนที่มีศักยภาพในทุกด้าน · เปลี่ยนความคิดให้กลายเป็นจริงได้</strong> · ใช้ทักษะหลากหลายในเวลาเดียวกัน</p>
+
+<blockquote>
+"#1 ไม่ใช่คนที่ทำได้ทุกอย่างเก่ง · แต่เป็นคนที่ <strong>กล้าเริ่ม</strong>ทุกอย่างก่อนใคร · เปิดประตูใหม่ให้ตัวเองเสมอ"
+</blockquote>
+
+<div class="archetype-card-inline">
+  <div class="num">01</div>
+  <div class="name-en">THE MAGICIAN</div>
+  <div class="name-th">นักสร้างสรรค์</div>
+</div>
+
+<h2>2. <em>จุดแข็ง</em>ของคนที่ได้ #1</h2>
+
+<h3>2.1 ริเริ่มสิ่งใหม่ได้เก่ง</h3>
+
+<p>คุณเป็นคนที่ <strong>ไม่กลัวการเริ่มต้น</strong> · ในขณะที่คนอื่นต้องการ "เห็นผลก่อนถึงจะลอง" · คุณยอมเสี่ยงเริ่มก่อน · นี่คือคุณสมบัติที่ Founder, Entrepreneur, Creative Director, ผู้นำองค์กรใหม่ๆ ต้องมี</p>
+
+<p>ตัวอย่างที่เห็นได้: คนที่เปลี่ยนสายงานบ่อยๆ · เปิดร้านใหม่ · ทำ side project แปลกๆ · เริ่มเรียนทักษะใหม่ในวัย 30+ · ฯลฯ</p>
+
+<h3>2.2 ใช้ทักษะหลากหลาย (Multi-talented)</h3>
+
+<p>คุณไม่ใช่ specialist ที่เก่งด้านเดียว · แต่เป็น <strong>generalist ที่เชื่อมโยงทักษะหลายด้านเข้าด้วยกันได้</strong> · เช่น โปรแกรมเมอร์ที่เขียน blog ได้ดี · นักธุรกิจที่ทำ design เองได้ · ครูที่เล่นดนตรีเก่ง</p>
+
+<p>ในยุค AI · ทักษะแบบนี้ <strong>มีค่าที่สุด</strong> · เพราะสามารถผสาน insight ข้ามสายงานที่ AI specialized ทำไม่ได้</p>
+
+<h3>2.3 พูดและสื่อสารทรงพลัง</h3>
+
+<p>The Magician ในไพ่ทาโรต์ถือไม้กายสิทธิ์ — สัญลักษณ์ของ <strong>"คำพูดที่เปลี่ยนความเป็นจริง"</strong> · #1 มักเป็นคนที่พูดแล้วคนฟัง · เขียนแล้วคนอ่าน · นำเสนอแล้วคนเชื่อ</p>
+
+<p>นี่ทำให้ #1 เป็นนักการตลาด · นัก storytelling · ผู้นำที่ inspire คน — ได้ดี</p>
+
+<h2>3. <em>จุดท้าทาย</em>และพื้นที่เติบโต</h2>
+
+<h3>3.1 ระวังการกระจายตัวมากเกินไป</h3>
+
+<p>เพราะ #1 เริ่มหลายอย่าง · บางครั้งจึง <strong>"ไม่จบ"</strong> สิ่งใดเลย · มี side project 10 อันที่ค้างอยู่ · มี "ไอเดียที่จะทำสักวัน" เต็มหัว แต่ลงมือทำไม่หมด</p>
+
+<p><strong>คำแนะนำ:</strong> ฝึก "complete one thing before starting another" · เลือก 1 project หลัก · ทำให้จบก่อนเริ่มอันใหม่ · The Magician ที่แท้จริง = คนที่ <strong>finish</strong> สิ่งที่เริ่ม ไม่ใช่แค่เริ่ม</p>
+
+<h3>3.2 ฝึกความลึก ไม่ใช่แค่ความกว้าง</h3>
+
+<p>Generalist ที่ powerful ที่สุดคือ "T-shaped" — รู้กว้างแต่มีจุดที่ลึกมาก · #1 มักเก่ง breadth (ความกว้าง) แล้วลืม depth (ความลึก)</p>
+
+<p><strong>คำแนะนำ:</strong> เลือก 1 หัวข้อที่อยากเก่งสุดในชีวิต · ใช้เวลา 2-3 ปีจริงจัง · จะกลายเป็น "expert ที่มี perspective หลากหลาย" — combo ที่หายากที่สุด</p>
+
+<h2>4. <em>อาชีพที่เหมาะ</em>กับ Archetype #1</h2>
+
+<p>archetype #1 ไม่ได้บอกว่าคุณ "ต้อง" ทำอาชีพไหน · แต่งานบางประเภทจะรู้สึก <strong>"ใช่"</strong> มากกว่าคนทั่วไป:</p>
+
+<ul>
+  <li><strong>Entrepreneur / Founder</strong> — เริ่ม business ใหม่ · solve problem ที่ยังไม่มีใครแก้</li>
+  <li><strong>Product Manager / Product Designer</strong> — ผสานหลายทักษะ (UX, business, tech)</li>
+  <li><strong>Creative Director / Brand Strategist</strong> — เปลี่ยนความคิดให้เป็น campaign</li>
+  <li><strong>Coach / Speaker / Trainer</strong> — ใช้คำพูดเปลี่ยนคน</li>
+  <li><strong>Multi-disciplinary creator</strong> — content creator, polymath, indie hacker</li>
+  <li><strong>Innovation Lead / R&D</strong> — เริ่ม project ใหม่ในองค์กร</li>
+</ul>
+
+<p>อาชีพที่ <strong>อาจไม่เหมาะ</strong>: งาน routine 100% · งานที่ต้องการ specialist เดียวลึกๆ · งานที่ห้ามเริ่มสิ่งใหม่</p>
+
+<h2>5. <em>ความรัก</em>ของ Archetype #1</h2>
+
+<p>#1 ในความสัมพันธ์ = <strong>"ผู้เริ่ม"</strong> · มักเป็นคนเข้าหาก่อน · ชวนทำสิ่งใหม่ · พาคู่ออกจาก comfort zone</p>
+
+<p><strong>คู่ที่เข้ากันดี:</strong></p>
+<ul>
+  <li><strong>#2 ผู้หยั่งรู้</strong> — เสริมกัน · #1 ทำ · #2 รู้สึก</li>
+  <li><strong>#5 ครูแห่งจิตวิญญาณ</strong> — #1 ริเริ่ม · #5 ให้ context</li>
+  <li><strong>#11 ผู้ตัดสินด้วยใจ</strong> — balance ของ initiator + judgment</li>
+</ul>
+
+<p><strong>คู่ที่ท้าทาย:</strong> #1 อีกคน (ใครจะนำ?) · #4 ผู้สร้างฐาน (อาจช้าเกินสำหรับ #1) — แต่ challenging ไม่ได้แปลว่าไม่ดี · เป็นพื้นที่เติบโต</p>
+
+<p>อยากเช็คดวงคู่ของคุณ? ลอง <a href="/match/">Compatibility Calculator</a> ของ Moome</p>
+
+<h2>6. <em>วิธีรู้</em>ว่าคุณเป็น Archetype #1</h2>
+
+<p>ใช้สูตร Russian Destiny Matrix:</p>
+
+<ol>
+  <li><strong>วัน (A)</strong> = วันเกิด · ถ้า > 22 ลบ 22 (เช่น 23 → 1)</li>
+  <li><strong>เดือน (B)</strong> = เลขเดือน 1-12</li>
+  <li><strong>ปี (C)</strong> = ผลรวมตัวเลขปี · ถ้า > 22 ลบ 22 หนึ่งครั้ง</li>
+  <li><strong>รวม (D)</strong> = A + B + C · ถ้า > 22 ลบ 22 จนได้ 1-22</li>
+</ol>
+
+<blockquote>
+ตัวอย่าง: เกิด 1 มกราคม 1999<br>
+A = <strong>1</strong> · B = <strong>1</strong> · C = 1+9+9+9 = 28 → 28-22 = <strong>6</strong><br>
+D = 1 + 1 + 6 = <strong>8</strong> → archetype #8 ผู้กล้าหาญ (ไม่ใช่ #1)<br><br>
+อยากได้ #1 ต้องเป็นวันที่ A+B+C = 1, 23, 45 ฯลฯ
+</blockquote>
+
+<p>หรือใช้ทางลัด — <a href="/calculate/">moome.app/calculate</a> ใส่วันเกิด · ระบบคำนวณให้ใน 1 วินาที · ฟรี ไม่ต้องสมัคร</p>
+
+<h2>7. คำถามที่ <em>ถามบ่อย</em></h2>
+
+<h3>Archetype #1 = ดวงดี/ไม่ดี?</h3>
+<p>ไม่มี archetype ที่ "ดี" หรือ "ไม่ดี" ในระบบ Destiny Matrix · แต่ละ archetype มีจุดแข็งและจุดท้าทายของตัวเอง · สิ่งสำคัญคือ <strong>เข้าใจ pattern ของตัวเอง</strong> เพื่อใช้จุดแข็งและทำงานกับจุดที่ต้องระวัง</p>
+
+<h3>ถ้าฉันเปลี่ยนวันเกิด archetype จะเปลี่ยนมั้ย?</h3>
+<p>วันเกิดเปลี่ยนไม่ได้ · แต่คุณสามารถเลือก <strong>"how"</strong> คุณจะ express archetype ของคุณ · #1 บางคนเป็น Entrepreneur · บางคนเป็น artist · บางคนเป็น teacher — pattern เดียวกันแสดงออกได้หลายแบบ</p>
+
+<h3>Destiny Matrix vs MBTI ต่างกันยังไง?</h3>
+<p>MBTI วัดบุคลิกภาพปัจจุบัน · Destiny Matrix วัด <strong>"พลังชีวิต"</strong>หรือพิมพ์เขียวจากวันเกิด · บางคนใช้ทั้ง 2 อย่างเสริมกัน · MBTI บอก "คุณคิดยังไง" · Destiny Matrix บอก "ทำไมคุณถึงเป็นแบบนั้น"</p>
+
+<h3>คนดังที่เป็น #1 มีใครบ้าง?</h3>
+<p>เราไม่สามารถยืนยัน archetype ของคนดังจริงๆ ได้โดยไม่เห็นวันเกิด · แต่ลักษณะของ #1 ตรงกับ <strong>founder ของบริษัทเทคใหญ่ๆ</strong> ที่กล้าเริ่มสิ่งใหม่จากศูนย์ · นักประดิษฐ์ · นักสร้างสรรค์ที่เปลี่ยนวงการ</p>
+
+</article>
+
+<div class="related">
+  <h3>อ่านบทความที่เกี่ยวข้อง</h3>
+  <div class="related-grid">
+    <a href="/blog/destiny-matrix-คืออะไร/" class="related-card">
+      <div class="cat">Destiny Matrix</div>
+      <h4>Destiny Matrix คืออะไร · ทำไม Gen Z เลือกใช้ในปี 2026</h4>
+    </a>
+    <a href="/match/" class="related-card">
+      <div class="cat">Compatibility</div>
+      <h4>เช็ค Match Score · ดวงคู่ของคุณกับใครก็ได้</h4>
+    </a>
+  </div>
+</div>
+
+<div class="cta-box" style="max-width:720px;margin-left:auto;margin-right:auto;">
+  <h3>คำนวณของคุณเอง</h3>
+  <p>ใส่วันเกิด · ดู archetype ของคุณ + จุดแข็ง + พื้นที่เติบโต · ฟรี ไม่ต้องสมัคร</p>
+  <a href="/calculate/" class="cta-btn">✦ คำนวณ Archetype ของฉัน</a>
+</div>
+
+<footer>
+  <p>© 2026 Moome · ดวงที่ฟัง ก่อนพูด · เพื่อความบันเทิง + self-reflection ไม่ใช่ medical/legal/financial advice<br>
+  <a href="/">หน้าหลัก</a> · <a href="/calculate/">คำนวณ</a> · <a href="/match/">ดวงคู่</a> · <a href="/blog/">Blog</a> · <a href="https://line.me/R/ti/p/@moome">LINE OA</a></p>
+</footer>
+
+</body>
+</html>
