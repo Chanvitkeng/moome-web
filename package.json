@@ -1,0 +1,9 @@
+{
+  "name": "moome-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Moome — Self-Awareness Platform",
+  "dependencies": {
+    "resend": "^4.0.0"
+  }
+}
