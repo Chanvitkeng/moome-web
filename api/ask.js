@@ -33,28 +33,28 @@ function checkRateLimit(key, maxPerDay) {
 }
 
 const ARCHETYPE_NAMES = {
-  1: 'นักสร้างสรรค์ (Magician)',
-  2: 'ผู้หยั่งรู้ (High Priestess)',
-  3: 'จักรพรรดินี (Empress)',
-  4: 'จักรพรรดิ (Emperor)',
-  5: 'ผู้ส่งสาร (Hierophant)',
-  6: 'คู่รัก (Lovers)',
-  7: 'ผู้พิชิต (Chariot)',
-  8: 'ผู้ทรงพลัง (Strength)',
-  9: 'ผู้แสวงหา (Hermit)',
-  10: 'วงล้อโชค (Wheel of Fortune)',
-  11: 'ผู้ยุติธรรม (Justice)',
-  12: 'ผู้เสียสละ (Hanged Man)',
-  13: 'การเปลี่ยน (Death)',
+  1: 'นักสร้างสรรค์ (The Magician)',
+  2: 'ผู้หยั่งรู้ (The High Priestess)',
+  3: 'จักรพรรดินี (The Empress)',
+  4: 'ผู้สร้างฐาน (The Emperor)',
+  5: 'ครูแห่งจิตวิญญาณ (The Hierophant)',
+  6: 'ผู้รัก (The Lovers)',
+  7: 'ผู้พิชิต (The Chariot)',
+  8: 'พลังภายใน (Strength)',
+  9: 'ผู้แสวงหา (The Hermit)',
+  10: 'วงล้อแห่งโชค (Wheel of Fortune)',
+  11: 'ผู้ตัดสินด้วยใจ (Justice)',
+  12: 'ผู้มองมุมต่าง (The Hanged)',
+  13: 'ผู้ผ่านการเปลี่ยน (Death)',
   14: 'ผู้สมดุล (Temperance)',
-  15: 'ผู้ผูกมัด (Devil)',
-  16: 'ผู้สร้างใหม่ (Tower)',
-  17: 'ดวงดาว (Star)',
-  18: 'พระจันทร์ (Moon)',
-  19: 'พระอาทิตย์ (Sun)',
+  15: 'ผู้ปลดพันธนาการ (The Devil)',
+  16: 'ผู้สร้างใหม่ (The Tower)',
+  17: 'ผู้ส่องแสง (The Star)',
+  18: 'ผู้ฝัน (The Moon)',
+  19: 'ดวงอาทิตย์ (The Sun)',
   20: 'ผู้ตื่นรู้ (Judgement)',
-  21: 'ผู้สำเร็จ (World)',
-  22: 'ผู้เริ่มใหม่ (Innocent)',
+  21: 'ผู้สำเร็จ (The World)',
+  22: 'ผู้เริ่มใหม่ (The Innocent)',
 };
 
 // Calculate age in years from DD/MM/YYYY birth date
@@ -129,9 +129,9 @@ function buildSystemPrompt(archetype, birthDate, archName) {
 [เสียงของเพื่อนคู่คิด · 1 ประโยคเป็นคำถามชวนคิด · ไม่บอกคำตอบ · กระตุ้นให้ user ค้นพบเอง · ขึ้นต้นด้วยคำถาม]
 
 ---SUGGEST---
-- คำถามต่อข้อ 1 (สั้น 5-12 คำ · ลึกในประเด็นเดิม)
-- คำถามต่อข้อ 2 (สั้น 5-12 คำ · มุมที่เกี่ยวข้องแต่ขยับ)
-- คำถามต่อข้อ 3 (สั้น 5-12 คำ · เชื่อม archetype หรือชีวิต)
+mu | คำถามที่ลึกเข้าไปในมุม MU INSIGHT (5-12 คำ · เชื่อมกับ archetype/พลังงาน)
+psy | คำถามที่ลึกเข้าไปในมุม PSYCHOLOGY (5-12 คำ · ขยายแนวคิดจิตวิทยา)
+companion | คำถามที่ขยายมุม COMPANION (5-12 คำ · ชวนคิดต่อเชิง self-reflection)
 
 ตัวอย่างที่ดี — ถาม "ผมควรเปลี่ยนงานไหม":
 
@@ -147,9 +147,9 @@ function buildSystemPrompt(archetype, birthDate, archName) {
 ถ้าคุณตื่นพรุ่งนี้แล้วงานนี้กลายเป็นงานในฝัน อะไรคือสิ่งที่ต้องเปลี่ยนเป็นอันดับแรก?
 
 ---SUGGEST---
-- 3 หลักจิตวิทยาที่ควรเช็คก่อนเปลี่ยนงาน?
-- วงล้อโชคในวัย 35 คือวงรอบไหน?
-- ทำยังไงให้ทำใจได้ว่าจะลาออก?
+mu | วงล้อโชคในวัย 35 คือวงรอบไหน?
+psy | 3 หลัก SDT ที่ควรเช็คก่อนเปลี่ยนงาน?
+companion | ทำยังไงให้ใจพร้อมก่อนตัดสินใจลาออก?
 
 จดจำว่า: คุณกำลังคุยกับคนที่อยากรู้จักตัวเองมากขึ้น · 3 voices ต้องเสริมกัน ไม่ซ้ำ · main answer ห้ามรวม 3 voices เข้าด้วยกัน`;
 }
@@ -175,10 +175,20 @@ function parseTripleVoiceAndSuggestions(rawText) {
   const allMarkers = ['---MU---', '---PSY---', '---COMPANION---', '---SUGGEST---'];
 
   const sug = extractSection(rawText, '---SUGGEST---', []);
+  // Parse "voice | text" format · fall back to plain text
+  const validVoices = ['mu', 'psy', 'companion'];
   const suggestions = sug.content
     .split('\n')
     .map(line => line.replace(/^[-•*\d.]+\s*/, '').trim())
-    .filter(line => line.length > 0 && line.length < 200)
+    .filter(line => line.length > 0 && line.length < 250)
+    .map(line => {
+      const m = line.match(/^(mu|psy|companion)\s*\|\s*(.+)$/i);
+      if (m) {
+        return { voice: m[1].toLowerCase(), text: m[2].trim() };
+      }
+      return { voice: null, text: line };
+    })
+    .filter(s => s.text.length > 0)
     .slice(0, 3);
 
   const companion = extractSection(sug.remaining, '---COMPANION---', allMarkers);

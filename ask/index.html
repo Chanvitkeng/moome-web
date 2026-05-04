@@ -444,31 +444,79 @@
     border-radius: 999px;
     font-size: 13px;
     cursor: pointer;
-    border: 1px solid rgba(201, 169, 97, 0.4);
+    border: 1px solid rgba(61, 44, 78, 0.18);
     transition: all 0.15s;
     font-family: inherit;
     line-height: 1.4;
   }
-  .followup-chip:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold);
-    transform: translateY(-1px);
-  }
   .followup-chip::before {
     content: '↗ ';
+  }
+  .followup-chip:hover {
+    transform: translateY(-1px);
+  }
+  /* Voice-tagged chips */
+  .followup-chip.voice-mu {
+    background: #fffbf2;
+    border-color: rgba(201, 169, 97, 0.45);
+    color: #8a6e2d;
+  }
+  .followup-chip.voice-mu::before { color: var(--gold); }
+  .followup-chip.voice-mu:hover { background: var(--gold-soft); border-color: var(--gold); }
+
+  .followup-chip.voice-psy {
+    background: #faf6fd;
+    border-color: rgba(184, 165, 201, 0.5);
+    color: #6e549a;
+  }
+  .followup-chip.voice-psy::before { color: var(--lavender); }
+  .followup-chip.voice-psy:hover { background: #f1e8f7; border-color: var(--lavender); }
+
+  .followup-chip.voice-companion {
+    background: #f4faf4;
+    border-color: rgba(168, 201, 168, 0.5);
+    color: #4a6e4a;
+  }
+  .followup-chip.voice-companion::before { color: var(--sage); }
+  .followup-chip.voice-companion:hover { background: #e6f3e6; border-color: var(--sage); }
+
+  /* Untagged fallback (gold neutral) */
+  .followup-chip:not(.voice-mu):not(.voice-psy):not(.voice-companion)::before {
     color: var(--gold);
   }
+  .followup-chip:not(.voice-mu):not(.voice-psy):not(.voice-companion):hover {
+    background: var(--gold-soft);
+    border-color: var(--gold);
+  }
 
-  /* === INPUT BAR === */
+  /* === INPUT BAR (sticky bottom) === */
+  .input-wrap {
+    position: sticky;
+    bottom: 12px;
+    z-index: 50;
+    margin-top: 14px;
+  }
   .input-bar {
     background: white;
     border-radius: 18px;
     padding: 12px;
     border: 1px solid rgba(61, 44, 78, 0.08);
-    box-shadow: 0 4px 20px rgba(15, 10, 30, 0.04);
+    box-shadow: 0 8px 28px rgba(15, 10, 30, 0.10);
     display: flex;
     gap: 10px;
     align-items: end;
+  }
+  /* Fade behind sticky bar so chat doesn't show through */
+  .input-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -20px -8px -12px -8px;
+    background: linear-gradient(to bottom,
+      rgba(245, 239, 230, 0) 0%,
+      rgba(245, 239, 230, 0.85) 35%,
+      var(--cream) 70%);
+    z-index: -1;
+    pointer-events: none;
   }
   .input-bar textarea {
     flex: 1;
@@ -705,15 +753,17 @@
     </div>
   </div>
 
-  <!-- Input -->
-  <div class="input-bar">
-    <textarea id="input" placeholder="พิมพ์คำถาม...  (Enter ส่ง · Shift+Enter ขึ้นบรรทัดใหม่)" rows="1"></textarea>
-    <button id="send-btn" aria-label="ส่ง">↑</button>
-  </div>
+  <!-- Sticky input wrap -->
+  <div class="input-wrap">
+    <div class="input-bar">
+      <textarea id="input" placeholder="พิมพ์คำถาม...  (Enter ส่ง · Shift+Enter ขึ้นบรรทัดใหม่)" rows="1"></textarea>
+      <button id="send-btn" aria-label="ส่ง">↑</button>
+    </div>
 
-  <div class="meta-bar">
-    <span class="quota" id="quota">เหลือ 5 คำถามวันนี้ · ฟรี</span>
-    <button class="upgrade" id="upgrade-btn">+ ใส่ email ปลดล็อค 50/วัน</button>
+    <div class="meta-bar">
+      <span class="quota" id="quota">เหลือ 5 คำถามวันนี้ · ฟรี</span>
+      <button class="upgrade" id="upgrade-btn">+ ใส่ email ปลดล็อค 50/วัน</button>
+    </div>
   </div>
 
 </main>
@@ -762,11 +812,11 @@ function calculateArchetype(d, m, y) {
 }
 
 const ARCHETYPE_NAMES = {
-  1: 'นักสร้างสรรค์', 2: 'ผู้หยั่งรู้', 3: 'จักรพรรดินี', 4: 'จักรพรรดิ',
-  5: 'ผู้ส่งสาร', 6: 'คู่รัก', 7: 'ผู้พิชิต', 8: 'ผู้ทรงพลัง',
-  9: 'ผู้แสวงหา', 10: 'วงล้อโชค', 11: 'ผู้ยุติธรรม', 12: 'ผู้เสียสละ',
-  13: 'การเปลี่ยน', 14: 'ผู้สมดุล', 15: 'ผู้ผูกมัด', 16: 'ผู้สร้างใหม่',
-  17: 'ดวงดาว', 18: 'พระจันทร์', 19: 'พระอาทิตย์', 20: 'ผู้ตื่นรู้',
+  1: 'นักสร้างสรรค์', 2: 'ผู้หยั่งรู้', 3: 'จักรพรรดินี', 4: 'ผู้สร้างฐาน',
+  5: 'ครูแห่งจิตวิญญาณ', 6: 'ผู้รัก', 7: 'ผู้พิชิต', 8: 'พลังภายใน',
+  9: 'ผู้แสวงหา', 10: 'วงล้อแห่งโชค', 11: 'ผู้ตัดสินด้วยใจ', 12: 'ผู้มองมุมต่าง',
+  13: 'ผู้ผ่านการเปลี่ยน', 14: 'ผู้สมดุล', 15: 'ผู้ปลดพันธนาการ', 16: 'ผู้สร้างใหม่',
+  17: 'ผู้ส่องแสง', 18: 'ผู้ฝัน', 19: 'ดวงอาทิตย์', 20: 'ผู้ตื่นรู้',
   21: 'ผู้สำเร็จ', 22: 'ผู้เริ่มใหม่'
 };
 
@@ -924,13 +974,17 @@ function renderMessages() {
       label.textContent = '✦ ลองถามต่อ';
       followups.appendChild(label);
       m.suggestions.forEach(sugg => {
+        // Support both shapes: string OR { voice, text }
+        const text = typeof sugg === 'string' ? sugg : (sugg.text || '');
+        const voice = typeof sugg === 'object' ? sugg.voice : null;
+        if (!text) return;
         const btn = document.createElement('button');
-        btn.className = 'followup-chip';
+        btn.className = 'followup-chip' + (voice ? ' voice-' + voice : '');
         btn.type = 'button';
-        btn.textContent = sugg;
+        btn.textContent = text;
         btn.addEventListener('click', () => {
           if (state.isLoading) return;
-          sendQuestion(sugg);
+          sendQuestion(text);
         });
         followups.appendChild(btn);
       });
