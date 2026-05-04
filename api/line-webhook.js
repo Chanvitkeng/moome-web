@@ -340,6 +340,7 @@ async function handleEvent(event) {
   if (event.type === 'message' && event.message?.type === 'text') {
     const text = String(event.message.text || '').trim();
     if (!text) return;
+    console.log('[LINE webhook] message received:', text.substring(0, 50));
 
     // Auto-create user if first message (no follow event captured)
     if (!user) {
@@ -383,6 +384,8 @@ async function handleEvent(event) {
 
     let aiResult;
     try {
+      console.log('[LINE webhook] calling AI...');
+      const t0 = Date.now();
       aiResult = await askAI({
         question: text,
         archetype,
@@ -391,13 +394,17 @@ async function handleEvent(event) {
         history,
         facts,
       });
+      console.log('[LINE webhook] AI responded in', Date.now() - t0, 'ms');
     } catch (err) {
-      console.error('askAI failed:', err);
-      await replyMessage(event.replyToken, [textMessage('ขออภัย AI ขัดข้องชั่วคราว · ลองใหม่ภายหลังนะครับ')]);
+      console.error('[LINE webhook] askAI failed:', err.message);
+      try {
+        await replyMessage(event.replyToken, [textMessage('ขออภัย AI ขัดข้องชั่วคราว · ลองใหม่ภายหลังนะครับ')]);
+      } catch (e) { console.error('[LINE webhook] error reply also failed:', e.message); }
       return;
     }
 
     const { answer, voices, suggestions } = aiResult;
+    console.log('[LINE webhook] parsed: answer len=', answer?.length, 'voices=', !!voices, 'suggestions=', suggestions?.length);
 
     // Save messages to DB (best-effort)
     try {
@@ -435,7 +442,21 @@ async function handleEvent(event) {
     }
 
     // 4. Send reply (max 5 messages)
-    await replyMessage(event.replyToken, messages.slice(0, 5));
+    console.log('[LINE webhook] sending reply with', messages.length, 'messages');
+    try {
+      await replyMessage(event.replyToken, messages.slice(0, 5));
+      console.log('[LINE webhook] reply success');
+    } catch (err) {
+      console.error('[LINE webhook] reply FAILED:', err.message);
+      // Try plain text fallback
+      try {
+        const fallback = [textMessage(`#${archetype} ${archName}\n\n${answer.substring(0, 1000)}`)];
+        await replyMessage(event.replyToken, fallback);
+        console.log('[LINE webhook] fallback text reply sent');
+      } catch (e) {
+        console.error('[LINE webhook] fallback reply also failed:', e.message);
+      }
+    }
     return;
   }
 
