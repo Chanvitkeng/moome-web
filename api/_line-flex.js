@@ -36,7 +36,6 @@ export function heroCardWithAnswer({ archetype, archName, age, mainAnswer }) {
             color: COLORS.goldSoft,
             size: 'xxs',
             weight: 'bold',
-            tracking: '0.2em',
           },
           {
             type: 'text',
@@ -108,7 +107,6 @@ export function voiceCard({ voice, label, text }) {
             color: palette.label,
             size: 'xxs',
             weight: 'bold',
-            tracking: '0.18em',
           },
           {
             type: 'text',
@@ -174,7 +172,7 @@ export function welcomeMessage() {
         backgroundColor: COLORS.plum,
         paddingAll: '20px',
         contents: [
-          { type: 'text', text: '✦ MOOME', color: COLORS.gold, size: 'lg', weight: 'bold', tracking: '0.3em' },
+          { type: 'text', text: '✦ MOOME', color: COLORS.gold, size: 'lg', weight: 'bold', },
           { type: 'text', text: 'มู-มี · ดวงที่ฟัง ก่อนพูด', color: COLORS.goldSoft, size: 'sm', margin: 'sm' },
         ],
       },
@@ -233,7 +231,7 @@ export function birthSavedMessage(archetype, archName) {
         borderWidth: '4px',
         cornerRadius: '12px',
         contents: [
-          { type: 'text', text: '✦ YOUR ARCHETYPE', color: COLORS.gold, size: 'xxs', weight: 'bold', tracking: '0.2em' },
+          { type: 'text', text: '✦ YOUR ARCHETYPE', color: COLORS.gold, size: 'xxs', weight: 'bold', },
           { type: 'text', text: `#${archetype}`, color: COLORS.gold, size: '4xl', weight: 'bold', margin: 'sm' },
           { type: 'text', text: archName, color: COLORS.plum, size: 'lg', weight: 'bold' },
           { type: 'separator', margin: 'md', color: COLORS.goldSoft },
