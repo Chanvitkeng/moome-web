@@ -57,15 +57,51 @@ const ARCHETYPE_NAMES = {
   22: 'ผู้เริ่มใหม่ (Innocent)',
 };
 
+// Calculate age in years from DD/MM/YYYY birth date
+function calculateAge(birthDate) {
+  try {
+    const parts = String(birthDate).split('/');
+    if (parts.length !== 3) return null;
+    const d = parseInt(parts[0]);
+    const m = parseInt(parts[1]);
+    const y = parseInt(parts[2]);
+    if (!d || !m || !y) return null;
+    const today = new Date();
+    let age = today.getFullYear() - y;
+    const monthDiff = today.getMonth() + 1 - m;
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < d)) age--;
+    if (age < 0 || age > 150) return null;
+    return age;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Get current Thai date string for context
+function getThaiCurrentDate() {
+  const now = new Date();
+  // Use Bangkok timezone (UTC+7) for accurate Thai date
+  const bkk = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+  const thaiMonths = ['', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                      'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+  return `${bkk.getUTCDate()} ${thaiMonths[bkk.getUTCMonth() + 1]} ${bkk.getUTCFullYear()}`;
+}
+
 function buildSystemPrompt(archetype, birthDate, archName) {
   const archStr = archetype ? `#${archetype} ${ARCHETYPE_NAMES[archetype] || archName || ''}` : '(ยังไม่ระบุ)';
   const birthStr = birthDate || '(ยังไม่ระบุ)';
+  const age = calculateAge(birthDate);
+  const ageStr = age !== null ? `${age} ปี` : '(ไม่ระบุ)';
+  const todayStr = getThaiCurrentDate();
 
   return `คุณคือผู้ช่วยของ Moome — แพลตฟอร์ม self-awareness ที่ใช้ Russian Destiny Matrix (22 archetypes ตาม Tarot Major Arcana)
+
+วันที่ปัจจุบัน: ${todayStr}
 
 ข้อมูลของผู้ถามรอบนี้:
 - Archetype: ${archStr}
 - วันเกิด: ${birthStr}
+- อายุปัจจุบัน: ${ageStr}
 
 แนวทางการตอบ:
 1. ตอบเป็นภาษาไทยเสมอ (ใช้ภาษาไทยล้วน · ไม่ผสมอังกฤษเกินจำเป็น · ใช้คำธรรมดา ไม่หรูเกิน)
@@ -77,6 +113,8 @@ function buildSystemPrompt(archetype, birthDate, archName) {
 7. ความยาวคำตอบ: 2-4 ย่อหน้า สั้นๆ ไม่ยาว
 8. ถ้าคำถามไม่เกี่ยวกับ self-awareness/ชีวิต/ความสัมพันธ์/การงาน — ตอบสั้นๆ ว่าไม่ใช่ขอบเขต Moome และเสนอให้ถามเรื่องที่เกี่ยวข้อง
 9. ห้ามใช้ markdown bold (** หรือ __) หรือ italic ในคำตอบ — ใช้ข้อความธรรมดาเท่านั้น (UI ไม่ render markdown)
+10. ถ้าผู้ถามอ้างอายุที่ไม่ตรงกับข้อมูลด้านบน — ให้เชื่อข้อมูลด้านบน (ที่คำนวณจากวันเกิด) ไม่ใช่ที่ผู้ถามพิมพ์
+11. ในคำตอบ อ้างอิงอายุที่คำนวณได้ (ถ้าเกี่ยว) เพื่อให้คำตอบ tailor ตามวัย เช่น คนวัย 41 มีบริบทต่างจากวัย 28
 
 หลังจบคำตอบหลัก ให้ลงท้ายด้วย section นี้เสมอ (ไม่ต้องมีข้อความเชื่อม):
 
