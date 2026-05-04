@@ -200,7 +200,7 @@ companion | งานในฝันของผมหน้าตาเป็�
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1200,
+      max_tokens: 900,  // shorter = faster · LINE chat doesn't need long form
       system: systemPrompt,
       messages,
     }),
@@ -392,6 +392,18 @@ async function handleEvent(event) {
     }
 
     // 3. Process as a question — call AI
+
+    // Show loading indicator (LINE chat indicator) · doesn't consume reply token
+    // Note: LINE chat shows typing animation when we call this API
+    fetch('https://api.line.me/v2/bot/chat/loading/start', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({ chatId: userId, loadingSeconds: 20 }),
+    }).catch(e => console.warn('[LINE webhook] loading indicator failed:', e.message));
+
     const archetype = user.archetype;
     const archName = ARCHETYPE_NAMES[archetype] || '—';
 
@@ -439,13 +451,8 @@ async function handleEvent(event) {
       console.log('[LINE webhook] using fallback suggestions');
     }
 
-    // Save messages to DB (best-effort)
-    try {
-      await saveChatMessage({ userId: user.id, role: 'user', content: text });
-      await saveChatMessage({ userId: user.id, role: 'assistant', content: answer, voices, suggestions: finalSuggestions });
-    } catch (e) { console.warn('saveChatMessage failed:', e); }
-
-    // Build reply messages
+    // Build reply messages FIRST · DB save AFTER reply for faster perceived latency
+    // (parallel save runs while user is reading the bot's response)
     const messages = [];
 
     // 1. Hero card with main answer
@@ -476,26 +483,37 @@ async function handleEvent(event) {
 
     // 4. Try reply first · fallback to push if reply token expired
     console.log('[LINE webhook] sending reply with', messages.length, 'messages');
+    let replied = false;
     try {
       await replyMessage(event.replyToken, messages.slice(0, 5));
       console.log('[LINE webhook] reply success');
+      replied = true;
     } catch (err) {
       console.error('[LINE webhook] reply FAILED:', err.message);
-      // Reply token may have expired (>30s) · use push API instead
       try {
         await pushMessage(userId, messages.slice(0, 5));
         console.log('[LINE webhook] pushMessage success (reply token expired)');
+        replied = true;
       } catch (pushErr) {
         console.error('[LINE webhook] push also failed:', pushErr.message);
-        // Last resort: plain text via push
         try {
           await pushMessage(userId, [textMessage(`#${archetype} ${archName}\n\n${answer.substring(0, 1000)}`)]);
           console.log('[LINE webhook] plain text push success');
+          replied = true;
         } catch (e) {
           console.error('[LINE webhook] all reply attempts failed');
         }
       }
     }
+
+    // 5. Save messages to DB AFTER reply (best-effort · user already saw response)
+    try {
+      await Promise.all([
+        saveChatMessage({ userId: user.id, role: 'user', content: text }),
+        saveChatMessage({ userId: user.id, role: 'assistant', content: answer, voices, suggestions: finalSuggestions }),
+      ]);
+    } catch (e) { console.warn('[LINE webhook] saveChatMessage failed:', e.message); }
+
     return;
   }
 
