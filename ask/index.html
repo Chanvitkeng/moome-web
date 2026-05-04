@@ -778,7 +778,7 @@
     <div class="meta-bar">
       <span class="quota" id="quota">เหลือ 5 คำถามวันนี้ · ฟรี</span>
       <span style="display:flex;gap:8px;align-items:center;">
-        <button class="reset-chat" id="reset-btn" title="ล้างแชทเริ่มใหม่" style="display:none;">↻ เริ่มใหม่</button>
+        <button class="reset-chat" id="reset-btn" title="ล้างประวัติแชท · ไม่กระทบ quota" style="display:none;">🗑 ล้างแชท</button>
         <button class="upgrade" id="upgrade-btn">+ ใส่ email ปลดล็อค 50/วัน</button>
       </span>
     </div>
@@ -1198,7 +1198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Reset button
   document.getElementById('reset-btn').addEventListener('click', () => {
     if (state.isLoading) return;
-    if (confirm('ล้างแชทและเริ่มใหม่? · ประวัติคำถามตอบจะหายหมด')) {
+    if (confirm('ล้างประวัติแชทเพื่อเริ่มหัวข้อใหม่?\n\nหมายเหตุ:\n• AI จะลืม context เก่า\n• quota วันนี้ไม่ได้ถูกรีเซ็ต')) {
       clearHistory();
     }
   });
