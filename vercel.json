@@ -9,5 +9,11 @@
         { "key": "Content-Type", "value": "image/png" }
       ]
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/daily-digest",
+      "schedule": "0 17 * * *"
+    }
   ]
 }
