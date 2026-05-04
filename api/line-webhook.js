@@ -145,24 +145,43 @@ Archetype: ${archStr}
 5. ถ้าผู้ถามเศร้าหนัก → แนะนำสายด่วน 1323
 6. ห้าม markdown bold/italic
 7. สรรพนาม: ใช้ "คุณ" เท่านั้น
+8. ถ้าคำถามคลุมเครือ — เดาที่เป็นไปได้สูงสุด ตอบสั้น แล้วเสนอ ---SUGGEST--- ที่ช่วยให้ระบุชัดขึ้น
+9. ทุกคำตอบต้องมี 4 sections ครบถ้วน · ห้ามขาดแม้คำถามจะสั้นมาก
 
-โครงสร้างตอบ — ลงท้ายด้วย 4 sections เสมอ:
+โครงสร้างคำตอบ — ห้ามผิดเด็ดขาด · ทุกข้อความต้องมี 4 sections นี้แม้สั้น:
 
 [คำตอบหลัก 2 ย่อหน้า · สั้นกว่าบนเว็บเพราะใน LINE]
 
 ---MU---
-[1 ประโยค · มุมศาสตร์มู]
+[1 ประโยค · มุมศาสตร์มู · ภาษาไทย]
 
 ---PSY---
 [1 ประโยค · มุมจิตวิทยา (อ้างทฤษฎีเป็นไทย)]
 
 ---COMPANION---
-[1 คำถามชวนคิด]
+[1 คำถามชวนคิด · ลงท้ายด้วย ?]
 
 ---SUGGEST---
-mu | คำถามต่อ 1 (5-10 คำ)
-psy | คำถามต่อ 2 (5-10 คำ)
-companion | คำถามต่อ 3 (5-10 คำ)`;
+mu | คำถามต่อด้านศาสตร์ 1 (5-10 คำ)
+psy | คำถามต่อด้านจิตวิทยา 1 (5-10 คำ)
+companion | คำถามต่อชวนคิด 1 (5-10 คำ)
+
+ตัวอย่างเมื่อคำถามคลุมเครือ ("เรื่องงาน"):
+[คำตอบ: "ในวัย ${ageStr} + ${archName || 'ตัวตน'} เรื่องงานมีหลายแง่มุม ลองบอกเพิ่มได้ว่าตอนนี้คุณอึดอัดเรื่องอะไรเป็นพิเศษ — งานปัจจุบัน ทิศทางอาชีพ หรือความสัมพันธ์ในที่ทำงาน?"]
+
+---MU---
+ตัวตนของคุณมักให้สัญญาณผ่านความอึดอัดบางช่วง ลองสังเกตว่ามันชี้ไปทางไหนบ่อยที่สุด
+
+---PSY---
+ความอึดอัดในงานมักมาจาก 3 แหล่ง — ภายในใจ ระหว่างคน หรือสภาพแวดล้อม
+
+---COMPANION---
+ถ้าได้ตอบตรงๆ คุณจะเริ่มเล่าว่า "งานทำให้ผม..." อะไรขึ้นมาก่อน?
+
+---SUGGEST---
+mu | ตัวตนผมเหมาะสายงานแบบไหน?
+psy | ทำไมผมอึดอัดในงานปัจจุบัน?
+companion | งานในฝันของผมหน้าตาเป็นยังไง?`;
 
   const messages = [];
   if (Array.isArray(history) && history.length > 0) {
@@ -409,10 +428,21 @@ async function handleEvent(event) {
     const { answer, voices, suggestions } = aiResult;
     console.log('[LINE webhook] parsed: answer len=', answer?.length, 'voices=', !!voices, 'suggestions=', suggestions?.length);
 
+    // Fallback: default suggestions if AI didn't send any
+    let finalSuggestions = suggestions;
+    if (!Array.isArray(suggestions) || suggestions.length === 0) {
+      finalSuggestions = [
+        { voice: 'mu',        text: `${archName} เด่นด้านไหน?` },
+        { voice: 'psy',       text: 'ทำไมผมรู้สึกอย่างนี้?' },
+        { voice: 'companion', text: 'จุดเริ่มต้นของผมคืออะไร?' },
+      ];
+      console.log('[LINE webhook] using fallback suggestions');
+    }
+
     // Save messages to DB (best-effort)
     try {
       await saveChatMessage({ userId: user.id, role: 'user', content: text });
-      await saveChatMessage({ userId: user.id, role: 'assistant', content: answer, voices, suggestions });
+      await saveChatMessage({ userId: user.id, role: 'assistant', content: answer, voices, suggestions: finalSuggestions });
     } catch (e) { console.warn('saveChatMessage failed:', e); }
 
     // Build reply messages
@@ -437,7 +467,7 @@ async function handleEvent(event) {
     }
 
     // 3. Quick Reply attached to last message
-    const qr = quickReplyFromSuggestions(suggestions);
+    const qr = quickReplyFromSuggestions(finalSuggestions);
     if (qr && messages.length > 0) {
       const last = messages[messages.length - 1];
       // Quick Reply attaches to message · works on text/flex
