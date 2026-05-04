@@ -144,3 +144,20 @@ export async function updateUserBirth(userId, birthDate, archetype) {
     .eq('id', userId);
   if (error) console.error('updateUserBirth failed:', error);
 }
+
+// Webhook event deduplication via DB
+// Returns true if this is a NEW event (process it) · false if already seen (skip)
+export async function tryClaimWebhookEvent(eventId) {
+  if (!eventId) return true; // No id · process anyway
+  const sb = getSupabase();
+  const { error } = await sb
+    .from('moome_webhook_events')
+    .insert({ event_id: eventId });
+  if (error) {
+    // Unique violation = duplicate
+    if (error.code === '23505') return false;
+    console.warn('tryClaimWebhookEvent error:', error.message);
+    return true; // On other errors · process to avoid losing messages
+  }
+  return true;
+}

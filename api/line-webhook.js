@@ -12,7 +12,7 @@ import {
   askForBirthDate,
   birthSavedMessage,
 } from './_line-flex.js';
-import { upsertUser, getSupabase, saveChatMessage, getChatHistory, getUserFacts, updateUserBirth } from './_supabase.js';
+import { upsertUser, getSupabase, saveChatMessage, getChatHistory, getUserFacts, updateUserBirth, tryClaimWebhookEvent } from './_supabase.js';
 
 // =====================================================
 // Destiny Matrix calc — must match /calculate/ algorithm
@@ -294,33 +294,30 @@ export default async function handler(req, res) {
 
   const events = body.events || [];
 
-  // Process events with dedup · sync to fit within LINE 30s window
+  // Process events with PERSISTENT dedup via Supabase
+  let processedCount = 0;
+  let skippedCount = 0;
   for (const event of events) {
     const eid = event.webhookEventId;
-    if (eid && processedEvents.has(eid)) {
+
+    // Atomic claim: insert event_id · if duplicate, skip
+    const isNew = await tryClaimWebhookEvent(eid);
+    if (!isNew) {
       console.log('[LINE webhook] skipping duplicate event:', eid);
+      skippedCount++;
       continue;
     }
-    if (eid) {
-      processedEvents.add(eid);
-      // Cap memory: keep last 200 ids
-      if (processedEvents.size > 200) {
-        const oldest = processedEvents.values().next().value;
-        processedEvents.delete(oldest);
-      }
-    }
+
     try {
       await handleEvent(event);
+      processedCount++;
     } catch (err) {
       console.error('[LINE webhook] event handler error:', err);
     }
   }
 
-  return res.status(200).json({ ok: true, processed: events.length });
+  return res.status(200).json({ ok: true, processed: processedCount, skipped: skippedCount });
 }
-
-// In-memory dedup set · resets on cold start (best-effort)
-const processedEvents = new Set();
 
 // =====================================================
 // Per-event handler
