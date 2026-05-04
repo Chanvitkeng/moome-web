@@ -744,19 +744,21 @@
 
 <script>
 // =====================================================
-// Destiny Matrix Calculator (sum→reduce, max 22)
+// Destiny Matrix Calculator (Russian style — subtract-22)
+// MUST match /calculate/ algorithm exactly
 // =====================================================
-function reduce(n) {
-  while (n > 22 && n !== 11 && n !== 22) {
-    n = String(n).split('').reduce((a, b) => a + parseInt(b), 0);
-  }
+function reduceTo22(n) {
+  while (n > 22) n -= 22;
   return n;
 }
+function yearDigitSum(year) {
+  return String(year).split('').reduce((a, b) => a + parseInt(b), 0);
+}
 function calculateArchetype(d, m, y) {
-  const dayN = reduce(d);
-  const monthN = reduce(m);
-  const yearN = reduce(String(y).split('').reduce((a, b) => a + parseInt(b), 0));
-  return reduce(dayN + monthN + yearN);
+  const A = reduceTo22(d);                      // day reduced if > 22
+  const B = m;                                  // month 1-12 (no reduce needed)
+  const C = reduceTo22(yearDigitSum(y));        // year digit sum, reduced once if > 22
+  return reduceTo22(A + B + C);                 // sum reduced to 1-22
 }
 
 const ARCHETYPE_NAMES = {
