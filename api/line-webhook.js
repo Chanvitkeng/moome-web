@@ -249,12 +249,23 @@ export default async function handler(req, res) {
   const rawBody = await readRawBody(req);
   const bodyStr = rawBody.toString('utf8');
 
-  // 2. Verify signature
+  // 2. Verify signature (skippable via env for debug)
   const signature = req.headers['x-line-signature'];
   const channelSecret = process.env.LINE_CHANNEL_SECRET;
-  if (!verifySignature(bodyStr, signature, channelSecret)) {
-    console.warn('LINE signature invalid');
-    return res.status(401).json({ error: 'Invalid signature' });
+  const skipVerify = process.env.LINE_SKIP_VERIFY === 'true';
+
+  if (!skipVerify) {
+    const valid = verifySignature(bodyStr, signature, channelSecret);
+    if (!valid) {
+      // Log details for debugging
+      console.warn('[LINE webhook] signature mismatch', {
+        hasSecret: !!channelSecret,
+        hasSignature: !!signature,
+        bodyLen: bodyStr.length,
+        bodyPreview: bodyStr.substring(0, 100),
+      });
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
   }
 
   // 3. Parse events
