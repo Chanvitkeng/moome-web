@@ -3,7 +3,7 @@
 // Receives events from Moome OA · routes to AI Q&A · replies with Flex Cards
 
 import crypto from 'crypto';
-import { replyMessage, getUserProfile, textMessage } from './_line.js';
+import { replyMessage, pushMessage, getUserProfile, textMessage } from './_line.js';
 import {
   heroCardWithAnswer,
   tripleVoiceCarousel,
@@ -358,13 +358,16 @@ async function handleEvent(event) {
       const archetype = calculateArchetype(birth.d, birth.m, birth.y);
       const archName = ARCHETYPE_NAMES[archetype] || '—';
       const birthDateStr = `${birth.d}/${birth.m}/${birth.y}`;
+      console.log('[LINE webhook] saving birth_date:', birthDateStr, '→ archetype', archetype);
       await updateUserBirth(user.id, birthDateStr, archetype);
+      console.log('[LINE webhook] birth_date saved');
       await replyMessage(event.replyToken, [birthSavedMessage(archetype, archName)]);
       return;
     }
 
     // 2. Need birth date before answering questions
     if (!user.birth_date) {
+      console.log('[LINE webhook] user has no birth_date · asking');
       await replyMessage(event.replyToken, [askForBirthDate()]);
       return;
     }
@@ -441,20 +444,26 @@ async function handleEvent(event) {
       last.quickReply = qr;
     }
 
-    // 4. Send reply (max 5 messages)
+    // 4. Try reply first · fallback to push if reply token expired
     console.log('[LINE webhook] sending reply with', messages.length, 'messages');
     try {
       await replyMessage(event.replyToken, messages.slice(0, 5));
       console.log('[LINE webhook] reply success');
     } catch (err) {
       console.error('[LINE webhook] reply FAILED:', err.message);
-      // Try plain text fallback
+      // Reply token may have expired (>30s) · use push API instead
       try {
-        const fallback = [textMessage(`#${archetype} ${archName}\n\n${answer.substring(0, 1000)}`)];
-        await replyMessage(event.replyToken, fallback);
-        console.log('[LINE webhook] fallback text reply sent');
-      } catch (e) {
-        console.error('[LINE webhook] fallback reply also failed:', e.message);
+        await pushMessage(userId, messages.slice(0, 5));
+        console.log('[LINE webhook] pushMessage success (reply token expired)');
+      } catch (pushErr) {
+        console.error('[LINE webhook] push also failed:', pushErr.message);
+        // Last resort: plain text via push
+        try {
+          await pushMessage(userId, [textMessage(`#${archetype} ${archName}\n\n${answer.substring(0, 1000)}`)]);
+          console.log('[LINE webhook] plain text push success');
+        } catch (e) {
+          console.error('[LINE webhook] all reply attempts failed');
+        }
       }
     }
     return;
