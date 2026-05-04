@@ -4,7 +4,7 @@
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-haiku-4-5-20251001';
-const MAX_TOKENS = 800;
+const MAX_TOKENS = 1400;
 
 // In-memory rate limit (resets on cold start — good enough for MVP)
 const rateLimits = new Map();
@@ -106,43 +106,96 @@ function buildSystemPrompt(archetype, birthDate, archName) {
 แนวทางการตอบ:
 1. ตอบเป็นภาษาไทยเสมอ (ใช้ภาษาไทยล้วน · ไม่ผสมอังกฤษเกินจำเป็น · ใช้คำธรรมดา ไม่หรูเกิน)
 2. ตอบสั้น กระชับ ใช้น้ำเสียงอุ่น เป็นมิตร เหมือนเพื่อนที่เข้าใจศาสตร์มู
-3. อ้างอิง archetype ของผู้ถามถ้าเข้ากับคำถาม (อย่ายัด ถ้าไม่เกี่ยว ก็ไม่ต้อง)
+3. อ้างอิง archetype + อายุของผู้ถามตั้งแต่ประโยคแรก (proactive ไม่ต้องรอผู้ถามอ้าง) เช่น "ในวัย 35 ปี + วงล้อโชค #10..."
 4. ห้ามให้คำแนะนำทางการแพทย์ กฎหมาย หรือการเงินแบบเฉพาะเจาะจง — แนะนำให้ปรึกษาผู้เชี่ยวชาญแทน
 5. ห้ามทำนายอนาคตแบบกำหนดได้ 100% — Moome คือ self-awareness ไม่ใช่หมอดู
 6. ถ้าผู้ถามเศร้าหนัก / มีความคิดทำร้ายตัวเอง → แนะนำสายด่วนสุขภาพจิต 1323 (กรมสุขภาพจิต) ทันทีและไม่หาเหตุผล
-7. ความยาวคำตอบ: 2-4 ย่อหน้า สั้นๆ ไม่ยาว
+7. ความยาวคำตอบหลัก: 2-3 ย่อหน้า ไม่ยาว
 8. ถ้าคำถามไม่เกี่ยวกับ self-awareness/ชีวิต/ความสัมพันธ์/การงาน — ตอบสั้นๆ ว่าไม่ใช่ขอบเขต Moome และเสนอให้ถามเรื่องที่เกี่ยวข้อง
 9. ห้ามใช้ markdown bold (** หรือ __) หรือ italic ในคำตอบ — ใช้ข้อความธรรมดาเท่านั้น (UI ไม่ render markdown)
-10. ถ้าผู้ถามอ้างอายุที่ไม่ตรงกับข้อมูลด้านบน — ให้เชื่อข้อมูลด้านบน (ที่คำนวณจากวันเกิด) ไม่ใช่ที่ผู้ถามพิมพ์
-11. ในคำตอบ อ้างอิงอายุที่คำนวณได้ (ถ้าเกี่ยว) เพื่อให้คำตอบ tailor ตามวัย เช่น คนวัย 41 มีบริบทต่างจากวัย 28
+10. ถ้าผู้ถามอ้างอายุที่ไม่ตรงกับข้อมูลด้านบน — ใช้ข้อมูลด้านบน (ที่คำนวณจากวันเกิด) ไม่ต้องบอกว่าผู้ถามพิมพ์ผิด · เนียนๆ ใช้อายุจริง
 
-หลังจบคำตอบหลัก ให้ลงท้ายด้วย section นี้เสมอ (ไม่ต้องมีข้อความเชื่อม):
+โครงสร้างคำตอบ — ห้ามผิดเด็ดขาด ลงท้ายด้วย 4 sections นี้เสมอ:
+
+[คำตอบหลัก 2-3 ย่อหน้า]
+
+---MU---
+[เสียงของศาสตร์มู · 1-2 ประโยค · มุมจาก Destiny Matrix archetype + พลังงาน + จังหวะชีวิต · เน้นมุมศาสตร์ตะวันออก/ตะวันตก]
+
+---PSY---
+[เสียงของจิตวิทยาสมัยใหม่ · 1-2 ประโยค · อ้าง concept psychology ที่เกี่ยวข้อง เช่น Big Five (Openness/Conscientiousness), MBTI (T/F, J/P), Cognitive Bias, Attachment Style, Self-determination theory ฯลฯ · ให้ practical insight]
+
+---COMPANION---
+[เสียงของเพื่อนคู่คิด · 1 ประโยคเป็นคำถามชวนคิด · ไม่บอกคำตอบ · กระตุ้นให้ user ค้นพบเอง · ขึ้นต้นด้วยคำถาม]
 
 ---SUGGEST---
-- คำถามต่อข้อ 1 (สั้น 5-12 คำ · ลึกลงในประเด็นเดิม)
-- คำถามต่อข้อ 2 (สั้น 5-12 คำ · มุมที่เกี่ยวข้องแต่ขยับไปอีกแง่)
-- คำถามต่อข้อ 3 (สั้น 5-12 คำ · เชื่อมเข้ากับ archetype หรือชีวิต)
+- คำถามต่อข้อ 1 (สั้น 5-12 คำ · ลึกในประเด็นเดิม)
+- คำถามต่อข้อ 2 (สั้น 5-12 คำ · มุมที่เกี่ยวข้องแต่ขยับ)
+- คำถามต่อข้อ 3 (สั้น 5-12 คำ · เชื่อม archetype หรือชีวิต)
 
-ตัวอย่าง suggestion ที่ดี: "วันแบบไหนเหมาะกับการตัดสินใจ?", "Justice ในความรักเป็นยังไง?", "ทำยังไงตอนตัดสินใจไม่ได้สักที?"
+ตัวอย่างที่ดี — ถาม "ผมควรเปลี่ยนงานไหม":
 
-จดจำว่า: คุณกำลังคุยกับคนที่เพิ่งรู้จัก archetype ของตัวเอง · ตอบในมุมที่ช่วยให้เขาเข้าใจตัวเองมากขึ้น`;
+[คำตอบหลัก: ในวัย 35 + วงล้อโชค #10 คุณอยู่ในช่วงที่ archetype ปลุกความเปลี่ยนพอดี... 2-3 ย่อหน้า]
+
+---MU---
+ใน Destiny Matrix #10 วงล้อโชค คือพลังของวัฏจักร ไม่ใช่หมายความว่าต้องรอโชค แต่หมายว่าคุณรู้จังหวะของตัวเองดี ปี 35 มักเป็นช่วงที่วงล้อหมุนอีกรอบ
+
+---PSY---
+จากกรอบ Self-determination Theory ความอึดอัดในงานบางครั้งบอกว่ามี autonomy / competence / relatedness ที่ขาด ลองเช็ค 3 อันนี้ก่อนตัดสินใจเปลี่ยน
+
+---COMPANION---
+ถ้าคุณตื่นพรุ่งนี้แล้วงานนี้กลายเป็นงานในฝัน อะไรคือสิ่งที่ต้องเปลี่ยนเป็นอันดับแรก?
+
+---SUGGEST---
+- 3 หลักจิตวิทยาที่ควรเช็คก่อนเปลี่ยนงาน?
+- วงล้อโชคในวัย 35 คือวงรอบไหน?
+- ทำยังไงให้ทำใจได้ว่าจะลาออก?
+
+จดจำว่า: คุณกำลังคุยกับคนที่อยากรู้จักตัวเองมากขึ้น · 3 voices ต้องเสริมกัน ไม่ซ้ำ · main answer ห้ามรวม 3 voices เข้าด้วยกัน`;
 }
 
-// Parse suggestions from AI response
-function parseSuggestions(rawText) {
-  const marker = '---SUGGEST---';
-  const idx = rawText.indexOf(marker);
-  if (idx === -1) {
-    return { answer: rawText.trim(), suggestions: [] };
+// Extract section between marker and next marker (or end)
+function extractSection(text, startMarker, endMarkers) {
+  const startIdx = text.indexOf(startMarker);
+  if (startIdx === -1) return { content: '', remaining: text };
+  let endIdx = text.length;
+  for (const end of endMarkers) {
+    const i = text.indexOf(end, startIdx + startMarker.length);
+    if (i !== -1 && i < endIdx) endIdx = i;
   }
-  const answer = rawText.slice(0, idx).trim();
-  const suggestText = rawText.slice(idx + marker.length).trim();
-  const suggestions = suggestText
+  const content = text.slice(startIdx + startMarker.length, endIdx).trim();
+  return {
+    content,
+    remaining: text.slice(0, startIdx).trim(),
+  };
+}
+
+// Parse Triple Voice Output + Suggestions from AI response
+function parseTripleVoiceAndSuggestions(rawText) {
+  const allMarkers = ['---MU---', '---PSY---', '---COMPANION---', '---SUGGEST---'];
+
+  const sug = extractSection(rawText, '---SUGGEST---', []);
+  const suggestions = sug.content
     .split('\n')
     .map(line => line.replace(/^[-•*\d.]+\s*/, '').trim())
-    .filter(line => line.length > 0 && line.length < 120)
+    .filter(line => line.length > 0 && line.length < 200)
     .slice(0, 3);
-  return { answer, suggestions };
+
+  const companion = extractSection(sug.remaining, '---COMPANION---', allMarkers);
+  const psy = extractSection(companion.remaining, '---PSY---', allMarkers);
+  const mu = extractSection(psy.remaining, '---MU---', allMarkers);
+
+  const answer = mu.remaining || sug.remaining || rawText.trim();
+
+  return {
+    answer,
+    voices: {
+      mu: mu.content || '',
+      psy: psy.content || '',
+      companion: companion.content || '',
+    },
+    suggestions,
+  };
 }
 
 export default async function handler(req, res) {
@@ -237,11 +290,12 @@ export default async function handler(req, res) {
 
     const data = await apiRes.json();
     const rawText = data?.content?.[0]?.text || '(ไม่มีคำตอบ)';
-    const { answer, suggestions } = parseSuggestions(rawText);
+    const { answer, voices, suggestions } = parseTripleVoiceAndSuggestions(rawText);
 
     return res.status(200).json({
       success: true,
       answer,
+      voices,
       suggestions,
       remaining: limit.remaining,
       maxPerDay,
