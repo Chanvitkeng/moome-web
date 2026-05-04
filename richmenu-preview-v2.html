@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Rich Menu Preview v2 (4 ปุ่ม) · Moome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;700&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE6; --plum: #3d2c4e; --gold: #c9a961;
+    --gold-soft: #ead8b8; --rose: #b97a8b; --sage: #8aa888;
+    --lavender: #b8a5c9; --midnight: #0f0a1e;
+    --gold-tint: #fdf9f0;
+    --rose-tint: #fdf6f8;
+    --sage-tint: #f4faf4;
+    --lavender-tint: #faf6fd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1a; padding: 20px;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    min-height: 100vh;
+  }
+  .toolbar {
+    position: sticky; top: 0;
+    background: white; padding: 16px 24px;
+    border-radius: 12px; margin-bottom: 24px;
+    display: flex; gap: 16px; align-items: center; justify-content: space-between;
+    z-index: 100;
+  }
+  .toolbar h1 { font-size: 18px; color: var(--plum); font-weight: 700; }
+  .toolbar .info { color: #666; font-size: 13px; }
+  .toolbar button {
+    background: var(--plum); color: var(--cream);
+    border: none; padding: 12px 24px; border-radius: 999px;
+    cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px;
+  }
+  .toolbar button:hover { background: var(--midnight); }
+
+  .menu-wrap {
+    background: white; padding: 20px; border-radius: 8px;
+    overflow: auto;
+  }
+  .richmenu {
+    width: 2500px; height: 1686px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .richmenu::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px;
+    background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+    opacity: 0.5; z-index: 2;
+  }
+  .panel {
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 100px 60px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .panel.calc {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(201,169,97,0.18), transparent 60%),
+      var(--gold-tint);
+    border-right: 2px solid rgba(201,169,97,0.2);
+    border-bottom: 2px solid rgba(201,169,97,0.2);
+  }
+  .panel.match {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(185,122,139,0.18), transparent 60%),
+      var(--rose-tint);
+    border-bottom: 2px solid rgba(201,169,97,0.2);
+  }
+  .panel.today {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(138,168,136,0.18), transparent 60%),
+      var(--sage-tint);
+    border-right: 2px solid rgba(201,169,97,0.2);
+  }
+  .panel.ask {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(184,165,201,0.22), transparent 60%),
+      var(--lavender-tint);
+  }
+  .eyebrow {
+    font-size: 36px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+  .calc .eyebrow { color: var(--gold); }
+  .match .eyebrow { color: var(--rose); }
+  .today .eyebrow { color: var(--sage); }
+  .ask .eyebrow { color: #8a72a8; }
+
+  .icon {
+    font-family: 'Italiana', serif;
+    font-size: 280px;
+    line-height: 1;
+    margin-bottom: 32px;
+  }
+  .icon-emoji {
+    font-size: 200px;
+    line-height: 1;
+    margin-bottom: 56px;
+  }
+  .calc .icon { color: var(--gold); }
+
+  h2 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 700;
+    font-size: 130px;
+    color: var(--plum);
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+  .hint {
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--plum);
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tappable area indicators (preview only — not in final image) */
+  .tap-zone {
+    position: absolute;
+    border: 2px dashed transparent;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .preview-mode .tap-zone {
+    border-color: rgba(0,150,0,0.4);
+    background: rgba(0,200,0,0.05);
+  }
+  .preview-mode .tap-zone::after {
+    content: attr(data-label);
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(0,150,0,0.9); color: white;
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 18px; font-weight: 600;
+  }
+
+  .checklist {
+    background: white; padding: 24px; border-radius: 12px;
+    margin-top: 24px;
+    color: #333; font-size: 14px;
+  }
+  .checklist h2 { font-size: 16px; margin-bottom: 12px; color: var(--plum); }
+  .checklist ol { padding-left: 20px; }
+  .checklist li { margin-bottom: 12px; line-height: 1.7; }
+  .checklist code {
+    background: #f0f0f0; padding: 2px 6px; border-radius: 4px;
+    font-family: monospace; font-size: 13px;
+  }
+  .actions-table {
+    width: 100%; border-collapse: collapse; margin-top: 12px;
+    font-size: 14px;
+  }
+  .actions-table th, .actions-table td {
+    border: 1px solid #ddd; padding: 8px 12px; text-align: left;
+  }
+  .actions-table th {
+    background: #f5efe6; color: var(--plum); font-weight: 700;
+  }
+  .actions-table code {
+    background: #fffbf2; color: var(--plum); font-size: 12.5px;
+    word-break: break-all;
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>✦ Moome Rich Menu v2 (4 ปุ่ม) · 2500×1686</h1>
+  <div class="info" id="status">พร้อม download · กดปุ่มเขียวด้านขวา →</div>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <button onclick="togglePreview()" id="previewBtn">Toggle tap zones</button>
+    <button onclick="downloadPNG()" id="downloadBtn" style="background:#06C755;font-size:15px;padding:14px 28px;">⬇ Download PNG</button>
+  </div>
+</div>
+
+<div class="menu-wrap">
+<div class="richmenu" id="richmenu">
+
+  <!-- Top-Left: Calculate -->
+  <div class="panel calc">
+    <div class="eyebrow">DESTINY MATRIX</div>
+    <div class="icon">✦</div>
+    <h2>คำนวณ</h2>
+    <div class="hint">วันเกิด → archetype</div>
+  </div>
+
+  <!-- Top-Right: Match -->
+  <div class="panel match">
+    <div class="eyebrow">DESTINY MATCH</div>
+    <div class="icon-emoji">💞</div>
+    <h2>ดวงคู่</h2>
+    <div class="hint">เช็คคู่ที่เข้ากัน</div>
+  </div>
+
+  <!-- Bottom-Left: Today -->
+  <div class="panel today">
+    <div class="eyebrow">DAILY VIBE</div>
+    <div class="icon-emoji">🌅</div>
+    <h2>วันนี้</h2>
+    <div class="hint">สี · ลุค · พลัง</div>
+  </div>
+
+  <!-- Bottom-Right: Ask AI -->
+  <div class="panel ask">
+    <div class="eyebrow">MOOME AI</div>
+    <div class="icon-emoji">💬</div>
+    <h2>ถามมู</h2>
+    <div class="hint">AI ตอบเฉพาะตัว</div>
+  </div>
+
+  <!-- Tap zones (visible in preview mode only) — 2x2 grid: 1250×843 each -->
+  <div class="tap-zone" style="top:0;left:0;width:50%;height:50%;" data-label="Zone A · Calculate"></div>
+  <div class="tap-zone" style="top:0;left:50%;width:50%;height:50%;" data-label="Zone B · Match"></div>
+  <div class="tap-zone" style="top:50%;left:0;width:50%;height:50%;" data-label="Zone C · Today"></div>
+  <div class="tap-zone" style="top:50%;left:50%;width:50%;height:50%;" data-label="Zone D · Ask AI"></div>
+
+</div>
+</div>
+
+<div class="checklist">
+  <h2>📋 Steps · setup ใน LINE OA Manager</h2>
+  <ol>
+    <li><strong>Download PNG</strong> — กดปุ่มเขียวด้านบน · ได้ไฟล์ <code>moome-richmenu-v2-2500x1686.png</code></li>
+    <li>เปิด <code>manager.line.biz/account/@262zpsua/richmenu</code></li>
+    <li><strong>คลิก "สร้างใหม่" (Create)</strong> — ถ้ามี Rich Menu เดิม สามารถ "ใช้" อันใหม่แทน</li>
+    <li><strong>Template:</strong> เลือก "Large" → "2 × 2" (4 ช่องเท่ากัน)</li>
+    <li>ตั้งชื่อ Title: <code>Moome Menu V2</code> · Display name: <code>เมนู Moome</code></li>
+    <li><strong>Upload PNG</strong> ที่ download มา</li>
+    <li><strong>Set Actions</strong> สำหรับแต่ละ zone:
+      <table class="actions-table">
+        <tr><th>Zone</th><th>Action</th><th>URL / Text</th></tr>
+        <tr><td>A · Calculate</td><td>Link</td><td><code>https://moome.app/calculate.html</code></td></tr>
+        <tr><td>B · Match</td><td>Link</td><td><code>https://moome.app/match.html</code></td></tr>
+        <tr><td>C · Today</td><td>Link</td><td><code>https://moome.app/today.html</code></td></tr>
+        <tr><td>D · Ask AI ⭐</td><td>Link</td><td><code>https://liff.line.me/2009970211-9UWwksI6</code></td></tr>
+      </table>
+    </li>
+    <li><strong>Save + Apply</strong> — เมนูจะอัพเดททันทีในแชท Moome OA</li>
+  </ol>
+  <p style="margin-top:16px;color:#666">💡 <strong>Tip:</strong> ปุ่ม D (LIFF) จะเปิด <code>/ask/</code> ใน LINE in-app browser พร้อม auto-login จาก LINE userId — ไม่ต้องออกไป external browser</p>
+</div>
+
+<!-- html2canvas — converts the menu div to PNG -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script>
+function togglePreview() {
+  document.getElementById('richmenu').classList.toggle('preview-mode');
+  const btn = document.getElementById('previewBtn');
+  btn.textContent = document.getElementById('richmenu').classList.contains('preview-mode')
+    ? 'Hide tap zones' : 'Show tap zones';
+}
+
+async function downloadPNG() {
+  const status = document.getElementById('status');
+  const btn = document.getElementById('downloadBtn');
+  const menu = document.getElementById('richmenu');
+
+  // Hide tap zones
+  menu.classList.remove('preview-mode');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ กำลังสร้าง...';
+  status.textContent = '⏳ กำลัง render รูป (10-20 วิ) — กรุณารอ...';
+
+  try {
+    if (document.fonts) await document.fonts.ready;
+
+    const canvas = await html2canvas(menu, {
+      width: 2500,
+      height: 1686,
+      windowWidth: 2500,
+      windowHeight: 1686,
+      scale: 1,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#F5EFE6',
+      logging: false,
+    });
+
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'moome-richmenu-v2-2500x1686.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const sizeKB = (blob.size / 1024).toFixed(0);
+      status.textContent = `✅ ดาวน์โหลดแล้ว · ${sizeKB} KB · 2500×1686 px — เช็คโฟลเดอร์ Downloads`;
+      btn.disabled = false;
+      btn.textContent = '⬇ Download PNG';
+    }, 'image/png');
+
+  } catch (err) {
+    status.textContent = '❌ Error: ' + err.message;
+    btn.disabled = false;
+    btn.textContent = '⬇ Download PNG';
+    console.error(err);
+  }
+}
+</script>
+
+</body>
+</html>
