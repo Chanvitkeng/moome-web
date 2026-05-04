@@ -576,6 +576,21 @@
     font-size: 12px;
   }
   .meta-bar .upgrade:hover { background: var(--gold); color: white; }
+  .meta-bar .reset-chat {
+    background: transparent;
+    color: var(--lavender);
+    padding: 4px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    border: 1px solid rgba(184, 165, 201, 0.4);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .meta-bar .reset-chat:hover {
+    background: rgba(184, 165, 201, 0.15);
+    color: var(--plum);
+  }
 
   /* === EMAIL UNLOCK MODAL === */
   .email-modal {
@@ -762,7 +777,10 @@
 
     <div class="meta-bar">
       <span class="quota" id="quota">เหลือ 5 คำถามวันนี้ · ฟรี</span>
-      <button class="upgrade" id="upgrade-btn">+ ใส่ email ปลดล็อค 50/วัน</button>
+      <span style="display:flex;gap:8px;align-items:center;">
+        <button class="reset-chat" id="reset-btn" title="ล้างแชทเริ่มใหม่" style="display:none;">↻ เริ่มใหม่</button>
+        <button class="upgrade" id="upgrade-btn">+ ใส่ email ปลดล็อค 50/วัน</button>
+      </span>
     </div>
   </div>
 
@@ -873,6 +891,58 @@ function loadEmail() {
   try { return localStorage.getItem('moome_email') || null; } catch (e) { return null; }
 }
 
+// === Chat history persistence (V3.3) ===
+const HISTORY_KEY = 'moome_chat_v1';
+const HISTORY_VERSION = 1;
+const MAX_HISTORY = 30;
+const HISTORY_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+function saveHistory() {
+  try {
+    const cleanMessages = state.messages
+      .filter(m => !m.thinking)
+      .slice(-MAX_HISTORY);
+    if (cleanMessages.length === 0) {
+      localStorage.removeItem(HISTORY_KEY);
+      return;
+    }
+    const payload = {
+      v: HISTORY_VERSION,
+      birthDate: state.birthDate,
+      archetype: state.archetype,
+      messages: cleanMessages,
+      savedAt: Date.now(),
+    };
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(payload));
+  } catch (e) {
+    console.warn('saveHistory failed:', e);
+  }
+}
+
+function loadHistory() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (!data || data.v !== HISTORY_VERSION) return false;
+    if (Date.now() - (data.savedAt || 0) > HISTORY_TTL_MS) {
+      localStorage.removeItem(HISTORY_KEY);
+      return false;
+    }
+    if (!Array.isArray(data.messages) || data.messages.length === 0) return false;
+    state.messages = data.messages;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function clearHistory() {
+  try { localStorage.removeItem(HISTORY_KEY); } catch (e) {}
+  state.messages = [];
+  renderMessages();
+}
+
 // =====================================================
 // UI updates
 // =====================================================
@@ -903,12 +973,15 @@ function updateQuotaDisplay(remaining, isEmailUser, max) {
 function renderMessages() {
   const chat = document.getElementById('chat');
   const empty = document.getElementById('empty-state');
+  const resetBtn = document.getElementById('reset-btn');
   if (state.messages.length === 0) {
     empty.style.display = '';
-    chat.querySelectorAll('.msg, .followups').forEach(el => el.remove());
+    chat.querySelectorAll('.msg, .voices, .followups').forEach(el => el.remove());
+    if (resetBtn) resetBtn.style.display = 'none';
     return;
   }
   empty.style.display = 'none';
+  if (resetBtn) resetBtn.style.display = '';
 
   // Remove existing messages
   chat.querySelectorAll('.msg, .voices, .followups').forEach(el => el.remove());
@@ -1034,10 +1107,11 @@ async function sendQuestion(question) {
   renderMessages();
 
   try {
-    // Build history (without thinking placeholder)
+    // Build history for API context (last 6 turns, excluding just-pushed user msg)
     const history = state.messages
-      .filter(m => !m.thinking)
+      .filter(m => !m.thinking && m.role && m.content)
       .slice(0, -1) // remove the just-added user message (sent separately)
+      .slice(-6)    // keep last 6 turns max for token budget
       .map(m => ({ role: m.role, content: m.content }));
 
     const res = await fetch('/api/ask', {
@@ -1073,6 +1147,7 @@ async function sendQuestion(question) {
       });
       updateQuotaDisplay(data.remaining, data.isEmailUser, data.maxPerDay);
     }
+    saveHistory();
   } catch (err) {
     state.messages = state.messages.filter(m => !m.thinking);
     state.messages.push({ role: 'assistant', content: '⚠️ Network error · ลองใหม่ภายหลัง' });
@@ -1113,6 +1188,20 @@ document.addEventListener('DOMContentLoaded', () => {
     state.email = storedEmail;
     updateQuotaDisplay(undefined, true);
   }
+
+  // Restore chat history
+  const restored = loadHistory();
+  if (restored) {
+    renderMessages();
+  }
+
+  // Reset button
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (state.isLoading) return;
+    if (confirm('ล้างแชทและเริ่มใหม่? · ประวัติคำถามตอบจะหายหมด')) {
+      clearHistory();
+    }
+  });
 
   // Date dropdowns + year input — recalculate on any change
   function recalcArchetype() {
