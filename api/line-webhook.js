@@ -51,15 +51,34 @@ function verifySignature(rawBody, signature, channelSecret) {
 
 // =====================================================
 // Vercel: get raw body for HMAC verify
+// On Vercel Node.js runtime, req.body may be auto-parsed.
+// We read from stream first; if already consumed, fall back to JSON.stringify(req.body).
 // =====================================================
 export const config = {
   api: { bodyParser: false },
 };
 
 async function readRawBody(req) {
-  const chunks = [];
-  for await (const chunk of req) chunks.push(chunk);
-  return Buffer.concat(chunks);
+  // Try stream first
+  try {
+    const chunks = [];
+    for await (const chunk of req) {
+      chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+    }
+    if (chunks.length > 0) {
+      return Buffer.concat(chunks).toString('utf8');
+    }
+  } catch (e) {
+    // stream already consumed
+  }
+
+  // Fallback: body already parsed — reconstruct
+  if (req.body) {
+    if (typeof req.body === 'string') return req.body;
+    if (Buffer.isBuffer(req.body)) return req.body.toString('utf8');
+    return JSON.stringify(req.body);
+  }
+  return '';
 }
 
 // =====================================================
