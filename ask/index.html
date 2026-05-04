@@ -230,44 +230,95 @@
   }
   .chat-empty {
     text-align: center;
-    padding: 30px 18px;
+    padding: 24px 12px 14px;
     color: var(--lavender);
   }
   .chat-empty .ico {
     font-family: 'Italiana', serif;
-    font-size: 48px;
+    font-size: 42px;
     color: var(--gold-soft);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
   .chat-empty .title {
     color: var(--plum);
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .chat-empty .hint {
-    font-size: 13.5px;
-    color: var(--lavender);
-    line-height: 1.7;
-  }
-  .suggestions {
-    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-    margin-top: 18px;
-  }
-  .suggestion {
-    background: var(--cream);
-    color: var(--plum);
-    padding: 8px 14px;
-    border-radius: 999px;
     font-size: 13px;
-    cursor: pointer;
-    border: 1px solid rgba(201, 169, 97, 0.3);
-    transition: all 0.15s;
-    font-family: inherit;
+    color: var(--lavender);
+    line-height: 1.6;
+    margin-bottom: 18px;
   }
-  .suggestion:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold);
+
+  /* === Category cards === */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .category-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 14px 12px;
+    border: 1px solid rgba(61, 44, 78, 0.08);
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .category-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(15, 10, 30, 0.06);
+  }
+  .category-card.cat-work { background: linear-gradient(135deg, white, #fffbf2); }
+  .category-card.cat-love { background: linear-gradient(135deg, white, #fdf6f8); }
+  .category-card.cat-health { background: linear-gradient(135deg, white, #f4faf4); }
+  .category-card.cat-life { background: linear-gradient(135deg, white, #faf6fd); }
+
+  .category-header {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--plum);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .category-questions {
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .cat-q {
+    background: transparent;
+    border: none;
+    color: var(--plum);
+    text-align: left;
+    padding: 5px 0 5px 14px;
+    font-size: 12.5px;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 6px;
+    line-height: 1.5;
+    position: relative;
+    transition: color 0.15s;
+  }
+  .cat-q::before {
+    content: '↗';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    opacity: 0.6;
+    font-size: 11px;
+  }
+  .cat-q:hover {
+    color: var(--gold);
+  }
+  .cat-q:hover::before {
+    opacity: 1;
+  }
+  @media (min-width: 700px) {
+    .category-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 380px) {
+    .category-grid { grid-template-columns: 1fr; }
   }
 
   .msg {
@@ -610,12 +661,46 @@
     <div class="chat-empty" id="empty-state">
       <div class="ico">✦</div>
       <div class="title">เริ่มถามมูได้เลย</div>
-      <div class="hint">ใส่วันเกิดด้านบน · พิมพ์คำถาม · กด Enter</div>
-      <div class="suggestions" id="suggestions">
-        <button class="suggestion" data-q="ผมควรเปลี่ยนงานไหม ตอนนี้ผมอายุ 28 อึดอัดในงาน">ควรเปลี่ยนงานไหม?</button>
-        <button class="suggestion" data-q="archetype ของผมเหมาะกับ #5 ไหมในความรัก">เข้ากับ #5 ในความรักไหม?</button>
-        <button class="suggestion" data-q="วันนี้ควรตัดสินใจเรื่องสำคัญไหม">วันนี้เหมาะตัดสินใจไหม?</button>
-        <button class="suggestion" data-q="archetype ของผมเหมาะกับสายงานอะไรมากที่สุด">เหมาะสายงานอะไร?</button>
+      <div class="hint">ใส่วันเกิดด้านบน · เลือกหัวข้อ หรือพิมพ์คำถามเอง</div>
+
+      <div class="category-grid">
+
+        <div class="category-card cat-work">
+          <div class="category-header">💼 การงาน</div>
+          <div class="category-questions">
+            <button class="cat-q" data-q="ผมควรเปลี่ยนงานไหม">ควรเปลี่ยนงานไหม?</button>
+            <button class="cat-q" data-q="archetype ของผมเหมาะกับสายงานอะไรมากที่สุด">เหมาะสายงานอะไร?</button>
+            <button class="cat-q" data-q="ทำไมผมรู้สึกอึดอัดในงานปัจจุบัน">ทำไมอึดอัดในงาน?</button>
+          </div>
+        </div>
+
+        <div class="category-card cat-love">
+          <div class="category-header">💕 ความรัก</div>
+          <div class="category-questions">
+            <button class="cat-q" data-q="archetype ของผมเข้ากับใครในความรักได้ดีที่สุด">เข้ากับใครในความรัก?</button>
+            <button class="cat-q" data-q="ความสัมพันธ์ปัจจุบันเหมาะกับผมไหม">สัมพันธ์ตอนนี้เหมาะไหม?</button>
+            <button class="cat-q" data-q="ทำไมผมเจอแต่คนแบบเดิมในความรัก">ทำไมเจอแต่คนแบบเดิม?</button>
+          </div>
+        </div>
+
+        <div class="category-card cat-health">
+          <div class="category-header">🌿 สุขภาพใจ</div>
+          <div class="category-questions">
+            <button class="cat-q" data-q="ทำไมผมเครียดบ่อย หาวิธีดูแลใจตามจังหวะของตัวเอง">ทำไมเครียดบ่อย?</button>
+            <button class="cat-q" data-q="วิธีดูแลใจที่เหมาะกับ archetype ของผม">วิธีดูแลใจของผม?</button>
+            <button class="cat-q" data-q="พลังงานของผมตอนนี้เป็นยังไง ควรเติมพลังตรงไหน">พลังงานตอนนี้เป็นยังไง?</button>
+          </div>
+        </div>
+
+        <div class="category-card cat-life">
+          <div class="category-header">🎯 ทิศทางชีวิต</div>
+          <div class="category-questions">
+            <button class="cat-q" data-q="ผมคือใครจริงๆ จาก archetype ของผม">ผมคือใครจริงๆ?</button>
+            <button class="cat-q" data-q="เป้าหมายชีวิตที่เหมาะกับผมคืออะไร">เป้าหมายของผมคืออะไร?</button>
+            <button class="cat-q" data-q="วันนี้ควรตัดสินใจเรื่องสำคัญไหม">วันนี้เหมาะตัดสินใจไหม?</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -986,8 +1071,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('year').addEventListener('input', recalcArchetype);
   document.getElementById('year').addEventListener('change', recalcArchetype);
 
-  // Suggestion buttons
-  document.querySelectorAll('.suggestion').forEach(b => {
+  // Category question buttons
+  document.querySelectorAll('.cat-q').forEach(b => {
     b.addEventListener('click', () => {
       const q = b.dataset.q;
       document.getElementById('input').value = q;
