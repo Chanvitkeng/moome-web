@@ -153,48 +153,67 @@
     box-shadow: 0 4px 20px rgba(15, 10, 30, 0.04);
   }
   .setup-row {
-    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
   }
-  .setup-row label {
+  .setup-row > .setup-label {
     font-size: 12px;
     letter-spacing: 0.16em;
     color: var(--rose);
     text-transform: uppercase;
     font-weight: 700;
-    min-width: 100px;
   }
-  .setup-row input, .setup-row select {
-    flex: 1;
-    min-width: 100px;
-    padding: 10px 14px;
+  .date-grid-ask {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1.2fr;
+    gap: 8px;
+  }
+  .date-grid-ask select, .date-grid-ask input {
+    width: 100%;
+    padding: 11px 12px;
     border: 1px solid rgba(61, 44, 78, 0.15);
     border-radius: 10px;
     font-family: inherit;
     font-size: 14.5px;
     color: var(--midnight);
     background: white;
+    cursor: pointer;
   }
-  .setup-row input:focus, .setup-row select:focus {
+  .date-grid-ask select:focus, .date-grid-ask input:focus {
     outline: none;
     border-color: var(--gold);
   }
   .arch-display {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 10px;
     padding: 10px 14px;
     background: linear-gradient(135deg, #fffbf2, #fef5e1);
-    border-radius: 10px;
-    flex: 1;
+    border-radius: 12px;
+    border: 1px solid rgba(201, 169, 97, 0.25);
   }
   .arch-display .num {
     font-family: 'Italiana', serif;
-    font-size: 28px;
+    font-size: 26px;
     color: var(--gold);
     line-height: 1;
   }
+  .arch-display .label-eng {
+    font-size: 10px; letter-spacing: 0.15em;
+    color: var(--gold); text-transform: uppercase;
+    font-weight: 700;
+  }
   .arch-display .name {
-    font-size: 14.5px;
+    font-size: 13.5px;
     color: var(--plum);
     font-weight: 600;
+  }
+  @media (max-width: 600px) {
+    .setup-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .arch-display { justify-content: center; }
   }
 
   /* === CHAT === */
@@ -300,6 +319,52 @@
     background: var(--cream);
     color: var(--lavender);
     font-style: italic;
+  }
+  .msg-bubble strong {
+    color: var(--plum);
+    font-weight: 700;
+  }
+  .msg-bubble em {
+    color: var(--rose);
+    font-style: italic;
+  }
+
+  /* === Follow-up suggestion chips === */
+  .followups {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding-left: 40px; /* align with bubble */
+    margin: -8px 0 16px;
+    animation: fadeIn 0.4s ease-out 0.2s both;
+  }
+  .followups .chip-label {
+    width: 100%;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--lavender);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .followup-chip {
+    background: white;
+    color: var(--plum);
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    transition: all 0.15s;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+  .followup-chip:hover {
+    background: var(--gold-soft);
+    border-color: var(--gold);
+    transform: translateY(-1px);
+  }
+  .followup-chip::before {
+    content: '↗ ';
+    color: var(--gold);
   }
 
   /* === INPUT BAR === */
@@ -467,12 +532,32 @@
   <!-- Setup -->
   <div class="setup-card">
     <div class="setup-row">
-      <label for="birth-input">วันเกิดของคุณ</label>
-      <input type="text" id="birth-input" placeholder="DD/MM/YYYY (พ.ศ. หรือ ค.ศ. ก็ได้)" inputmode="numeric">
+      <div class="setup-label">วันเกิด</div>
+      <div class="date-grid-ask">
+        <select id="day" required aria-label="วัน">
+          <option value="">วัน</option>
+        </select>
+        <select id="month" required aria-label="เดือน">
+          <option value="">เดือน</option>
+          <option value="1">มกราคม</option>
+          <option value="2">กุมภาพันธ์</option>
+          <option value="3">มีนาคม</option>
+          <option value="4">เมษายน</option>
+          <option value="5">พฤษภาคม</option>
+          <option value="6">มิถุนายน</option>
+          <option value="7">กรกฎาคม</option>
+          <option value="8">สิงหาคม</option>
+          <option value="9">กันยายน</option>
+          <option value="10">ตุลาคม</option>
+          <option value="11">พฤศจิกายน</option>
+          <option value="12">ธันวาคม</option>
+        </select>
+        <input type="number" id="year" placeholder="ปี ค.ศ." min="1940" max="2026" aria-label="ปีเกิด">
+      </div>
       <div class="arch-display" id="arch-display" style="display:none;">
         <div class="num" id="arch-num">—</div>
         <div>
-          <div style="font-size:11px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;font-weight:700;">YOUR ARCHETYPE</div>
+          <div class="label-eng">YOUR ARCHETYPE</div>
           <div class="name" id="arch-name">—</div>
         </div>
       </div>
@@ -564,20 +649,28 @@ const state = {
   birthDate: null,
   archetype: null,
   email: null,
-  messages: [],   // { role, content }
+  messages: [],   // { role, content, suggestions? }
   isLoading: false,
 };
 
 // =====================================================
-// Birth date parsing
+// Populate day select
 // =====================================================
-function parseBirthDate(str) {
-  if (!str) return null;
-  const parts = str.split(/[\/\-\s\.]/).map(s => s.trim()).filter(Boolean);
-  if (parts.length !== 3) return null;
-  let [d, m, y] = parts.map(p => parseInt(p));
+function populateDays() {
+  const sel = document.getElementById('day');
+  for (let i = 1; i <= 31; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i;
+    sel.appendChild(opt);
+  }
+}
+
+function getCurrentDateInputs() {
+  const d = parseInt(document.getElementById('day').value);
+  const m = parseInt(document.getElementById('month').value);
+  const y = parseInt(document.getElementById('year').value);
   if (!d || !m || !y) return null;
-  if (y > 2400) y -= 543; // Buddhist → CE
   if (y < 1900 || y > 2100) return null;
   if (m < 1 || m > 12 || d < 1 || d > 31) return null;
   return { d, m, y };
@@ -611,7 +704,10 @@ function setBirthDisplay(d, m, y) {
   document.getElementById('arch-display').style.display = 'flex';
   document.getElementById('arch-num').textContent = '#' + state.archetype;
   document.getElementById('arch-name').textContent = ARCHETYPE_NAMES[state.archetype] || '—';
-  document.getElementById('birth-input').value = `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`;
+  // Update form values
+  document.getElementById('day').value = d;
+  document.getElementById('month').value = m;
+  document.getElementById('year').value = y;
 }
 
 function updateQuotaDisplay(remaining, isEmailUser, max) {
@@ -631,14 +727,15 @@ function renderMessages() {
   const empty = document.getElementById('empty-state');
   if (state.messages.length === 0) {
     empty.style.display = '';
+    chat.querySelectorAll('.msg, .followups').forEach(el => el.remove());
     return;
   }
   empty.style.display = 'none';
 
   // Remove existing messages
-  chat.querySelectorAll('.msg').forEach(el => el.remove());
+  chat.querySelectorAll('.msg, .followups').forEach(el => el.remove());
 
-  for (const m of state.messages) {
+  state.messages.forEach((m, idx) => {
     const el = document.createElement('div');
     el.className = `msg ${m.role}${m.thinking ? ' thinking' : ''}`;
     const avatar = document.createElement('div');
@@ -649,18 +746,51 @@ function renderMessages() {
     if (m.thinking) {
       bubble.textContent = m.content;
     } else {
-      // Format: split on \n\n for paragraphs
+      // Format: split on \n\n for paragraphs · light markdown (bold/italic)
       const paragraphs = String(m.content).split(/\n\n+/);
-      bubble.innerHTML = paragraphs.map(p =>
-        `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`
-      ).join('');
+      bubble.innerHTML = paragraphs
+        .filter(p => p.trim().length > 0)
+        .map(p => `<p>${formatLight(p)}</p>`)
+        .join('');
     }
     el.appendChild(avatar);
     el.appendChild(bubble);
     chat.appendChild(el);
-  }
+
+    // Render follow-up chips for last assistant message with suggestions
+    const isLast = idx === state.messages.length - 1;
+    if (isLast && m.role === 'assistant' && !m.thinking && Array.isArray(m.suggestions) && m.suggestions.length > 0) {
+      const followups = document.createElement('div');
+      followups.className = 'followups';
+      const label = document.createElement('div');
+      label.className = 'chip-label';
+      label.textContent = '✦ ลองถามต่อ';
+      followups.appendChild(label);
+      m.suggestions.forEach(sugg => {
+        const btn = document.createElement('button');
+        btn.className = 'followup-chip';
+        btn.type = 'button';
+        btn.textContent = sugg;
+        btn.addEventListener('click', () => {
+          if (state.isLoading) return;
+          sendQuestion(sugg);
+        });
+        followups.appendChild(btn);
+      });
+      chat.appendChild(followups);
+    }
+  });
 
   chat.scrollTop = chat.scrollHeight;
+}
+
+function formatLight(text) {
+  // Escape HTML first, then apply minimal markdown (bold + italic + linebreaks)
+  let s = escapeHtml(text);
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+  s = s.replace(/\n/g, '<br>');
+  return s;
 }
 
 function escapeHtml(s) {
@@ -679,7 +809,7 @@ async function sendQuestion(question) {
   if (!question || !question.trim()) return;
   if (!state.birthDate) {
     alert('ใส่วันเกิดก่อนถามนะครับ — เพื่อให้ AI ตอบเฉพาะตัว');
-    document.getElementById('birth-input').focus();
+    document.getElementById('day').focus();
     return;
   }
 
@@ -724,7 +854,11 @@ async function sendQuestion(question) {
         document.getElementById('upgrade-btn').click();
       }
     } else {
-      state.messages.push({ role: 'assistant', content: data.answer });
+      state.messages.push({
+        role: 'assistant',
+        content: data.answer,
+        suggestions: Array.isArray(data.suggestions) ? data.suggestions : [],
+      });
       updateQuotaDisplay(data.remaining, data.isEmailUser, data.maxPerDay);
     }
   } catch (err) {
@@ -743,6 +877,8 @@ async function sendQuestion(question) {
 // Wire up events
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
+  populateDays();
+
   // Restore from URL params first (priority over localStorage)
   const params = new URLSearchParams(location.search);
   const urlD = parseInt(params.get('d'));
@@ -766,16 +902,18 @@ document.addEventListener('DOMContentLoaded', () => {
     updateQuotaDisplay(undefined, true);
   }
 
-  // Birth input parser
-  document.getElementById('birth-input').addEventListener('change', e => {
-    const parsed = parseBirthDate(e.target.value);
+  // Date dropdowns + year input — recalculate on any change
+  function recalcArchetype() {
+    const parsed = getCurrentDateInputs();
     if (parsed) {
       setBirthDisplay(parsed.d, parsed.m, parsed.y);
       saveBirth(parsed.d, parsed.m, parsed.y);
-    } else {
-      alert('รูปแบบไม่ถูก · ลอง DD/MM/YYYY เช่น 15/03/1995');
     }
-  });
+  }
+  document.getElementById('day').addEventListener('change', recalcArchetype);
+  document.getElementById('month').addEventListener('change', recalcArchetype);
+  document.getElementById('year').addEventListener('input', recalcArchetype);
+  document.getElementById('year').addEventListener('change', recalcArchetype);
 
   // Suggestion buttons
   document.querySelectorAll('.suggestion').forEach(b => {

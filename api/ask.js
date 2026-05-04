@@ -76,8 +76,35 @@ function buildSystemPrompt(archetype, birthDate, archName) {
 6. ถ้าผู้ถามเศร้าหนัก / มีความคิดทำร้ายตัวเอง → แนะนำสายด่วนสุขภาพจิต 1323 (กรมสุขภาพจิต) ทันทีและไม่หาเหตุผล
 7. ความยาวคำตอบ: 2-4 ย่อหน้า สั้นๆ ไม่ยาว
 8. ถ้าคำถามไม่เกี่ยวกับ self-awareness/ชีวิต/ความสัมพันธ์/การงาน — ตอบสั้นๆ ว่าไม่ใช่ขอบเขต Moome และเสนอให้ถามเรื่องที่เกี่ยวข้อง
+9. ห้ามใช้ markdown bold (** หรือ __) หรือ italic ในคำตอบ — ใช้ข้อความธรรมดาเท่านั้น (UI ไม่ render markdown)
+
+หลังจบคำตอบหลัก ให้ลงท้ายด้วย section นี้เสมอ (ไม่ต้องมีข้อความเชื่อม):
+
+---SUGGEST---
+- คำถามต่อข้อ 1 (สั้น 5-12 คำ · ลึกลงในประเด็นเดิม)
+- คำถามต่อข้อ 2 (สั้น 5-12 คำ · มุมที่เกี่ยวข้องแต่ขยับไปอีกแง่)
+- คำถามต่อข้อ 3 (สั้น 5-12 คำ · เชื่อมเข้ากับ archetype หรือชีวิต)
+
+ตัวอย่าง suggestion ที่ดี: "วันแบบไหนเหมาะกับการตัดสินใจ?", "Justice ในความรักเป็นยังไง?", "ทำยังไงตอนตัดสินใจไม่ได้สักที?"
 
 จดจำว่า: คุณกำลังคุยกับคนที่เพิ่งรู้จัก archetype ของตัวเอง · ตอบในมุมที่ช่วยให้เขาเข้าใจตัวเองมากขึ้น`;
+}
+
+// Parse suggestions from AI response
+function parseSuggestions(rawText) {
+  const marker = '---SUGGEST---';
+  const idx = rawText.indexOf(marker);
+  if (idx === -1) {
+    return { answer: rawText.trim(), suggestions: [] };
+  }
+  const answer = rawText.slice(0, idx).trim();
+  const suggestText = rawText.slice(idx + marker.length).trim();
+  const suggestions = suggestText
+    .split('\n')
+    .map(line => line.replace(/^[-•*\d.]+\s*/, '').trim())
+    .filter(line => line.length > 0 && line.length < 120)
+    .slice(0, 3);
+  return { answer, suggestions };
 }
 
 export default async function handler(req, res) {
@@ -171,11 +198,13 @@ export default async function handler(req, res) {
     }
 
     const data = await apiRes.json();
-    const answer = data?.content?.[0]?.text || '(ไม่มีคำตอบ)';
+    const rawText = data?.content?.[0]?.text || '(ไม่มีคำตอบ)';
+    const { answer, suggestions } = parseSuggestions(rawText);
 
     return res.status(200).json({
       success: true,
       answer,
+      suggestions,
       remaining: limit.remaining,
       maxPerDay,
       isEmailUser: !!safeEmail,
