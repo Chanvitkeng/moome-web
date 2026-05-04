@@ -1,6 +1,9 @@
 // Vercel Function · POST /api/ask
 // User asks a question → Claude Haiku answers with archetype context
-// Server-side rate limit: 5/day per IP for anonymous · 50/day if email provided
+// Server-side rate limit: 5/day per IP for anonymous · 50/day if email · 100/day if logged in
+
+import { getCurrentUser } from './_jwt.js';
+import { saveChatMessage, getChatHistory, getUserFacts } from './_supabase.js';
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-haiku-4-5-20251001';
@@ -129,6 +132,10 @@ function buildSystemPrompt(archetype, birthDate, archName) {
 10. ห้ามใช้ markdown bold (** หรือ __) หรือ italic — ใช้ข้อความธรรมดาเท่านั้น
 11. ถ้าผู้ถามอ้างอายุไม่ตรงกับข้อมูลด้านบน — ใช้อายุจริง อย่าทักว่าพิมพ์ผิด · เนียนๆ
 12. คำว่า "Moome" หรือ "มู-มี" ใช้ได้ปกติ (เป็นชื่อแพลตฟอร์ม)
+13. **สรรพนาม** ใช้แค่ 3 คำเท่านั้น — ห้ามใช้คำอื่น:
+    - เรียกผู้ถาม: "คุณ" (เสมอ)
+    - เรียกตัวเอง (AI): ไม่ต้องอ้าง · พูดประโยคบรรยายเลย (เช่น "เห็นว่า..." แทน "ฉันเห็นว่า...")
+    - ห้ามใช้: "หม่อม", "เจ้า", "ท่าน", "เธอ", "พี่", "น้อง", "หนู", "ครับ/ค่ะ" ลงท้าย
 
 โครงสร้างคำตอบ — ห้ามผิดเด็ดขาด ลงท้ายด้วย 4 sections นี้เสมอ:
 
@@ -255,11 +262,14 @@ export default async function handler(req, res) {
 
     const safeQ = String(question).substring(0, 1000).trim();
 
+    // Authenticated user? (LINE LIFF or email magic link)
+    const session = await getCurrentUser(req);
+
     // Rate limit
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.headers['x-real-ip'] || 'unknown';
     const safeEmail = email && email.includes('@') ? String(email).substring(0, 200).trim() : null;
-    const rateLimitKey = getRateLimitKey(ip, safeEmail);
-    const maxPerDay = safeEmail ? 50 : 5;
+    const rateLimitKey = session ? `user:${session.userId}` : getRateLimitKey(ip, safeEmail);
+    const maxPerDay = session ? 100 : (safeEmail ? 50 : 5);
     const limit = checkRateLimit(rateLimitKey, maxPerDay);
 
     if (!limit.allowed) {
@@ -274,19 +284,42 @@ export default async function handler(req, res) {
 
     // Build messages
     const archNum = archetype ? parseInt(String(archetype).replace('#', '')) : null;
-    const systemPrompt = buildSystemPrompt(archNum, birth_date, archetype_name);
+    let systemPrompt = buildSystemPrompt(archNum, birth_date, archetype_name);
+
+    // If logged-in user, append known facts to system prompt
+    if (session) {
+      try {
+        const facts = await getUserFacts(session.userId);
+        if (facts.length > 0) {
+          const factsText = facts.map(f => `- ${f.fact_key}: ${f.fact_value}`).join('\n');
+          systemPrompt += `\n\nสิ่งที่ทราบเกี่ยวกับผู้ถามจากการคุยก่อนหน้า:\n${factsText}\n\nใช้ข้อมูลนี้ประกอบคำตอบโดยไม่ต้องอ้างถึงตรงๆ ว่ารู้`;
+        }
+      } catch (e) {
+        console.warn('getUserFacts failed:', e.message);
+      }
+    }
 
     const messages = [];
-    // Optional conversation history (last 6 turns max)
-    if (Array.isArray(history) && history.length > 0) {
-      const recent = history.slice(-6);
-      for (const turn of recent) {
-        if (turn && turn.role && turn.content && (turn.role === 'user' || turn.role === 'assistant')) {
-          messages.push({
-            role: turn.role,
-            content: String(turn.content).substring(0, 2000),
-          });
-        }
+
+    // Prefer DB history for logged-in user · fallback to client-supplied history
+    let recentHistory = [];
+    if (session) {
+      try {
+        const dbHistory = await getChatHistory(session.userId, 12); // 6 turns = 12 msgs
+        recentHistory = dbHistory.map(m => ({ role: m.role, content: m.content }));
+      } catch (e) {
+        console.warn('getChatHistory failed:', e.message);
+      }
+    } else if (Array.isArray(history) && history.length > 0) {
+      recentHistory = history.slice(-6);
+    }
+
+    for (const turn of recentHistory) {
+      if (turn && turn.role && turn.content && (turn.role === 'user' || turn.role === 'assistant')) {
+        messages.push({
+          role: turn.role,
+          content: String(turn.content).substring(0, 2000),
+        });
       }
     }
     messages.push({ role: 'user', content: safeQ });
@@ -317,6 +350,26 @@ export default async function handler(req, res) {
     const rawText = data?.content?.[0]?.text || '(ไม่มีคำตอบ)';
     const { answer, voices, suggestions } = parseTripleVoiceAndSuggestions(rawText);
 
+    // Save messages to DB (best-effort) for logged-in users
+    if (session) {
+      try {
+        await saveChatMessage({
+          userId: session.userId,
+          role: 'user',
+          content: safeQ,
+        });
+        await saveChatMessage({
+          userId: session.userId,
+          role: 'assistant',
+          content: answer,
+          voices,
+          suggestions,
+        });
+      } catch (e) {
+        console.warn('saveChatMessage failed:', e.message);
+      }
+    }
+
     return res.status(200).json({
       success: true,
       answer,
@@ -325,6 +378,7 @@ export default async function handler(req, res) {
       remaining: limit.remaining,
       maxPerDay,
       isEmailUser: !!safeEmail,
+      isLoggedIn: !!session,
     });
   } catch (err) {
     console.error('Ask error:', err);

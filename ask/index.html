@@ -670,7 +670,16 @@
     <a href="/match.html">ดวงคู่</a>
     <a href="/today.html">วันนี้</a>
     <a href="/blog/">บทความ</a>
-    <a href="/calculate.html" class="cta">คำนวณ</a>
+
+    <!-- Auth state -->
+    <div id="user-chip" style="display:none;align-items:center;gap:8px;">
+      <img id="user-avatar" alt="" style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--gold-soft);">
+      <span id="user-name" style="font-size:13px;color:var(--plum);font-weight:600;"></span>
+      <button id="logout-btn" title="ออกจากระบบ" style="background:none;border:none;color:var(--lavender);cursor:pointer;font-size:12px;padding:4px 8px;">ออก</button>
+    </div>
+    <button id="login-btn" class="cta" style="display:none;background:#06C755;border:none;cursor:pointer;color:white;padding:8px 18px;border-radius:999px;font-weight:600;font-family:inherit;font-size:14px;">เข้าสู่ระบบ LINE</button>
+
+    <a href="/calculate.html" class="cta" id="nav-cta">คำนวณ</a>
   </div>
 </nav>
 
@@ -809,6 +818,7 @@
 </div>
 
 <script src="/feedback-widget.js" defer></script>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
 <script>
 // =====================================================
@@ -941,6 +951,179 @@ function clearHistory() {
   try { localStorage.removeItem(HISTORY_KEY); } catch (e) {}
   state.messages = [];
   renderMessages();
+}
+
+// =====================================================
+// V4.0 — Auth (LIFF + session)
+// =====================================================
+const SESSION_TOKEN_KEY = 'moome_session_token';
+
+function getSessionToken() {
+  try { return localStorage.getItem(SESSION_TOKEN_KEY) || null; } catch (e) { return null; }
+}
+function setSessionToken(t) {
+  try {
+    if (t) localStorage.setItem(SESSION_TOKEN_KEY, t);
+    else localStorage.removeItem(SESSION_TOKEN_KEY);
+  } catch (e) {}
+}
+
+function authHeaders() {
+  const t = getSessionToken();
+  return t ? { 'Authorization': 'Bearer ' + t } : {};
+}
+
+async function fetchConfig() {
+  try {
+    const r = await fetch('/api/config');
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (e) { return null; }
+}
+
+async function fetchMe() {
+  try {
+    const r = await fetch('/api/auth/me', {
+      headers: authHeaders(),
+      credentials: 'include',
+    });
+    if (!r.ok) return null;
+    const data = await r.json();
+    return data.authenticated ? data : null;
+  } catch (e) { return null; }
+}
+
+async function liffLoginFlow(idToken) {
+  try {
+    const stored = loadBirth();
+    const r = await fetch('/api/auth/liff-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        idToken,
+        birthDate: state.birthDate || (stored ? `${stored.d}/${stored.m}/${stored.y}` : null),
+        archetype: state.archetype || null,
+      }),
+    });
+    const data = await r.json();
+    if (!data.success) throw new Error(data.error || 'Login failed');
+    setSessionToken(data.token);
+    return data.user;
+  } catch (e) {
+    console.error('liffLoginFlow:', e);
+    return null;
+  }
+}
+
+function applyServerUser(user, history) {
+  state.user = user;
+  // Render user chip in nav
+  const chip = document.getElementById('user-chip');
+  const avatar = document.getElementById('user-avatar');
+  const nameEl = document.getElementById('user-name');
+  const loginBtn = document.getElementById('login-btn');
+  if (chip && user) {
+    if (user.pictureUrl) avatar.src = user.pictureUrl;
+    else avatar.style.display = 'none';
+    nameEl.textContent = user.displayName || 'คุณ';
+    chip.style.display = 'flex';
+    if (loginBtn) loginBtn.style.display = 'none';
+  }
+  // Apply server-side birth_date if user hasn't set locally
+  if (user && user.birthDate && !state.birthDate) {
+    const parts = user.birthDate.split('/');
+    if (parts.length === 3) {
+      const d = parseInt(parts[0]);
+      const m = parseInt(parts[1]);
+      const y = parseInt(parts[2]);
+      if (d && m && y) {
+        setBirthDisplay(d, m, y);
+        saveBirth(d, m, y);
+      }
+    }
+  }
+  // Apply server history (only if local empty — DB is source of truth for logged in)
+  if (Array.isArray(history) && history.length > 0 && state.messages.length === 0) {
+    state.messages = history.map(m => ({
+      role: m.role,
+      content: m.content,
+      voices: m.voices || null,
+      suggestions: m.suggestions || [],
+    }));
+    saveHistory(); // sync to localStorage too
+    renderMessages();
+  }
+}
+
+async function doLogout() {
+  try {
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: authHeaders(),
+      credentials: 'include',
+    });
+  } catch (e) {}
+  setSessionToken(null);
+  state.user = null;
+  document.getElementById('user-chip').style.display = 'none';
+  // Liff logout if present
+  if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
+    try { liff.logout(); } catch (e) {}
+  }
+  // Optional: also clear chat history
+  if (confirm('ออกจากระบบและล้างแชทด้วย?')) {
+    clearHistory();
+  }
+  // Hide login btn since LIFF will redirect on next interaction
+  location.reload();
+}
+
+async function initAuth() {
+  // 1. Try cookie/JWT session first (works for web + LIFF after login)
+  const me = await fetchMe();
+  if (me && me.user) {
+    applyServerUser(me.user, me.history || []);
+    return;
+  }
+
+  // 2. Try LIFF (mobile in-app browser)
+  const config = await fetchConfig();
+  if (!config || !config.liffId) {
+    return; // No LIFF configured · stay anonymous
+  }
+
+  if (typeof liff === 'undefined') {
+    return; // SDK not loaded
+  }
+
+  try {
+    await liff.init({ liffId: config.liffId });
+    if (liff.isLoggedIn()) {
+      const idToken = liff.getIDToken();
+      if (idToken) {
+        const user = await liffLoginFlow(idToken);
+        if (user) {
+          // Re-fetch /me to get history
+          const m2 = await fetchMe();
+          applyServerUser(user, m2 ? m2.history : []);
+        }
+      }
+    } else {
+      // Show login button only if inside LINE app · not a forced redirect
+      if (liff.isInClient()) {
+        const btn = document.getElementById('login-btn');
+        if (btn) {
+          btn.style.display = 'inline-block';
+          btn.addEventListener('click', () => {
+            try { liff.login(); } catch (e) { console.error(e); }
+          });
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('LIFF init failed:', e);
+  }
 }
 
 // =====================================================
@@ -1116,7 +1299,8 @@ async function sendQuestion(question) {
 
     const res = await fetch('/api/ask', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      credentials: 'include',
       body: JSON.stringify({
         question: question.trim(),
         archetype: state.archetype,
@@ -1202,6 +1386,15 @@ document.addEventListener('DOMContentLoaded', () => {
       clearHistory();
     }
   });
+
+  // Logout button
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', doLogout);
+  }
+
+  // Init auth (LIFF / cookie session) — runs in background
+  initAuth();
 
   // Date dropdowns + year input — recalculate on any change
   function recalcArchetype() {
