@@ -1,0 +1,13 @@
+# Backup files (from sed -i)
+*.bak
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor temporary files
+*.swp
+*~
+
+# Logs
+*.log

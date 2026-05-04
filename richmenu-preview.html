@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Rich Menu Preview · Moome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@500;700&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE6; --plum: #3d2c4e; --gold: #c9a961;
+    --gold-soft: #ead8b8; --rose: #b97a8b; --sage: #8aa888; --midnight: #0f0a1e;
+    --gold-tint: #fdf9f0;
+    --rose-tint: #fdf6f8;
+    --sage-tint: #f4faf4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1a; padding: 20px;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    min-height: 100vh;
+  }
+  .toolbar {
+    position: sticky; top: 0;
+    background: white; padding: 16px 24px;
+    border-radius: 12px; margin-bottom: 24px;
+    display: flex; gap: 16px; align-items: center; justify-content: space-between;
+  }
+  .toolbar h1 { font-size: 18px; color: var(--plum); font-weight: 700; }
+  .toolbar .info { color: #666; font-size: 13px; }
+  .toolbar button {
+    background: var(--plum); color: var(--cream);
+    border: none; padding: 12px 24px; border-radius: 999px;
+    cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px;
+  }
+  .toolbar button:hover { background: var(--midnight); }
+
+  .menu-wrap {
+    background: white; padding: 20px; border-radius: 8px;
+    overflow: auto;
+  }
+  .richmenu {
+    width: 2500px; height: 843px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .richmenu::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px;
+    background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+    opacity: 0.5;
+  }
+  .panel {
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .panel.calc {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(201,169,97,0.18), transparent 60%),
+      var(--gold-tint);
+    border-right: 1px solid rgba(201,169,97,0.2);
+  }
+  .panel.match {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(185,122,139,0.18), transparent 60%),
+      var(--rose-tint);
+    border-right: 1px solid rgba(201,169,97,0.2);
+  }
+  .panel.today {
+    background:
+      radial-gradient(circle at 50% 30%, rgba(138,168,136,0.18), transparent 60%),
+      var(--sage-tint);
+  }
+  .eyebrow {
+    font-size: 28px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+  .calc .eyebrow { color: var(--gold); }
+  .match .eyebrow { color: var(--rose); }
+  .today .eyebrow { color: var(--sage); }
+
+  .icon {
+    font-family: 'Italiana', serif;
+    font-size: 220px;
+    line-height: 1;
+    margin-bottom: 30px;
+  }
+  .icon-emoji {
+    font-size: 160px;
+    line-height: 1;
+    margin-bottom: 50px;
+  }
+  .calc .icon { color: var(--gold); }
+  .match .icon-emoji { filter: hue-rotate(0deg); }
+
+  h2 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 700;
+    font-size: 96px;
+    color: var(--plum);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .hint {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--plum);
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tappable area indicators (preview only — not in final image) */
+  .tap-zone {
+    position: absolute;
+    top: 0; bottom: 0; width: 33.333%;
+    border: 2px dashed transparent;
+    pointer-events: none;
+  }
+  .preview-mode .tap-zone {
+    border-color: rgba(0,150,0,0.4);
+    background: rgba(0,200,0,0.05);
+  }
+  .preview-mode .tap-zone::after {
+    content: attr(data-label);
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(0,150,0,0.9); color: white;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 14px; font-weight: 600;
+  }
+
+  .checklist {
+    background: white; padding: 24px; border-radius: 12px;
+    margin-top: 24px;
+    color: #333; font-size: 14px;
+  }
+  .checklist h2 { font-size: 16px; margin-bottom: 12px; color: var(--plum); }
+  .checklist ol { padding-left: 20px; }
+  .checklist li { margin-bottom: 8px; line-height: 1.6; }
+  .checklist code {
+    background: #f0f0f0; padding: 2px 6px; border-radius: 4px;
+    font-family: monospace; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>✦ Moome Rich Menu Preview · 2500×843</h1>
+  <div class="info" id="status">พร้อม download · กดปุ่มเขียวด้านขวา →</div>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <button onclick="togglePreview()" id="previewBtn">Toggle tap zones</button>
+    <button onclick="downloadPNG()" id="downloadBtn" style="background:#06C755;font-size:15px;padding:14px 28px;">⬇ Download PNG</button>
+  </div>
+</div>
+
+<div class="menu-wrap">
+<div class="richmenu" id="richmenu">
+
+  <div class="panel calc">
+    <div class="eyebrow">DESTINY MATRIX</div>
+    <div class="icon">✦</div>
+    <h2>คำนวณ</h2>
+    <div class="hint">วันเกิด → archetype</div>
+  </div>
+
+  <div class="panel match">
+    <div class="eyebrow">DESTINY MATCH</div>
+    <div class="icon-emoji">💞</div>
+    <h2>ดวงคู่</h2>
+    <div class="hint">เช็คคู่ที่เข้ากัน</div>
+  </div>
+
+  <div class="panel today">
+    <div class="eyebrow">DAILY VIBE</div>
+    <div class="icon-emoji">🌅</div>
+    <h2>วันนี้</h2>
+    <div class="hint">สี · ลุค · พลัง</div>
+  </div>
+
+  <!-- Tap zones (visible in preview mode only) -->
+  <div class="tap-zone" style="left:0;" data-label="Zone A · Calculate"></div>
+  <div class="tap-zone" style="left:33.333%;" data-label="Zone B · Match"></div>
+  <div class="tap-zone" style="left:66.666%;" data-label="Zone C · Today"></div>
+
+</div>
+</div>
+
+<div class="checklist">
+  <h2>📋 วิธี export เป็น PNG (3 วิธี เลือก 1)</h2>
+  <ol>
+    <li><strong>Chrome DevTools (แนะนำ)</strong> — กด <code>Cmd+Shift+P</code> → พิมพ์ "screenshot" → เลือก "Capture full size screenshot" → save</li>
+    <li><strong>Right-click บน menu</strong> → "Capture this element" (ถ้า browser มี extension)</li>
+    <li><strong>macOS Screenshot</strong> — กด <code>Cmd+Shift+4</code> → ลากครอบทั้ง .richmenu div · ระวังให้ครบ 2500×843</li>
+  </ol>
+  <p style="margin-top:12px;color:#666">หลังจากนั้น upload ไฟล์ไป LINE OA Manager → Rich Menu → สร้างใหม่ → Template "ใหญ่ 3 ช่อง" หรือ "เล็ก 3 ช่อง"</p>
+</div>
+
+<!-- html2canvas — converts the menu div to PNG -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script>
+function togglePreview() {
+  document.getElementById('richmenu').classList.toggle('preview-mode');
+  const btn = document.getElementById('previewBtn');
+  btn.textContent = document.getElementById('richmenu').classList.contains('preview-mode')
+    ? 'Hide tap zones' : 'Show tap zones';
+}
+
+async function downloadPNG() {
+  const status = document.getElementById('status');
+  const btn = document.getElementById('downloadBtn');
+  const menu = document.getElementById('richmenu');
+
+  // Make sure tap zones are hidden
+  menu.classList.remove('preview-mode');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ กำลังสร้าง...';
+  status.textContent = '⏳ กำลัง render รูป (5-10 วิ) — กรุณารอ...';
+
+  try {
+    // Wait for fonts to load
+    if (document.fonts) {
+      await document.fonts.ready;
+    }
+
+    const canvas = await html2canvas(menu, {
+      width: 2500,
+      height: 843,
+      windowWidth: 2500,
+      windowHeight: 843,
+      scale: 1,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#F5EFE6',
+      logging: false,
+    });
+
+    // Convert to PNG blob
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'moome-richmenu-2500x843.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const sizeKB = (blob.size / 1024).toFixed(0);
+      status.textContent = `✅ ดาวน์โหลดแล้ว · ${sizeKB} KB · 2500×843 px — เช็คโฟลเดอร์ Downloads`;
+      btn.disabled = false;
+      btn.textContent = '⬇ Download PNG';
+    }, 'image/png');
+
+  } catch (err) {
+    status.textContent = '❌ Error: ' + err.message;
+    btn.disabled = false;
+    btn.textContent = '⬇ Download PNG';
+    console.error(err);
+  }
+}
+</script>
+
+</body>
+</html>

@@ -31,8 +31,52 @@ function strengthGrowthCard(idx, title, desc, color) {
   </div>`;
 }
 
+// Calculate age from birth date (DD/MM/YYYY) and determine life stage
+function getLifeStageInfo(birthDate) {
+  try {
+    const parts = birthDate.split('/');
+    if (parts.length !== 3) return { age: null, stage: 'working' };
+
+    const day = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const year = parseInt(parts[2]);
+
+    const today = new Date();
+    let age = today.getFullYear() - year;
+    const m = today.getMonth() + 1 - month;
+    if (m < 0 || (m === 0 && today.getDate() < day)) age--;
+
+    let stage, label, emoji, color, bg;
+    if (age < 18) {
+      stage = 'teen';
+      label = `📚 มัธยมปลาย · ${age} ปี`;
+      emoji = '📚';
+      color = '#8aa888';
+      bg = '#f4faf4';
+    } else if (age < 23) {
+      stage = 'university';
+      label = `🎒 มหาวิทยาลัย · ${age} ปี`;
+      emoji = '🎒';
+      color = '#b97a8b';
+      bg = '#fdf6f8';
+    } else {
+      stage = 'working';
+      label = `💼 วัยทำงาน · ${age} ปี`;
+      emoji = '💼';
+      color = '#c9a961';
+      bg = '#fffbf2';
+    }
+
+    return { age, stage, label, emoji, color, bg };
+  } catch (e) {
+    return { age: null, stage: 'working', label: '💼 วัยทำงาน', emoji: '💼', color: '#c9a961', bg: '#fffbf2' };
+  }
+}
+
 function buildUserEmailHTML(num, archData, birthDate) {
   const archStr = String(num).padStart(2, '0');
+  const lifeInfo = getLifeStageInfo(birthDate);
+  const stageContent = archData.lifeStage?.[lifeInfo.stage] || archData.lifeStage?.working || '';
 
   const strengthsHTML = archData.strengths.map((s, i) =>
     strengthGrowthCard(i + 1, s.title, s.desc, PALETTE.gold)
@@ -117,21 +161,11 @@ function buildUserEmailHTML(num, archData, birthDate) {
     ${archData.monthlyEnergy}
   </div>
 
-  <!-- 8. Life Stage Guide -->
-  ${sectionHeader('🎓', 'ตามวัยของคุณ — เลือกอ่านอันที่ตรงใจ')}
-  <div style="background:white;border-radius:14px;padding:6px;border:1px solid rgba(61,44,78,0.08);">
-    <div style="background:#f4faf4;border-radius:10px;padding:18px 20px;margin-bottom:6px;">
-      <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.sage};text-transform:uppercase;font-weight:700;margin-bottom:8px;">📚 มัธยมปลาย (15-18)</div>
-      <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.75;">${archData.lifeStage?.teen || ''}</div>
-    </div>
-    <div style="background:#fdf6f8;border-radius:10px;padding:18px 20px;margin-bottom:6px;">
-      <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.rose};text-transform:uppercase;font-weight:700;margin-bottom:8px;">🎒 มหาวิทยาลัย (18-23)</div>
-      <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.75;">${archData.lifeStage?.university || ''}</div>
-    </div>
-    <div style="background:#fffbf2;border-radius:10px;padding:18px 20px;">
-      <div style="font-size:11px;letter-spacing:0.2em;color:${PALETTE.gold};text-transform:uppercase;font-weight:700;margin-bottom:8px;">💼 วัยทำงาน (23+)</div>
-      <div style="font-size:14.5px;color:${PALETTE.plum};line-height:1.75;">${archData.lifeStage?.working || ''}</div>
-    </div>
+  <!-- 8. Life Stage Guide (filtered by user's age) -->
+  ${sectionHeader('🎓', `ในวัยของคุณ${lifeInfo.age ? ` (${lifeInfo.age} ปี)` : ''}`)}
+  <div style="background:${lifeInfo.bg};border:1px solid ${lifeInfo.color}33;border-radius:14px;padding:24px;">
+    <div style="font-size:11px;letter-spacing:0.2em;color:${lifeInfo.color};text-transform:uppercase;font-weight:700;margin-bottom:14px;">${lifeInfo.label}</div>
+    <div style="font-size:15px;color:${PALETTE.plum};line-height:1.85;">${stageContent}</div>
   </div>
 
   <!-- 9. Affirmation -->
