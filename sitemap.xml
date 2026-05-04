@@ -33,6 +33,14 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- AI Q&A (V3.0) -->
+  <url>
+    <loc>https://moome.app/ask/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- Blog index -->
   <url>
     <loc>https://moome.app/blog/</loc>

@@ -47,9 +47,15 @@ function getLifeStageInfo(birthDate) {
     if (m < 0 || (m === 0 && today.getDate() < day)) age--;
 
     let stage, label, emoji, color, bg;
-    if (age < 18) {
+    if (age < 13) {
+      stage = 'teen'; // fallback content
+      label = `🌱 วัยเด็ก · ${age} ปี`;
+      emoji = '🌱';
+      color = '#8aa888';
+      bg = '#f4faf4';
+    } else if (age < 18) {
       stage = 'teen';
-      label = `📚 มัธยมปลาย · ${age} ปี`;
+      label = `📚 มัธยม · ${age} ปี`;
       emoji = '📚';
       color = '#8aa888';
       bg = '#f4faf4';
@@ -59,12 +65,18 @@ function getLifeStageInfo(birthDate) {
       emoji = '🎒';
       color = '#b97a8b';
       bg = '#fdf6f8';
-    } else {
+    } else if (age < 40) {
       stage = 'working';
       label = `💼 วัยทำงาน · ${age} ปี`;
       emoji = '💼';
       color = '#c9a961';
       bg = '#fffbf2';
+    } else {
+      stage = 'working'; // share working content
+      label = `🌅 วัยผู้ใหญ่ · ${age} ปี`;
+      emoji = '🌅';
+      color = '#b8a5c9';
+      bg = '#faf6fd';
     }
 
     return { age, stage, label, emoji, color, bg };
