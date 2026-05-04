@@ -275,18 +275,19 @@ export default async function handler(req, res) {
 
   const events = body.events || [];
 
-  // Respond 200 immediately to LINE — process asynchronously
-  // (Vercel functions don't have true background — but we should still try)
-  res.status(200).json({ ok: true });
-
-  // 4. Process each event (best-effort · errors logged not thrown)
+  // 4. Process events SYNCHRONOUSLY before responding
+  // Vercel serverless terminates after response — must finish work first
+  // LINE timeout = 30s · Haiku takes ~5-8s · should fit
   for (const event of events) {
     try {
       await handleEvent(event);
     } catch (err) {
-      console.error('Event handler error:', err);
+      console.error('[LINE webhook] event handler error:', err);
     }
   }
+
+  // 5. Always 200 OK to LINE
+  return res.status(200).json({ ok: true, processed: events.length });
 }
 
 // =====================================================
