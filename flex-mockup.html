@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flex Message Mockup · Phase B preview · Moome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --line-bg: #8DA8B5;
+    --line-chat-bg: #FFFFFF;
+    --line-bubble-other: #FFFFFF;
+    --line-bubble-self: #B7EB8F;
+    --line-text: #111;
+    --line-meta: #888;
+    --line-divider: #e0e0e0;
+    --line-green: #06C755;
+    --moome-plum: #3d2c4e;
+    --moome-gold: #c9a961;
+    --moome-rose: #b97a8b;
+    --moome-sage: #8aa888;
+    --moome-lavender: #b8a5c9;
+    --moome-cream: #F5EFE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1a;
+    font-family: 'IBM Plex Sans Thai', 'Helvetica Neue', sans-serif;
+    color: white;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  .toolbar {
+    background: white;
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    color: var(--moome-plum);
+  }
+  .toolbar h1 { font-size: 19px; margin-bottom: 4px; font-weight: 700; }
+  .toolbar p { font-size: 13.5px; color: #666; line-height: 1.6; }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 1100px) {
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+
+  .option {
+    background: var(--line-bg);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .option-label {
+    background: var(--moome-plum);
+    color: white;
+    padding: 16px 20px;
+    font-size: 14px;
+  }
+  .option-label .tier {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--moome-gold);
+  }
+  .option-label .desc {
+    font-size: 12.5px;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+  .option-label .meta {
+    font-size: 11.5px;
+    margin-top: 8px;
+    color: var(--moome-cream);
+    opacity: 0.7;
+  }
+
+  /* Phone frame */
+  .phone {
+    background: var(--line-chat-bg);
+    height: 720px;
+    overflow-y: auto;
+    padding: 14px 12px 70px;
+    position: relative;
+  }
+  .phone::before {
+    content: '@262zpsua · มู-มี Moome';
+    display: block;
+    background: var(--moome-plum);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 16px;
+    margin: -14px -12px 16px;
+    text-align: center;
+  }
+
+  /* Chat bubbles */
+  .bubble-row {
+    display: flex;
+    margin-bottom: 12px;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .bubble-row.self {
+    flex-direction: row-reverse;
+  }
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--moome-plum);
+    color: var(--moome-gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .bubble {
+    max-width: 78%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--line-text);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .bubble.other {
+    background: var(--line-bubble-other);
+    border-top-left-radius: 4px;
+  }
+  .bubble.self {
+    background: var(--line-bubble-self);
+    border-top-right-radius: 4px;
+  }
+  .bubble p { margin-bottom: 6px; }
+  .bubble p:last-child { margin-bottom: 0; }
+
+  /* Flex card */
+  .flex-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    margin-left: 44px;
+    max-width: calc(100% - 44px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+  .flex-header {
+    background: linear-gradient(135deg, var(--moome-plum), #0f0a1e);
+    color: var(--moome-cream);
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+  .flex-header .num {
+    font-size: 28px;
+    color: var(--moome-gold);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .flex-header .name {
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .flex-header .age {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 1px;
+  }
+  .flex-body {
+    padding: 12px 16px;
+    color: var(--line-text);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  /* Voice cards (B2/B3) */
+  .voice-card {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    margin-left: 44px;
+    max-width: calc(100% - 44px);
+    overflow: hidden;
+    border-left: 4px solid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .voice-card.mu { border-left-color: var(--moome-gold); background: #fffbf2; }
+  .voice-card.psy { border-left-color: var(--moome-lavender); background: #faf6fd; }
+  .voice-card.companion { border-left-color: var(--moome-sage); background: #f4faf4; }
+  .voice-label {
+    padding: 10px 14px 6px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .voice-card.mu .voice-label { color: #b8923a; }
+  .voice-card.psy .voice-label { color: #8a72a8; }
+  .voice-card.companion .voice-label { color: #6b8d6b; }
+  .voice-text {
+    padding: 0 14px 12px;
+    font-size: 12.5px;
+    color: var(--line-text);
+    line-height: 1.65;
+  }
+
+  /* Quick Reply (LINE native) */
+  .quick-reply {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 8px 0 4px 44px;
+    margin-bottom: 12px;
+  }
+  .quick-reply::-webkit-scrollbar { display: none; }
+  .qr-chip {
+    flex-shrink: 0;
+    background: white;
+    border: 1.5px solid var(--line-green);
+    color: var(--line-green);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  /* B3 deep link button */
+  .deep-link-btn {
+    display: block;
+    background: var(--moome-plum);
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin: 8px 14px 12px;
+  }
+
+  /* Input bar mock */
+  .input-mock {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: #f7f7f7;
+    padding: 10px 14px;
+    display: flex; gap: 10px; align-items: center;
+    border-top: 1px solid #e0e0e0;
+  }
+  .input-mock input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    background: white;
+    font-family: inherit;
+    pointer-events: none;
+  }
+  .input-mock .send {
+    background: var(--line-green);
+    color: white;
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* Decision section */
+  .decision {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    color: var(--line-text);
+    margin-top: 24px;
+  }
+  .decision h2 {
+    color: var(--moome-plum);
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .decision-card {
+    border: 1.5px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .decision-card .tier {
+    color: var(--moome-plum);
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+  .decision-card ul {
+    padding-left: 18px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>📱 Flex Message Mockup · Phase B preview</h1>
+  <p>เลือก B1 / B2 / B3 — ดูตัวอย่าง 1 รอบสนทนาในแชทกับ Moome OA</p>
+</div>
+
+<div class="compare-grid">
+
+  <!-- ========== B1 — Text only ========== -->
+  <div class="option">
+    <div class="option-label">
+      <div class="tier">B1 · Text only</div>
+      <div class="desc">Bot ตอบเป็น text + Quick Reply ไม่มี card สี</div>
+      <div class="meta">⏱ 1-2 ชม. · Simple · เร็วสุด</div>
+    </div>
+    <div class="phone">
+      <div class="bubble-row self">
+        <div class="bubble self">ผมควรเปลี่ยนงานไหม</div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="avatar">✦</div>
+        <div class="bubble other">
+          <p><strong>#12 ผู้มองมุมต่าง · 41 ปี</strong></p>
+          <p>ในวัย 41 + ผู้มองมุมต่าง คุณอยู่ในช่วงที่กำลังตั้งคำถามกับสิ่งที่เคยเชื่อ — เป็นเรื่องปกติของ archetype นี้</p>
+          <p>━━━━━━━━━━━</p>
+          <p><strong>🌑 มู:</strong> ผู้มองมุมต่าง คือพลังของการแขวนตัวเองเพื่อเห็นมุมใหม่</p>
+          <p><strong>🧠 จิตวิทยา:</strong> ทฤษฎี SDT บอกว่าความอึดอัดมาจากขาด autonomy ลองเช็คก่อน</p>
+          <p><strong>🌿 ชวนคิด:</strong> ถ้างานนี้กลายเป็นงานในฝัน สิ่งแรกที่ต้องเปลี่ยนคืออะไร?</p>
+        </div>
+      </div>
+
+      <div class="quick-reply">
+        <button class="qr-chip">วงล้อในวัย 41?</button>
+        <button class="qr-chip">3 ปัจจัย SDT?</button>
+        <button class="qr-chip">ทำใจก่อนลาออก?</button>
+      </div>
+
+      <div class="input-mock">
+        <input placeholder="ข้อความ" disabled>
+        <button class="send">↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== B2 — Flex Cards (RECOMMENDED) ========== -->
+  <div class="option" style="outline: 3px solid #06C755;">
+    <div class="option-label" style="background:#06C755;">
+      <div class="tier" style="color:white;">B2 · Flex Cards ⭐</div>
+      <div class="desc">Hero card + 3 voice cards สีตามแบรนด์ + Quick Reply</div>
+      <div class="meta">⏱ 2.5 ชม. · บาลานซ์ · ใกล้เว็บ ~70%</div>
+    </div>
+    <div class="phone">
+      <div class="bubble-row self">
+        <div class="bubble self">ผมควรเปลี่ยนงานไหม</div>
+      </div>
+
+      <!-- Hero Flex card -->
+      <div class="flex-card">
+        <div class="flex-header">
+          <div style="font-size:11px;letter-spacing:0.2em;opacity:0.7;">DESTINY MATRIX</div>
+          <div class="num">#12</div>
+          <div class="name">ผู้มองมุมต่าง</div>
+          <div class="age">41 ปี · The Hanged</div>
+        </div>
+        <div class="flex-body">
+          ในวัย 41 + ผู้มองมุมต่าง คุณกำลังอยู่ในช่วงที่ archetype ปลุกการเปลี่ยนแปลงพอดี — ความอึดอัดในงานเป็นสัญญาณว่าใจกำลังเรียกอะไรใหม่
+        </div>
+      </div>
+
+      <!-- 3 Voice cards -->
+      <div class="voice-card mu">
+        <div class="voice-label">🌑 MU INSIGHT · เสียงของศาสตร์</div>
+        <div class="voice-text">ผู้มองมุมต่าง คือพลังของวัฏจักร ไม่ใช่ต้องรอโชค ปี 41 มักเป็นช่วงที่จังหวะภายในเรียกการเปลี่ยน</div>
+      </div>
+      <div class="voice-card psy">
+        <div class="voice-label">🧠 PSYCHOLOGY · เสียงของจิตวิทยา</div>
+        <div class="voice-text">ทฤษฎีการตัดสินใจตัวเอง (SDT) บอกว่าความอึดอัดในงานมักเกิดจากขาด autonomy / competence / relatedness — ลองเช็ค 3 อย่างนี้ก่อน</div>
+      </div>
+      <div class="voice-card companion">
+        <div class="voice-label">🌿 COMPANION · คำถามชวนคิด</div>
+        <div class="voice-text">ถ้าคุณตื่นพรุ่งนี้แล้วงานนี้กลายเป็นงานในฝัน สิ่งแรกที่ต้องเปลี่ยนคืออะไร?</div>
+      </div>
+
+      <div class="quick-reply">
+        <button class="qr-chip">วงล้อในวัย 41?</button>
+        <button class="qr-chip">3 ปัจจัย SDT?</button>
+        <button class="qr-chip">ทำใจก่อนลาออก?</button>
+      </div>
+
+      <div class="input-mock">
+        <input placeholder="ข้อความ" disabled>
+        <button class="send">↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== B3 — Hybrid + LIFF deep link ========== -->
+  <div class="option">
+    <div class="option-label">
+      <div class="tier">B3 · Hybrid (Flex + LIFF)</div>
+      <div class="desc">เหมือน B2 + ปุ่ม "ดูเต็มในเว็บ" → เปิด LIFF UI</div>
+      <div class="meta">⏱ 5-6 ชม. · Best of both</div>
+    </div>
+    <div class="phone">
+      <div class="bubble-row self">
+        <div class="bubble self">ผมควรเปลี่ยนงานไหม</div>
+      </div>
+
+      <!-- Compact preview Flex card -->
+      <div class="flex-card">
+        <div class="flex-header">
+          <div style="font-size:11px;letter-spacing:0.2em;opacity:0.7;">DESTINY MATRIX</div>
+          <div class="num">#12</div>
+          <div class="name">ผู้มองมุมต่าง</div>
+          <div class="age">41 ปี</div>
+        </div>
+        <div class="flex-body">
+          ในวัย 41 + ผู้มองมุมต่าง คุณกำลังอยู่ในช่วงที่ archetype ปลุกการเปลี่ยนแปลงพอดี — ความอึดอัดในงานเป็นสัญญาณว่าใจกำลังเรียกอะไรใหม่
+        </div>
+        <div class="voice-card mu" style="margin: 8px 14px 0; max-width: none;">
+          <div class="voice-label">🌑 MU INSIGHT</div>
+          <div class="voice-text" style="padding-bottom:10px;">ผู้มองมุมต่าง คือพลังของวัฏจักร ปี 41 มักเป็นช่วงเรียกการเปลี่ยน...</div>
+        </div>
+        <a class="deep-link-btn" href="#">📖 ดูเต็ม 3 มุมมอง · ใน Moome</a>
+      </div>
+
+      <div class="quick-reply">
+        <button class="qr-chip">วงล้อในวัย 41?</button>
+        <button class="qr-chip">3 ปัจจัย SDT?</button>
+        <button class="qr-chip">ทำใจก่อนลาออก?</button>
+      </div>
+
+      <div class="input-mock">
+        <input placeholder="ข้อความ" disabled>
+        <button class="send">↑</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="decision">
+  <h2>🤔 ตัดสินใจ</h2>
+  <p style="color:#666;font-size:13.5px;margin-bottom:6px;">ทุกตัวเลือกมี:</p>
+  <ul style="color:#444;font-size:13px;line-height:1.8;padding-left:24px;">
+    <li>AI Q&A แบบ Triple Voice (Mu / Psy / Companion)</li>
+    <li>Quick Reply 3 ปุ่ม follow-up</li>
+    <li>Auto-login จาก LINE userId (ไม่ต้องสมัครเพิ่ม)</li>
+    <li>Chat history sync กับ Supabase (เหมือน V4.0)</li>
+  </ul>
+
+  <div class="decision-grid">
+
+    <div class="decision-card" style="border-color:#ddd;">
+      <div class="tier">B1 · Text only</div>
+      <ul>
+        <li><strong>+</strong> เร็วสุด · 1-2 ชม.</li>
+        <li><strong>+</strong> message ส่ง 1 ฟอง · เบาสุด</li>
+        <li><strong>−</strong> Format ดูจืด · ไม่มี brand identity</li>
+        <li><strong>−</strong> 3 voices ปนกันอ่านยาก</li>
+      </ul>
+    </div>
+
+    <div class="decision-card" style="border-color:#06C755;background:#f0fff4;">
+      <div class="tier" style="color:#06C755;">B2 · Flex Cards ⭐</div>
+      <ul>
+        <li><strong>+</strong> Brand-feel เต็ม · ดูสวย</li>
+        <li><strong>+</strong> 3 voices แยกชัดเจน</li>
+        <li><strong>+</strong> ใช้สีตาม voice (เหมือนเว็บ)</li>
+        <li><strong>−</strong> Setup นานกว่า · 2.5 ชม.</li>
+      </ul>
+    </div>
+
+    <div class="decision-card" style="border-color:#ddd;">
+      <div class="tier">B3 · Hybrid</div>
+      <ul>
+        <li><strong>+</strong> Best UX — แก้ทุก trade-off</li>
+        <li><strong>+</strong> User เลือกเองว่าอ่านสั้น/ยาว</li>
+        <li><strong>−</strong> Setup ยาว · 5-6 ชม.</li>
+        <li><strong>−</strong> Flex JSON ซับซ้อน · maintain ยากขึ้น</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p style="margin-top:18px;color:#444;font-size:14px;line-height:1.7;">
+    <strong>💡 คำแนะนำ:</strong> เริ่ม <strong>B2</strong> ก่อน — ดี balance ที่สุด ใช้สีตาม voice ที่ user คุ้นเคยจากเว็บ · ถ้า user ขอ "อ่านสั้น" ภายหลัง ค่อย upgrade เป็น B3
+  </p>
+</div>
+
+</body>
+</html>
