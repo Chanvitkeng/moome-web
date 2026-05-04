@@ -294,10 +294,21 @@ export default async function handler(req, res) {
 
   const events = body.events || [];
 
-  // 4. Process events SYNCHRONOUSLY before responding
-  // Vercel serverless terminates after response — must finish work first
-  // LINE timeout = 30s · Haiku takes ~5-8s · should fit
+  // Process events with dedup · sync to fit within LINE 30s window
   for (const event of events) {
+    const eid = event.webhookEventId;
+    if (eid && processedEvents.has(eid)) {
+      console.log('[LINE webhook] skipping duplicate event:', eid);
+      continue;
+    }
+    if (eid) {
+      processedEvents.add(eid);
+      // Cap memory: keep last 200 ids
+      if (processedEvents.size > 200) {
+        const oldest = processedEvents.values().next().value;
+        processedEvents.delete(oldest);
+      }
+    }
     try {
       await handleEvent(event);
     } catch (err) {
@@ -305,9 +316,11 @@ export default async function handler(req, res) {
     }
   }
 
-  // 5. Always 200 OK to LINE
   return res.status(200).json({ ok: true, processed: events.length });
 }
+
+// In-memory dedup set · resets on cold start (best-effort)
+const processedEvents = new Set();
 
 // =====================================================
 // Per-event handler
