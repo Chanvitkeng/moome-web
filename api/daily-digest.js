@@ -80,6 +80,102 @@ async function fetchMetrics() {
 }
 
 // =====================================================
+// Fetch Microsoft Clarity Data Export API
+// Free tier: 10 requests/day · 3 days lookback · 3 dimensions/request
+// Docs: https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-data-export-api
+// =====================================================
+async function fetchClarity(numOfDays = 1, dimensions = ['URL']) {
+  const token = process.env.CLARITY_API_TOKEN;
+  if (!token) return null;
+
+  const url = new URL('https://www.clarity.ms/export-data/api/v1/project-live-insights');
+  url.searchParams.set('numOfDays', String(numOfDays));
+  dimensions.forEach((d, i) => {
+    if (d) url.searchParams.set(`dimension${i + 1}`, d);
+  });
+
+  try {
+    const res = await fetch(url.toString(), {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!res.ok) {
+      console.warn('[clarity] fetch failed:', res.status, await res.text());
+      return null;
+    }
+    return await res.json();
+  } catch (e) {
+    console.error('[clarity] error:', e.message);
+    return null;
+  }
+}
+
+// Parse Clarity response into a clean shape
+function parseClarityMetrics(data) {
+  if (!Array.isArray(data) || data.length === 0) return null;
+
+  const metrics = {};
+  for (const m of data) {
+    const name = m.metricName;
+    const info = Array.isArray(m.information) ? m.information : [];
+    metrics[name] = info;
+  }
+
+  // Extract common ones we care about
+  const result = {
+    sessions: 0,
+    bounceRate: null,
+    avgScrollDepth: null,
+    pagesPerSession: null,
+    rageClicks: 0,
+    deadClicks: 0,
+    quickBacks: 0,
+    excessiveScrolls: 0,
+    topUrls: [],
+    raw: metrics,
+  };
+
+  const traffic = metrics.Traffic?.[0];
+  if (traffic) {
+    result.sessions = parseInt(traffic.totalSessionCount) || 0;
+    result.bounceRate = parseFloat(traffic.botSessionCount) || null;
+    result.pagesPerSession = parseFloat(traffic.distinctUserCount) || null;
+  }
+
+  // Engagement metrics
+  const engagement = metrics.EngagementTime?.[0];
+  if (engagement) {
+    result.avgScrollDepth = parseFloat(engagement.activeTime) || null;
+  }
+
+  // Friction metrics — array of URL → count
+  const rageList = metrics.RageClickCount || [];
+  result.rageClicks = rageList.reduce((sum, x) => sum + (parseInt(x.subTotal) || 0), 0);
+
+  const deadList = metrics.DeadClickCount || [];
+  result.deadClicks = deadList.reduce((sum, x) => sum + (parseInt(x.subTotal) || 0), 0);
+
+  const quickBackList = metrics.QuickbackClick || [];
+  result.quickBacks = quickBackList.reduce((sum, x) => sum + (parseInt(x.subTotal) || 0), 0);
+
+  const scrollList = metrics.ExcessiveScroll || [];
+  result.excessiveScrolls = scrollList.reduce((sum, x) => sum + (parseInt(x.subTotal) || 0), 0);
+
+  // Top URLs from Traffic.PagePath dimension
+  if (traffic && Array.isArray(metrics.Traffic)) {
+    result.topUrls = metrics.Traffic
+      .map(t => ({
+        url: t.URL || t.PagePath || '(unknown)',
+        sessions: parseInt(t.totalSessionCount) || 0,
+      }))
+      .filter(t => t.sessions > 0)
+      .sort((a, b) => b.sessions - a.sessions)
+      .slice(0, 5);
+  }
+
+  return result;
+}
+
+// =====================================================
 // AI-generated insights from metrics
 // =====================================================
 async function generateInsights(metrics) {
@@ -132,10 +228,12 @@ ${metrics.recentMessages.filter(m => m.role === 'user').slice(0, 10).map(m => `-
 // =====================================================
 // Build email HTML
 // =====================================================
-function buildDigestHTML(metrics, insights, dateStr) {
+function buildDigestHTML(metrics, insights, dateStr, clarity) {
   const PLUM = '#3d2c4e';
   const GOLD = '#c9a961';
   const CREAM = '#F5EFE6';
+  const ROSE = '#b97a8b';
+  const SAGE = '#8aa888';
 
   const archetypeRows = metrics.topArchetypes
     .map(([num, count]) => `<tr><td>#${num}</td><td>${count} คน</td></tr>`)
@@ -171,6 +269,37 @@ function buildDigestHTML(metrics, insights, dateStr) {
     <table style="width:100%;font-size:14.5px;color:#333;">${archetypeRows}</table>
   </div>` : ''}
 
+  ${clarity ? `
+  <div style="background:white;border-radius:18px;padding:24px;margin:18px 0;border:1px solid rgba(61,44,78,0.08);">
+    <h2 style="font-size:18px;color:${PLUM};margin-bottom:14px;">📊 Web Analytics (Clarity)</h2>
+    <table style="width:100%;font-size:14.5px;color:#333;">
+      <tr><td style="padding:6px 0;color:#666;">Sessions</td><td style="text-align:right;font-weight:700;">${clarity.sessions}</td></tr>
+      ${clarity.pagesPerSession !== null ? `<tr><td style="padding:6px 0;color:#666;">Distinct users</td><td style="text-align:right;font-weight:700;">${clarity.pagesPerSession}</td></tr>` : ''}
+      ${clarity.avgScrollDepth !== null ? `<tr><td style="padding:6px 0;color:#666;">Avg active time</td><td style="text-align:right;font-weight:700;">${clarity.avgScrollDepth} sec</td></tr>` : ''}
+    </table>
+
+    ${clarity.rageClicks + clarity.deadClicks + clarity.quickBacks + clarity.excessiveScrolls > 0 ? `
+    <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(61,44,78,0.08);">
+      <div style="font-size:12px;letter-spacing:0.18em;color:${ROSE};font-weight:700;text-transform:uppercase;margin-bottom:8px;">⚠ Friction Points</div>
+      <table style="width:100%;font-size:14px;color:#333;">
+        ${clarity.rageClicks > 0 ? `<tr><td style="padding:4px 0;color:#666;">Rage clicks</td><td style="text-align:right;font-weight:700;color:${ROSE};">${clarity.rageClicks}</td></tr>` : ''}
+        ${clarity.deadClicks > 0 ? `<tr><td style="padding:4px 0;color:#666;">Dead clicks</td><td style="text-align:right;font-weight:700;color:${ROSE};">${clarity.deadClicks}</td></tr>` : ''}
+        ${clarity.quickBacks > 0 ? `<tr><td style="padding:4px 0;color:#666;">Quick backs</td><td style="text-align:right;font-weight:700;color:${ROSE};">${clarity.quickBacks}</td></tr>` : ''}
+        ${clarity.excessiveScrolls > 0 ? `<tr><td style="padding:4px 0;color:#666;">Excessive scrolls</td><td style="text-align:right;font-weight:700;color:${ROSE};">${clarity.excessiveScrolls}</td></tr>` : ''}
+      </table>
+    </div>` : ''}
+
+    ${clarity.topUrls && clarity.topUrls.length > 0 ? `
+    <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(61,44,78,0.08);">
+      <div style="font-size:12px;letter-spacing:0.18em;color:${GOLD};font-weight:700;text-transform:uppercase;margin-bottom:8px;">🔥 Top Pages</div>
+      <table style="width:100%;font-size:13.5px;color:#333;">
+        ${clarity.topUrls.map(u => `<tr><td style="padding:4px 0;color:#666;font-family:monospace;font-size:12.5px;">${u.url}</td><td style="text-align:right;font-weight:700;">${u.sessions}</td></tr>`).join('')}
+      </table>
+    </div>` : ''}
+
+    <p style="margin-top:14px;font-size:11.5px;color:#999;">📹 <a href="https://clarity.microsoft.com/projects/view/wl6ny59pz0/dashboard" style="color:${GOLD};">ดู recordings เต็มใน Clarity</a></p>
+  </div>` : ''}
+
   ${insights ? `
   <div style="background:linear-gradient(135deg,#fffbf2,#fef5e1);border-radius:18px;padding:24px;margin:18px 0;border:1px solid rgba(201,169,97,0.25);">
     <h2 style="font-size:18px;color:${PLUM};margin-bottom:14px;">🔍 AI วิเคราะห์</h2>
@@ -198,7 +327,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const metrics = await fetchMetrics();
+    const [metrics, clarityRaw] = await Promise.all([
+      fetchMetrics(),
+      fetchClarity(1, ['URL']),
+    ]);
+    const clarity = parseClarityMetrics(clarityRaw);
     const insights = await generateInsights(metrics);
 
     const today = new Date();
@@ -207,7 +340,7 @@ export default async function handler(req, res) {
       day: 'numeric', month: 'long', year: 'numeric'
     });
 
-    const html = buildDigestHTML(metrics, insights, dateStr);
+    const html = buildDigestHTML(metrics, insights, dateStr, clarity);
 
     const result = await resend.emails.send({
       from: 'Moome Daily <onboarding@resend.dev>',
