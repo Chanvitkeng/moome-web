@@ -229,7 +229,7 @@
   }
   .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 22px;
   }
   .tool-card {
@@ -264,6 +264,7 @@
   .tool-card.calc::before { background: var(--gold); }
   .tool-card.match::before { background: var(--rose); }
   .tool-card.today::before { background: var(--sage); }
+  .tool-card.ask::before { background: var(--lavender); }
 
   .tool-icon {
     font-size: 56px;
@@ -319,6 +320,7 @@
   }
   .tool-card.match .tool-features li::before { color: var(--rose); }
   .tool-card.today .tool-features li::before { color: var(--sage); }
+  .tool-card.ask .tool-features li::before { color: var(--lavender); }
 
   .tool-card .tool-cta {
     display: inline-block;
@@ -334,7 +336,32 @@
   }
   .tool-card.match .tool-cta { background: linear-gradient(135deg, var(--rose), var(--plum)); }
   .tool-card.today .tool-cta { background: linear-gradient(135deg, var(--gold), var(--rose)); color: var(--midnight); }
+  .tool-card.ask .tool-cta { background: linear-gradient(135deg, var(--lavender), var(--plum)); }
   .tool-card .tool-cta:hover { transform: scale(1.05); }
+
+  /* === NEW badge for ถามมู AI === */
+  .tool-card.ask {
+    position: relative;
+  }
+  .tool-card.ask .new-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: linear-gradient(135deg, var(--lavender), var(--rose));
+    color: white;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px -4px rgba(184,165,201,0.6);
+    animation: pulse-badge 2s ease-in-out infinite;
+  }
+  @keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
 
   /* === SECTION wrappers === */
   section.content {
@@ -673,6 +700,20 @@
         <li>เสียงของศาสตร์ × จิตวิทยา × คำถามชวนคิด</li>
       </ul>
       <span class="tool-cta">เริ่มคำนวณ →</span>
+    </a>
+
+    <a href="/ask/" class="tool-card ask">
+      <span class="new-badge">✨ NEW</span>
+      <div class="tool-icon">💬</div>
+      <div class="tool-eyebrow">AI COACH</div>
+      <h3>ถามมู AI</h3>
+      <p class="tool-desc">คุยกับ AI ที่รู้จัก archetype ของคุณ · ตอบจาก 5 ศาสตร์ + จิตวิทยา</p>
+      <ul class="tool-features">
+        <li>3 เสียง (ศาสตร์ · จิตวิทยา · เพื่อนคู่คิด)</li>
+        <li>ถามได้เรื่องงาน · ความรัก · ตัวตน</li>
+        <li>ตอบลึก · มีคำถามชวนคิด</li>
+      </ul>
+      <span class="tool-cta">เริ่มคุยกับมู →</span>
     </a>
 
     <a href="/match/" class="tool-card match">
