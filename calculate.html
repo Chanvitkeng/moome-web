@@ -671,6 +671,13 @@
   }
   .email-form button:hover { background: var(--midnight); transform: translateY(-1px); }
   .email-form button:disabled { opacity: 0.5; cursor: wait; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
   .email-trust {
     margin-top: 14px;
     font-size: 12px;
@@ -866,6 +873,7 @@
 
     <form class="email-form" id="emailForm">
       <input type="email" name="email" id="emailInput" placeholder="your@email.com" required>
+      <div class="email-error" id="emailError" style="display:none;color:#b97a8b;font-size:13px;margin:-8px 0 8px;font-weight:500;">⚠️ <span id="emailErrorText">ใส่ email ก่อนกดนะครับ</span></div>
       <button type="submit" id="emailSubmit">📩 รับฟรี →</button>
       <!-- Hidden fields auto-filled when calculate runs -->
       <input type="hidden" name="archetype" id="emailArchetype" value="">
@@ -1257,6 +1265,15 @@ document.getElementById('calcForm').addEventListener('submit', function(e) {
   }
 })();
 
+// === Clear error message when user types ===
+document.getElementById('emailInput').addEventListener('input', function() {
+  const errorBox = document.getElementById('emailError');
+  if (errorBox && errorBox.style.display !== 'none') {
+    errorBox.style.display = 'none';
+    this.style.borderColor = '';
+  }
+});
+
 // === Email capture submit (Web3Forms) ===
 document.getElementById('emailForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -1269,11 +1286,33 @@ document.getElementById('emailForm').addEventListener('submit', async function(e
   // Honeypot — if filled = bot
   if (this.botcheck && this.botcheck.checked) return;
 
-  // Validate
-  if (!emailInput.value || !emailInput.value.includes('@')) {
+  // Validate — show clear error instead of silent fail
+  const errorBox = document.getElementById('emailError');
+  const errorText = document.getElementById('emailErrorText');
+  function showError(msg) {
+    if (errorText) errorText.textContent = msg;
+    if (errorBox) errorBox.style.display = 'block';
+    emailInput.style.borderColor = '#b97a8b';
     emailInput.focus();
+    // Shake animation
+    emailInput.style.animation = 'shake 0.4s';
+    setTimeout(() => emailInput.style.animation = '', 400);
+  }
+  function clearError() {
+    if (errorBox) errorBox.style.display = 'none';
+    emailInput.style.borderColor = '';
+  }
+
+  const emailVal = (emailInput.value || '').trim();
+  if (!emailVal) {
+    showError('ใส่ email ก่อนกดนะครับ');
     return;
   }
+  if (!emailVal.includes('@') || !emailVal.includes('.') || emailVal.length < 6) {
+    showError('email ไม่ถูกต้อง · ตรวจสอบอีกที (เช่น you@gmail.com)');
+    return;
+  }
+  clearError();
 
   submitBtn.disabled = true;
   submitBtn.textContent = '⏳ กำลังส่ง...';
