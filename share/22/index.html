@@ -209,6 +209,58 @@
   }
   .btn.btn-match:hover { background: #8a5a6c; }
 
+  .ask-box {
+    background: linear-gradient(135deg, #f3eef9, #ebe1f5);
+    border-radius: 20px;
+    padding: 28px 24px;
+    border: 1px solid rgba(184,165,201,0.4);
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .ask-box .ask-new-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: linear-gradient(135deg, var(--lavender), #b97a8b);
+    color: white;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    animation: ask-pulse 2s ease-in-out infinite;
+  }
+  @keyframes ask-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .ask-box h2 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--midnight);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .ask-box h2 em {
+    font-style: normal;
+    color: var(--lavender);
+    font-weight: 600;
+  }
+  .ask-box p {
+    color: var(--plum);
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+  .btn.btn-ask {
+    background: linear-gradient(135deg, var(--lavender), var(--plum));
+    padding: 14px 26px;
+    font-size: 14px;
+  }
+  .btn.btn-ask:hover { background: linear-gradient(135deg, var(--plum), var(--midnight)); }
+
+
 
   footer {
     text-align: center;
@@ -256,6 +308,14 @@
     <p>เปรียบเทียบดวงคู่ของคุณกับเพื่อนคนนี้ · ระบบเทียบ archetype ให้</p>
     <a id="matchBtn" href="/match/" class="btn btn-match">เช็คดวงคู่ →</a>
   </div>
+
+  <div class="ask-box">
+    <span class="ask-new-badge">✨ NEW</span>
+    <h2>💬 อยากรู้จัก archetype นี้ <em>มากขึ้น?</em></h2>
+    <p>คุยกับ AI ที่รู้จักศาสตร์มู · ตอบจาก 5 ศาสตร์ + จิตวิทยา · ฟรี</p>
+    <a id="askBtn" href="/ask/" class="btn btn-ask">เริ่มคุยกับมู →</a>
+  </div>
+
 </main>
 
 <footer>
@@ -273,6 +333,8 @@
       'เพื่อนเกิดวันที่ <strong>' + d + ' ' + months[parseInt(m)] + ' ' + y + '</strong>';
     // Pre-fill /match with friend as person 2 — user fills in person 1 (themselves)
     document.getElementById('matchBtn').href = '/match/?d2=' + d + '&m2=' + m + '&y2=' + y;
+    document.getElementById('askBtn').href = '/ask/?d=' + d + '&m=' + m + '&y=' + y;
+
   }
 })();
 </script>
