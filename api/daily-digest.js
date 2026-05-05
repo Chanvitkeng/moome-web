@@ -343,7 +343,7 @@ export default async function handler(req, res) {
     const html = buildDigestHTML(metrics, insights, dateStr, clarity);
 
     const result = await resend.emails.send({
-      from: 'Moome Daily <onboarding@resend.dev>',
+      from: 'Moome Daily <hello@moome.app>',
       to: ADMIN_EMAIL,
       subject: `📊 Moome Daily Digest · ${dateStr} · ${metrics.newUsers24h} ผู้ใช้ใหม่`,
       html,

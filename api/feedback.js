@@ -86,7 +86,7 @@ export default async function handler(req, res) {
     const subject = `💬 Feedback ${moodLabel}${safeEmail ? ` · ${safeEmail}` : ''}`;
 
     const result = await resend.emails.send({
-      from: 'Moome Feedback <onboarding@resend.dev>',
+      from: 'Moome Feedback <hello@moome.app>',
       to: 'chanvit.kasetpiban@gmail.com',
       reply_to: safeEmail && safeEmail.includes('@') ? safeEmail : undefined,
       subject,

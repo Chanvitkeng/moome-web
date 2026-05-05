@@ -272,7 +272,7 @@ export default async function handler(req, res) {
 
     // 1. Send rich report email to user
     const userResult = await resend.emails.send({
-      from: 'Moome <onboarding@resend.dev>',
+      from: 'Moome <hello@moome.app>',
       to: email,
       subject: `📕 Personal Archetype Report · ${archStr} ${archData.th} · Moome`,
       html: buildUserEmailHTML(archNum, archData, birth_date),
@@ -286,7 +286,7 @@ export default async function handler(req, res) {
     // 2. Send admin notification (don't fail the request if admin email fails)
     try {
       await resend.emails.send({
-        from: 'Moome <onboarding@resend.dev>',
+        from: 'Moome <hello@moome.app>',
         to: 'chanvit.kasetpiban@gmail.com',
         subject: `📥 New lead · ${archStr} ${archData.th} · ${email}`,
         html: buildAdminEmailHTML(email, archStr, archData, birth_date, source || 'unknown'),
