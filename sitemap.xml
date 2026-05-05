@@ -93,6 +93,13 @@
     <priority>0.85</priority>
   </url>
 
+  <url>
+    <loc>https://moome.app/blog/archetype-4-ผู้สร้างฐาน/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Future pages (uncomment when published) -->
   <!--
   <url>
