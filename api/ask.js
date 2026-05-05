@@ -7,7 +7,7 @@ import { saveChatMessage, getChatHistory, getUserFacts } from './_supabase.js';
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-haiku-4-5-20251001';
-const MAX_TOKENS = 1400;
+const MAX_TOKENS = 900;  // reduced from 1400 → fits in Vercel Hobby 10s timeout
 
 // In-memory rate limit (resets on cold start — good enough for MVP)
 const rateLimits = new Map();

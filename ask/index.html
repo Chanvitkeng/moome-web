@@ -534,23 +534,35 @@
   }
   .input-bar textarea:focus { outline: 2px solid var(--gold-soft); }
   .input-bar button {
-    background: var(--plum);
-    color: var(--cream);
+    background: linear-gradient(135deg, var(--plum), var(--lavender));
+    color: white;
     border: none;
     cursor: pointer;
-    width: 44px; height: 44px;
+    min-width: 64px; height: 44px;
+    padding: 0 16px;
     border-radius: 12px;
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: 600;
     flex-shrink: 0;
     transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
   }
   .input-bar button:hover:not(:disabled) {
-    background: var(--midnight);
+    background: linear-gradient(135deg, var(--midnight), var(--plum));
     transform: scale(1.05);
   }
   .input-bar button:disabled {
-    opacity: 0.4;
+    opacity: 0.5;
     cursor: not-allowed;
+  }
+  @media (max-width: 480px) {
+    .input-bar button {
+      min-width: 56px;
+      padding: 0 12px;
+    }
   }
 
   /* === META BAR === */
@@ -781,7 +793,7 @@
   <div class="input-wrap">
     <div class="input-bar">
       <textarea id="input" placeholder="พิมพ์คำถาม...  (Enter ส่ง · Shift+Enter ขึ้นบรรทัดใหม่)" rows="1"></textarea>
-      <button id="send-btn" aria-label="ส่ง">↑</button>
+      <button id="send-btn" aria-label="ส่งคำถาม">ส่ง ↑</button>
     </div>
 
     <div class="meta-bar">
@@ -1289,6 +1301,10 @@ async function sendQuestion(question) {
   document.getElementById('input').value = '';
   renderMessages();
 
+  // Client-side timeout — show clear error if server takes too long
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s
+
   try {
     // Build history for API context (last 6 turns, excluding just-pushed user msg)
     const history = state.messages
@@ -1301,6 +1317,7 @@ async function sendQuestion(question) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
       credentials: 'include',
+      signal: controller.signal,
       body: JSON.stringify({
         question: question.trim(),
         archetype: state.archetype,
@@ -1311,6 +1328,7 @@ async function sendQuestion(question) {
       }),
     });
 
+    clearTimeout(timeoutId);
     const data = await res.json();
 
     // Remove thinking placeholder
@@ -1333,9 +1351,16 @@ async function sendQuestion(question) {
     }
     saveHistory();
   } catch (err) {
+    clearTimeout(timeoutId);
     state.messages = state.messages.filter(m => !m.thinking);
-    state.messages.push({ role: 'assistant', content: '⚠️ Network error · ลองใหม่ภายหลัง' });
-    console.error(err);
+    let errMsg;
+    if (err.name === 'AbortError') {
+      errMsg = '⏱ AI ใช้เวลานานเกินไป · ลองพิมพ์คำถามให้สั้นลง หรือถามใหม่อีกครั้ง';
+    } else {
+      errMsg = '⚠️ ส่งคำถามไม่ได้ · เช็คอินเทอร์เน็ตแล้วลองใหม่';
+    }
+    state.messages.push({ role: 'assistant', content: errMsg });
+    console.error('sendQuestion error:', err);
   } finally {
     state.isLoading = false;
     document.getElementById('send-btn').disabled = false;
@@ -1420,7 +1445,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Input
   const input = document.getElementById('input');
+  // Track IME composition state (Thai/Japanese/Chinese keyboards)
+  let isComposing = false;
+  input.addEventListener('compositionstart', () => { isComposing = true; });
+  input.addEventListener('compositionend', () => { isComposing = false; });
   input.addEventListener('keydown', e => {
+    // Skip Enter while IME composition is active (would send incomplete text)
+    if (e.isComposing || isComposing || e.keyCode === 229) return;
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendQuestion(input.value);
