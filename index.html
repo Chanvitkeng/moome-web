@@ -679,6 +679,316 @@
   </div>
 </section>
 
+<!-- ===== ASK DEMO (animated mockup) ===== -->
+<style>
+  .ask-demo-section {
+    padding: 60px 24px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .ask-demo-frame {
+    max-width: 380px;
+    margin: 32px auto 0;
+    background: #F5EFE6;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(61,44,78,0.12);
+    box-shadow: 0 24px 60px -20px rgba(61,44,78,0.18);
+  }
+  .ask-demo-header {
+    padding: 16px 20px;
+    background: white;
+    border-bottom: 1px solid rgba(61,44,78,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ask-demo-avatar {
+    width: 42px; height: 42px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--plum), var(--midnight));
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Italiana', serif;
+    font-size: 20px;
+  }
+  .ask-demo-header-text .lbl {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .ask-demo-header-text .name {
+    font-size: 15px;
+    color: var(--midnight);
+    font-weight: 700;
+  }
+  .ask-demo-chat {
+    padding: 18px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+  .ask-demo-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: rgba(61,44,78,0.5);
+    font-size: 13px;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .ask-demo-hint .ico {
+    font-size: 32px;
+    color: var(--gold);
+  }
+  .ask-demo-bubble {
+    max-width: 82%;
+    padding: 11px 15px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.65;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .ask-demo-bubble.user {
+    align-self: flex-end;
+    background: var(--plum);
+    color: var(--cream);
+    border-bottom-right-radius: 4px;
+    min-height: 20px;
+  }
+  .ask-demo-bubble.thinking {
+    align-self: flex-start;
+    background: white;
+    color: #888;
+    border-bottom-left-radius: 4px;
+    padding: 11px 16px;
+  }
+  .ask-demo-bubble.ai {
+    align-self: flex-start;
+    background: white;
+    color: var(--midnight);
+    border-bottom-left-radius: 4px;
+    line-height: 1.75;
+  }
+  .ask-demo-bubble.ai p {
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .ask-demo-bubble.ai p + p { margin-top: 10px; }
+  .ask-demo-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .ask-demo-chip {
+    background: white;
+    border: 1px solid rgba(61,44,78,0.18);
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 12px;
+    color: var(--plum);
+  }
+  .ask-demo-chip::before {
+    content: '↗ ';
+    color: var(--gold);
+  }
+  .ask-demo-input {
+    padding: 10px 14px 14px;
+  }
+  .ask-demo-input-bar {
+    background: white;
+    border-radius: 14px;
+    padding: 7px 7px 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(61,44,78,0.06);
+  }
+  .ask-demo-input-bar .ph {
+    flex: 1;
+    font-size: 13px;
+    color: rgba(61,44,78,0.4);
+  }
+  .ask-demo-input-bar button {
+    background: linear-gradient(135deg, var(--plum), var(--lavender));
+    color: white;
+    border: none;
+    border-radius: 11px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .ask-demo-cta {
+    text-align: center;
+    margin-top: 28px;
+  }
+</style>
+
+<section class="ask-demo-section">
+  <div style="text-align:center;margin-bottom:8px;">
+    <div class="section-eyebrow" style="text-align:center;margin:0 auto 12px;">TRY IT LIVE</div>
+    <h2 class="section-title" style="text-align:center;margin:0 auto 14px;">ลองดูตัวอย่าง — <em>มูตอบยังไง</em></h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 0;">เห็นภาพก่อน · เริ่มถามจริงได้ฟรี · ไม่ต้องสมัคร</p>
+  </div>
+
+  <div class="ask-demo-frame" id="askDemoFrame">
+
+    <div class="ask-demo-header">
+      <div class="ask-demo-avatar">10</div>
+      <div class="ask-demo-header-text">
+        <div class="lbl">YOUR ARCHETYPE</div>
+        <div class="name">วงล้อแห่งโชค</div>
+      </div>
+    </div>
+
+    <div class="ask-demo-chat">
+
+      <div class="ask-demo-hint" id="askDemoHint">
+        <div class="ico">✦</div>
+        <div>เริ่มถามมูได้เลย</div>
+      </div>
+
+      <div class="ask-demo-bubble user" id="askDemoUser"></div>
+      <div class="ask-demo-bubble thinking" id="askDemoThinking">⋯ กำลังคิด</div>
+      <div class="ask-demo-bubble ai" id="askDemoAi"></div>
+
+      <div class="ask-demo-chips" id="askDemoChips">
+        <span class="ask-demo-chip">วัฏจักรวงล้อโชคเป็นยังไง?</span>
+        <span class="ask-demo-chip">3 ปัจจัยที่ขาดในงาน?</span>
+        <span class="ask-demo-chip">ใจพร้อมเปลี่ยนแล้วยัง?</span>
+      </div>
+
+    </div>
+
+    <div class="ask-demo-input">
+      <div class="ask-demo-input-bar">
+        <span class="ph">พิมพ์คำถาม...</span>
+        <button>ส่ง ↑</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ask-demo-cta">
+    <a href="/ask/" class="btn btn-primary">💬 เริ่มคุยกับมูจริง →</a>
+  </div>
+</section>
+
+<script>
+(function() {
+  const userQ = 'ผมควรเปลี่ยนงานไหม?';
+  const aiText = 'ในวัย 35 + วงล้อแห่งโชค #10 คุณอยู่ในจังหวะวัฏจักรพอดี · ไม่ใช่บังเอิญที่รู้สึกอยากเปลี่ยน\n\nความอึดอัดในงานมักเกิดจาก 3 อย่าง คือ ความเป็นอิสระ ความสามารถ และการเชื่อมโยงกับคน · ลองเช็คดูว่าตอนนี้ขาดอันไหน\n\nถ้าคุณตื่นพรุ่งนี้แล้วงานนี้กลายเป็นงานในฝัน · สิ่งแรกที่ต้องเปลี่ยนคืออะไร?';
+
+  const frame = document.getElementById('askDemoFrame');
+  const hint = document.getElementById('askDemoHint');
+  const userMsg = document.getElementById('askDemoUser');
+  const thinking = document.getElementById('askDemoThinking');
+  const aiMsg = document.getElementById('askDemoAi');
+  const chips = document.getElementById('askDemoChips');
+
+  if (!frame) return;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let running = false;
+  let stopFlag = false;
+
+  async function typewriter(el, text, delay) {
+    el.textContent = '';
+    for (let i = 0; i < text.length; i++) {
+      if (stopFlag) return;
+      el.textContent += text[i];
+      await sleep(delay);
+    }
+  }
+
+  function reset() {
+    hint.style.opacity = '1';
+    userMsg.style.opacity = '0';
+    userMsg.textContent = '';
+    thinking.style.opacity = '0';
+    aiMsg.style.opacity = '0';
+    aiMsg.innerHTML = '';
+    chips.style.opacity = '0';
+  }
+
+  async function runCycle() {
+    reset();
+    await sleep(1200);
+    if (stopFlag) return;
+
+    hint.style.opacity = '0';
+    await sleep(250);
+
+    userMsg.style.opacity = '1';
+    await typewriter(userMsg, userQ, 25);
+    if (stopFlag) return;
+    await sleep(300);
+
+    thinking.style.opacity = '1';
+    await sleep(800);
+    thinking.style.opacity = '0';
+    await sleep(250);
+
+    aiMsg.style.opacity = '1';
+    const paras = aiText.split('\n\n');
+    for (let i = 0; i < paras.length; i++) {
+      if (stopFlag) return;
+      const p = document.createElement('p');
+      p.textContent = paras[i];
+      aiMsg.appendChild(p);
+      await sleep(60);
+      p.style.opacity = '1';
+      await sleep(500);
+    }
+
+    await sleep(300);
+    chips.style.opacity = '1';
+    await sleep(3500);
+  }
+
+  async function loop() {
+    if (running) return;
+    running = true;
+    stopFlag = false;
+    while (!stopFlag) {
+      await runCycle();
+    }
+    running = false;
+  }
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          stopFlag = false;
+          loop();
+        } else {
+          stopFlag = true;
+        }
+      });
+    }, { threshold: 0.2 });
+    obs.observe(frame);
+  } else {
+    loop();
+  }
+})();
+</script>
+
 <!-- ===== 3 TOOLS SHOWCASE ===== -->
 <section id="tools" class="tools-section">
   <div style="text-align:center;margin-bottom:48px;">
@@ -709,7 +1019,7 @@
       <h3>ถามมู AI</h3>
       <p class="tool-desc">คุยกับ AI ที่รู้จัก archetype ของคุณ · ตอบจาก 5 ศาสตร์ + จิตวิทยา</p>
       <ul class="tool-features">
-        <li>3 เสียง (ศาสตร์ · จิตวิทยา · เพื่อนคู่คิด)</li>
+        <li>คำตอบเดียว · weave ศาสตร์ + จิตวิทยา</li>
         <li>ถามได้เรื่องงาน · ความรัก · ตัวตน</li>
         <li>ตอบลึก · มีคำถามชวนคิด</li>
       </ul>
