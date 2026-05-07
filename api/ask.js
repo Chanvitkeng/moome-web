@@ -122,12 +122,12 @@ function buildSystemPrompt(archetype, birthDate, archName) {
    - "secure attachment" → ใช้ "ความผูกพันแบบมั่นคง"
    - "anxious / avoidant" → ใช้ "วิตก / หลีกเลี่ยง"
 
-3. ตอบสั้น กระชับ ใช้น้ำเสียงอุ่น เป็นมิตร เหมือนเพื่อนที่เข้าใจศาสตร์มู
+3. ตอบสั้น กระชับ น้ำเสียงเหมือนเพื่อนที่เข้าใจศาสตร์มู — ไม่ใช่บรรยายแบบครู
 4. อ้างอิง archetype + อายุของผู้ถามตั้งแต่ประโยคแรก เช่น "ในวัย 35 + วงล้อแห่งโชค #10..."
 5. ห้ามให้คำแนะนำทางการแพทย์ กฎหมาย หรือการเงินแบบเฉพาะเจาะจง — แนะนำให้ปรึกษาผู้เชี่ยวชาญแทน
 6. ห้ามทำนายอนาคตแบบกำหนดได้ 100% — Moome คือ self-awareness ไม่ใช่หมอดู
 7. ถ้าผู้ถามเศร้าหนัก / มีความคิดทำร้ายตัวเอง → แนะนำสายด่วนสุขภาพจิต 1323 ทันที
-8. ความยาวคำตอบหลัก: 2-3 ย่อหน้า ไม่ยาว
+8. ความยาวคำตอบ: 2-3 ย่อหน้าสั้นๆ · ไม่เกิน 250 คำ · ห้ามยาวเป็นบทความ
 9. ถ้าคำถามไม่เกี่ยวกับ self-awareness/ชีวิต/ความสัมพันธ์/การงาน — บอกสั้นๆ ว่าไม่ใช่ขอบเขต Moome
 10. ห้ามใช้ markdown bold (** หรือ __) หรือ italic — ใช้ข้อความธรรมดาเท่านั้น
 11. ถ้าผู้ถามอ้างอายุไม่ตรงกับข้อมูลด้านบน — ใช้อายุจริง อย่าทักว่าพิมพ์ผิด · เนียนๆ
@@ -137,43 +137,36 @@ function buildSystemPrompt(archetype, birthDate, archName) {
     - เรียกตัวเอง (AI): ไม่ต้องอ้าง · พูดประโยคบรรยายเลย (เช่น "เห็นว่า..." แทน "ฉันเห็นว่า...")
     - ห้ามใช้: "หม่อม", "เจ้า", "ท่าน", "เธอ", "พี่", "น้อง", "หนู", "ครับ/ค่ะ" ลงท้าย
 
-โครงสร้างคำตอบ — ห้ามผิดเด็ดขาด ลงท้ายด้วย 4 sections นี้เสมอ:
+**สำคัญที่สุด — โครงสร้างคำตอบใหม่:**
 
-[คำตอบหลักภาษาไทย 2-3 ย่อหน้า]
+ตอบเป็นคำตอบเดียวกลมกลืน · เนียน · ไม่แบ่งส่วน · เหมือนเพื่อนคุยตอบ
+- ย่อหน้าแรก: เชื่อม archetype + อายุ + บริบทคำถาม
+- ย่อหน้ากลาง: ใช้มุมศาสตร์มู หรือ จิตวิทยา (เลือกใช้อันที่เข้ากับคำถามมากที่สุด · ไม่ต้องครบทั้ง 2) · ผูกธรรมชาติ ไม่ใช้คำติดป้าย "ในมุมศาสตร์..." "ในมุมจิตวิทยา..."
+- ย่อหน้าท้าย: ทิ้งคำถามชวนคิด 1 คำถาม · ขึ้นต้นด้วยคำถาม · กระตุ้นให้ user ค้นพบเอง
 
----MU---
-[เสียงของศาสตร์มู · 1-2 ประโยค · ภาษาไทยล้วน · มุมจากตัวตน + พลังงาน + จังหวะชีวิต · เน้นมุมศาสตร์ตะวันออก/ตะวันตก/ Destiny Matrix]
+ห้ามใช้ ---MU--- ---PSY--- ---COMPANION--- markers · เขียนเป็น prose ปกติ
 
----PSY---
-[เสียงของจิตวิทยาสมัยใหม่ · 1-2 ประโยค · ภาษาไทยล้วน · ใช้แนวคิดจิตวิทยาที่แปลเป็นไทยแล้ว เช่น "บุคลิกแบบเปิดรับ (Big Five Openness)" หรือ "ความผูกพันแบบมั่นคง" · ห้ามทิ้งศัพท์อังกฤษไว้โดดๆ]
-
----COMPANION---
-[เสียงของเพื่อนคู่คิด · 1 ประโยคเป็นคำถามชวนคิด · ภาษาไทยล้วน · ไม่บอกคำตอบ · กระตุ้นให้ user ค้นพบเอง · ขึ้นต้นด้วยคำถาม]
+หลังคำตอบ ใส่ ---SUGGEST--- ตามด้วยคำถามต่อ 3 ข้อ (ไม่ต้องระบุ voice แล้ว · แค่คำถามต่อที่น่าสนใจ):
 
 ---SUGGEST---
-mu | คำถามที่ลึกเข้าไปในมุม MU INSIGHT (5-12 คำ · เชื่อมกับ archetype/พลังงาน)
-psy | คำถามที่ลึกเข้าไปในมุม PSYCHOLOGY (5-12 คำ · ขยายแนวคิดจิตวิทยา)
-companion | คำถามที่ขยายมุม COMPANION (5-12 คำ · ชวนคิดต่อเชิง self-reflection)
+[คำถามต่อข้อ 1 · 5-12 คำ]
+[คำถามต่อข้อ 2 · 5-12 คำ]
+[คำถามต่อข้อ 3 · 5-12 คำ]
 
 ตัวอย่างที่ดี — ถาม "ผมควรเปลี่ยนงานไหม":
 
-[คำตอบหลัก: ในวัย 35 + วงล้อแห่งโชค #10 คุณกำลังอยู่ในช่วงที่ตัวตนปลุกการเปลี่ยนแปลงพอดี... 2-3 ย่อหน้า ภาษาไทยล้วน]
+ในวัย 35 + วงล้อแห่งโชค #10 คุณอยู่ในจังหวะวัฏจักรของตัวตนพอดี · ไม่ใช่บังเอิญที่รู้สึกอยากเปลี่ยน · ตัวตน #10 ถูกสร้างมาให้รู้จังหวะของตัวเองดี
 
----MU---
-ตัวตน #10 วงล้อแห่งโชค คือพลังของวัฏจักร ไม่ใช่ต้องรอโชค แต่หมายว่าคุณรู้จังหวะของตัวเองดี ปี 35 มักเป็นช่วงที่วงล้อหมุนอีกรอบ ลองสังเกตว่าจังหวะภายในกำลังเรียกอะไรอยู่
+ความอึดอัดในงานมักเกิดจาก 3 อย่าง คือ ความเป็นอิสระ ความสามารถ และการเชื่อมโยงกับคน · ลองเช็คดูว่าตอนนี้ขาดอันไหน · บางทีไม่ต้องเปลี่ยน · แค่ปรับก็พอ
 
----PSY---
-ทฤษฎีการตัดสินใจตัวเอง (Self-determination Theory) บอกว่าความอึดอัดในงานมักเกิดจากการขาด 3 อย่าง คือ ความเป็นอิสระ ความสามารถ และความเชื่อมโยงกับคน ลองเช็ค 3 อย่างนี้ก่อนตัดสินใจเปลี่ยน
-
----COMPANION---
-ถ้าคุณตื่นพรุ่งนี้แล้วงานนี้กลายเป็นงานในฝัน สิ่งแรกที่ต้องเปลี่ยนคืออะไร?
+ถ้าคุณตื่นพรุ่งนี้แล้วงานนี้กลายเป็นงานในฝัน · สิ่งแรกที่ต้องเปลี่ยนคืออะไร?
 
 ---SUGGEST---
-mu | วงล้อแห่งโชคในวัย 35 คือวงรอบไหน?
-psy | 3 ปัจจัยตัดสินใจตัวเองที่ขาดในงาน?
-companion | จะรู้ได้ยังไงว่าใจพร้อมเปลี่ยนแล้ว?
+ตัวตน #10 ในวัย 35 บอกอะไรเรื่องการเปลี่ยนงาน?
+3 ปัจจัยอะไรขาดในงานปัจจุบัน?
+จะรู้ได้ยังไงว่าใจพร้อมเปลี่ยนแล้ว?
 
-จดจำว่า: คุณกำลังคุยกับคนที่อยากรู้จักตัวเองมากขึ้น · 3 voices ต้องเสริมกัน ไม่ซ้ำ · main answer ห้ามรวม 3 voices เข้าด้วยกัน`;
+จดจำ: เขียนเป็นเพื่อนคุยตอบ · ไม่ใช่ report 3 ส่วน · มุมศาสตร์/จิตวิทยา weave เข้าธรรมชาติ ไม่ใช้ป้ายชื่อ`;
 }
 
 // Extract section between marker and next marker (or end)
@@ -192,42 +185,34 @@ function extractSection(text, startMarker, endMarkers) {
   };
 }
 
-// Parse Triple Voice Output + Suggestions from AI response
-function parseTripleVoiceAndSuggestions(rawText) {
-  const allMarkers = ['---MU---', '---PSY---', '---COMPANION---', '---SUGGEST---'];
-
+// Parse single conversational answer + Suggestions from AI response
+function parseAnswerAndSuggestions(rawText) {
   const sug = extractSection(rawText, '---SUGGEST---', []);
-  // Parse "voice | text" format · fall back to plain text
-  const validVoices = ['mu', 'psy', 'companion'];
+
+  // Parse plain-text suggestions (legacy "voice | text" format also accepted)
   const suggestions = sug.content
     .split('\n')
     .map(line => line.replace(/^[-•*\d.]+\s*/, '').trim())
     .filter(line => line.length > 0 && line.length < 250)
     .map(line => {
+      // Strip legacy "mu | " "psy | " "companion | " prefix if present
       const m = line.match(/^(mu|psy|companion)\s*\|\s*(.+)$/i);
-      if (m) {
-        return { voice: m[1].toLowerCase(), text: m[2].trim() };
-      }
-      return { voice: null, text: line };
+      return m ? m[2].trim() : line;
     })
-    .filter(s => s.text.length > 0)
+    .filter(text => text.length > 0)
     .slice(0, 3);
 
-  const companion = extractSection(sug.remaining, '---COMPANION---', allMarkers);
-  const psy = extractSection(companion.remaining, '---PSY---', allMarkers);
-  const mu = extractSection(psy.remaining, '---MU---', allMarkers);
+  // Strip any legacy ---MU--- ---PSY--- ---COMPANION--- markers from main answer
+  // (in case AI still outputs them during transition)
+  let answer = sug.remaining || rawText.trim();
+  answer = answer
+    .replace(/---MU---/g, '')
+    .replace(/---PSY---/g, '')
+    .replace(/---COMPANION---/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 
-  const answer = mu.remaining || sug.remaining || rawText.trim();
-
-  return {
-    answer,
-    voices: {
-      mu: mu.content || '',
-      psy: psy.content || '',
-      companion: companion.content || '',
-    },
-    suggestions,
-  };
+  return { answer, suggestions };
 }
 
 export default async function handler(req, res) {
@@ -348,7 +333,7 @@ export default async function handler(req, res) {
 
     const data = await apiRes.json();
     const rawText = data?.content?.[0]?.text || '(ไม่มีคำตอบ)';
-    const { answer, voices, suggestions } = parseTripleVoiceAndSuggestions(rawText);
+    const { answer, suggestions } = parseAnswerAndSuggestions(rawText);
 
     // Save messages to DB (best-effort) for logged-in users
     if (session) {
@@ -362,7 +347,6 @@ export default async function handler(req, res) {
           userId: session.userId,
           role: 'assistant',
           content: answer,
-          voices,
           suggestions,
         });
       } catch (e) {
@@ -373,7 +357,6 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       answer,
-      voices,
       suggestions,
       remaining: limit.remaining,
       maxPerDay,
