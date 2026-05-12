@@ -419,10 +419,37 @@
     padding: 28px;
     text-align: center;
     transition: all 0.25s;
+    position: relative;
   }
   .system-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 18px 40px -20px rgba(61,44,78,0.2);
+  }
+  .system-card.available {
+    border-color: var(--sage);
+    border-width: 1.5px;
+  }
+  .system-card.coming-soon {
+    opacity: 0.78;
+  }
+  .system-card .status-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .system-card.available .status-badge {
+    background: var(--sage);
+    color: #2d4d2d;
+  }
+  .system-card.coming-soon .status-badge {
+    background: rgba(184,165,201,0.25);
+    color: var(--lavender);
   }
   .system-icon { font-size: 38px; margin-bottom: 12px; }
   .system-card h3 {
@@ -1017,7 +1044,7 @@
       <div class="tool-icon">💬</div>
       <div class="tool-eyebrow">AI COACH</div>
       <h3>ถามมู AI</h3>
-      <p class="tool-desc">คุยกับ AI ที่รู้จัก archetype ของคุณ · ตอบจาก 5 ศาสตร์ + จิตวิทยา</p>
+      <p class="tool-desc">คุยกับ AI ที่รู้จัก archetype ของคุณ · ตอบจาก Destiny Matrix + จิตวิทยา</p>
       <ul class="tool-features">
         <li>คำตอบเดียว · weave ศาสตร์ + จิตวิทยา</li>
         <li>ถามได้เรื่องงาน · ความรัก · ตัวตน</li>
@@ -1060,34 +1087,41 @@
   <div class="section-eyebrow">CAREER CONVERGENCE ENGINE</div>
   <h2 class="section-title">4 ศาสตร์<em>เปรียบเทียบกัน</em></h2>
   <p class="section-sub">
-    Moome เป็นแอปดูดวงเดียวในไทยที่คำนวณคำตอบจาก 4 ศาสตร์พร้อมกัน — overlap = signal strength · 4/4 = "Soul calling"
+    Moome กำลังสร้างแพลตฟอร์มที่คำนวณคำตอบจาก 4 ศาสตร์พร้อมกัน — overlap = signal strength · 4/4 = "Soul calling" · <strong>เฟส 1 เริ่มที่ Destiny Matrix</strong> · เฟสถัดมาจะเปิดตามลำดับ
   </p>
   <div class="systems-grid">
-    <div class="system-card">
+    <div class="system-card available">
+      <span class="status-badge">✓ พร้อมใช้</span>
       <div class="system-icon">🔮</div>
       <h3>Destiny Matrix</h3>
       <div class="origin">Russian numerology</div>
       <p>22 archetypes ตัวตน + 8 จุดดวงชะตา · ภารกิจชีวิตและจังหวะ</p>
     </div>
-    <div class="system-card">
+    <div class="system-card coming-soon">
+      <span class="status-badge">Coming soon</span>
       <div class="system-icon">🏹</div>
       <h3>Western Astrology</h3>
       <div class="origin">Greek/Roman</div>
       <p>Sun + Moon + Ascendant · บุคลิก ภาพลักษณ์ อารมณ์</p>
     </div>
-    <div class="system-card">
+    <div class="system-card coming-soon">
+      <span class="status-badge">Coming soon</span>
       <div class="system-icon">🦂</div>
       <h3>Vedic Astrology</h3>
       <div class="origin">India · Sidereal</div>
       <p>Nakshatras + Dasha periods · กรรมและระยะยาว</p>
     </div>
-    <div class="system-card">
+    <div class="system-card coming-soon">
+      <span class="status-badge">Coming soon</span>
       <div class="system-icon">🐉</div>
       <h3>Chinese BaZi</h3>
       <div class="origin">China · 4 pillars</div>
       <p>Day Master + 5 elements · ธาตุและอาชีพ</p>
     </div>
   </div>
+  <p style="text-align:center;margin-top:32px;font-size:13px;color:var(--lavender);">
+    ✦ อยากให้ Moome เพิ่มศาสตร์ไหนก่อน? · <a href="https://line.me/R/ti/p/@262zpsua" style="color:var(--gold);">บอกเราได้ทาง LINE OA</a>
+  </p>
 </section>
 
 <!-- ===== TRIPLE VOICE ===== -->
@@ -1102,7 +1136,7 @@
       <div class="lbl">🔮 Mu Insight</div>
       <h3>เสียงของศาสตร์</h3>
       <p style="color:var(--plum);font-size:14px;margin-bottom:14px;line-height:1.6;">
-        ใช้ Destiny Matrix + 4 ศาสตร์ดูดวง อ่าน archetype ตัวตนของคุณ
+        ใช้ Destiny Matrix อ่าน archetype ตัวตนของคุณ · เฟสต่อไปขยายเป็น 4 ศาสตร์
       </p>
       <div class="quote">"Phoenix · นางฟ้าแห่งการเปลี่ยนผ่าน — เธอมี tendency เปลี่ยนแปลงตัวเองได้เก่ง"</div>
     </div>
@@ -1139,7 +1173,7 @@
     <div class="feature-card">
       <div class="icon">💕</div>
       <h3>ดวงคู่</h3>
-      <p>เช็คความเข้ากันของคุณกับคนที่ใจชอบ · 4 ศาสตร์เปรียบเทียบในหน้าเดียว</p>
+      <p>เช็คความเข้ากันของคุณกับคนที่ใจชอบ · ใช้ Destiny Matrix archetype match</p>
       <a href="/blog/ดวงคู่ราศี/">อ่านเพิ่ม →</a>
     </div>
     <div class="feature-card">
@@ -1176,15 +1210,15 @@
   <div class="faq-list">
     <details class="faq-item">
       <summary>Moome คืออะไร?</summary>
-      <div class="answer">Moome (อ่านว่า "มู-มี" = มูสำหรับฉัน) เป็น Self-Awareness Platform ที่ผสม Destiny Matrix + 4 ศาสตร์ดูดวง + Coaching-inspired methods · ช่วยให้คุณรู้จักตัวเองและตัดสินใจได้ดีกว่า · เริ่มฟรีใน LINE OA</div>
+      <div class="answer">Moome (อ่านว่า "มู-มี" = มูสำหรับฉัน) เป็น Self-Awareness Platform ที่ใช้ Destiny Matrix + Coaching-inspired methods · ช่วยให้คุณรู้จักตัวเองและตัดสินใจได้ดีกว่า · วิสัยทัศน์: ขยายเป็น 4 ศาสตร์เปรียบเทียบ (Western · Vedic · BaZi) ในเฟสถัดไป · เริ่มฟรีใน LINE OA</div>
     </details>
     <details class="faq-item">
       <summary>ใช้ฟรีได้จริงเหรอ?</summary>
       <div class="answer">ใช่ · ใช้ได้ฟรีตลอด · ไม่ต้องผูกบัตรเครดิต · เริ่มต้นได้เลยใน LINE</div>
     </details>
     <details class="faq-item">
-      <summary>ทำไม 4 ศาสตร์ ไม่ใช่ 1?</summary>
-      <div class="answer">หมอดูแต่ละสาขาเก่งคนละด้าน · Destiny Matrix เก่งเรื่องตัวตนและภารกิจ · Western เก่งเรื่องบุคลิก · Vedic เก่งเรื่องกรรมระยะยาว · Chinese BaZi เก่งเรื่องอาชีพและธาตุ · เมื่อ 3-4 ศาสตร์เห็นพ้องในเรื่องเดียว = สัญญาณที่ชัดเจน</div>
+      <summary>ทำไมต้องวิสัยทัศน์ 4 ศาสตร์ ไม่ใช่ 1?</summary>
+      <div class="answer">หมอดูแต่ละสาขาเก่งคนละด้าน · Destiny Matrix เก่งเรื่องตัวตนและภารกิจ · Western เก่งเรื่องบุคลิก · Vedic เก่งเรื่องกรรมระยะยาว · Chinese BaZi เก่งเรื่องอาชีพและธาตุ · เมื่อ 3-4 ศาสตร์เห็นพ้องในเรื่องเดียว = สัญญาณที่ชัดเจน · <strong>ตอนนี้ Moome เปิดเฟส 1 ที่ Destiny Matrix · เฟส 2-4 อยู่ระหว่างพัฒนา</strong></div>
     </details>
     <details class="faq-item">
       <summary>Moome เป็น Coaching app เหรอ?</summary>
@@ -1196,7 +1230,7 @@
     </details>
     <details class="faq-item">
       <summary>เปรียบเทียบกับ ChatGPT ยังไง?</summary>
-      <div class="answer">ChatGPT เป็น generic AI · Moome รู้จักคุณเฉพาะตัว — รู้ archetype + วันลืมตา + history conversations + 4 ศาสตร์ของคุณ · ตอบในโทนเฉพาะ archetype ของคุณ · มี character voice + memory · ChatGPT เก่ง general · Moome เก่ง self-awareness ในบริบทไทย</div>
+      <div class="answer">ChatGPT เป็น generic AI · Moome รู้จักคุณเฉพาะตัว — รู้ archetype + วันลืมตา + history conversations · ตอบในโทนเฉพาะ archetype ของคุณ · มี character voice + memory · ChatGPT เก่ง general · Moome เก่ง self-awareness ในบริบทไทย</div>
     </details>
   </div>
 
@@ -1211,7 +1245,7 @@
         "name": "Moome คืออะไร?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Moome (มู-มี = มูสำหรับฉัน) เป็น Self-Awareness Platform ที่ผสม Destiny Matrix + 4 ศาสตร์ดูดวง + Coaching-inspired methods · ช่วยให้คุณรู้จักตัวเองและตัดสินใจได้ดีกว่า · เริ่มฟรีใน LINE OA"
+          "text": "Moome (มู-มี = มูสำหรับฉัน) เป็น Self-Awareness Platform ที่ใช้ Destiny Matrix + Coaching-inspired methods · ช่วยให้คุณรู้จักตัวเองและตัดสินใจได้ดีกว่า · วิสัยทัศน์: ขยายเป็น 4 ศาสตร์เปรียบเทียบในเฟสถัดไป · เริ่มฟรีใน LINE OA"
         }
       },
       {
@@ -1224,10 +1258,10 @@
       },
       {
         "@type": "Question",
-        "name": "ทำไม 4 ศาสตร์ ไม่ใช่ 1?",
+        "name": "ทำไมต้องวิสัยทัศน์ 4 ศาสตร์ ไม่ใช่ 1?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "หมอดูแต่ละสาขาเก่งคนละด้าน — เมื่อ 3-4 ศาสตร์เห็นพ้องในเรื่องเดียว = สัญญาณที่ชัดเจน · Moome เปรียบเทียบ Destiny Matrix + Western + Vedic + Chinese BaZi"
+          "text": "หมอดูแต่ละสาขาเก่งคนละด้าน · Destiny Matrix เก่งเรื่องตัวตนและภารกิจ · Western เก่งเรื่องบุคลิก · Vedic เก่งเรื่องกรรมระยะยาว · Chinese BaZi เก่งเรื่องอาชีพและธาตุ · เมื่อ 3-4 ศาสตร์เห็นพ้องในเรื่องเดียว = สัญญาณที่ชัดเจน · ตอนนี้ Moome เปิดเฟส 1 ที่ Destiny Matrix เฟส 2-4 อยู่ระหว่างพัฒนา"
         }
       }
     ]
