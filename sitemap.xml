@@ -115,6 +115,13 @@
     <priority>0.85</priority>
   </url>
 
+  <url>
+    <loc>https://moome.app/blog/archetype-6-ผู้รักลึก/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Future pages (uncomment when published) -->
   <!--
   <url>
