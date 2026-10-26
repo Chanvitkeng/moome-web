@@ -265,6 +265,7 @@
   .tool-card.match::before { background: var(--rose); }
   .tool-card.today::before { background: var(--sage); }
   .tool-card.ask::before { background: var(--lavender); }
+  .tool-card.career::before { background: linear-gradient(90deg, var(--gold), var(--lavender), var(--rose), var(--sage)); }
 
   .tool-icon {
     font-size: 56px;
@@ -321,6 +322,7 @@
   .tool-card.match .tool-features li::before { color: var(--rose); }
   .tool-card.today .tool-features li::before { color: var(--sage); }
   .tool-card.ask .tool-features li::before { color: var(--lavender); }
+  .tool-card.career .tool-features li::before { color: var(--gold); }
 
   .tool-card .tool-cta {
     display: inline-block;
@@ -337,17 +339,18 @@
   .tool-card.match .tool-cta { background: linear-gradient(135deg, var(--rose), var(--plum)); }
   .tool-card.today .tool-cta { background: linear-gradient(135deg, var(--gold), var(--rose)); color: var(--midnight); }
   .tool-card.ask .tool-cta { background: linear-gradient(135deg, var(--lavender), var(--plum)); }
+  .tool-card.career .tool-cta { background: linear-gradient(135deg, var(--midnight), var(--plum)); color: var(--cream); }
   .tool-card .tool-cta:hover { transform: scale(1.05); }
 
-  /* === NEW badge for ถามมู AI === */
-  .tool-card.ask {
+  /* === NEW badge (shared by cards) === */
+  .tool-card.ask, .tool-card.career {
     position: relative;
   }
-  .tool-card.ask .new-badge {
+  .tool-card .new-badge {
     position: absolute;
     top: 14px;
     right: 14px;
-    background: linear-gradient(135deg, var(--lavender), var(--rose));
+    background: linear-gradient(135deg, var(--gold), var(--rose));
     color: white;
     font-size: 10px;
     letter-spacing: 0.18em;
@@ -355,8 +358,9 @@
     padding: 4px 10px;
     border-radius: 999px;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px -4px rgba(184,165,201,0.6);
+    box-shadow: 0 4px 12px -4px rgba(201,169,97,0.6);
     animation: pulse-badge 2s ease-in-out infinite;
+    z-index: 2;
   }
   @keyframes pulse-badge {
     0%, 100% { transform: scale(1); }
@@ -1040,7 +1044,6 @@
     </a>
 
     <a href="/ask/" class="tool-card ask">
-      <span class="new-badge">✨ NEW</span>
       <div class="tool-icon">💬</div>
       <div class="tool-eyebrow">AI COACH</div>
       <h3>ถามมู AI</h3>
@@ -1051,6 +1054,20 @@
         <li>ตอบลึก · มีคำถามชวนคิด</li>
       </ul>
       <span class="tool-cta">เริ่มคุยกับมู →</span>
+    </a>
+
+    <a href="/career/" class="tool-card career">
+      <span class="new-badge">✨ NEW</span>
+      <div class="tool-icon">🧭</div>
+      <div class="tool-eyebrow">CAREER MATCH</div>
+      <h3>อาชีพที่ใช่</h3>
+      <p class="tool-desc">4 ศาสตร์เปรียบเทียบกัน · ใส่วันเกิด → เจอ Soul Calling · อาชีพที่ 4/4 ศาสตร์ชี้ตรงกัน</p>
+      <ul class="tool-features">
+        <li>Destiny Matrix + Western + Vedic + BaZi</li>
+        <li>20 career clusters · 100+ อาชีพ</li>
+        <li>Convergence levels (Soul · Strong · Supporting)</li>
+      </ul>
+      <span class="tool-cta">ค้นหาอาชีพ →</span>
     </a>
 
     <a href="/match/" class="tool-card match">
@@ -1087,41 +1104,46 @@
   <div class="section-eyebrow">CAREER CONVERGENCE ENGINE</div>
   <h2 class="section-title">4 ศาสตร์<em>เปรียบเทียบกัน</em></h2>
   <p class="section-sub">
-    Moome กำลังสร้างแพลตฟอร์มที่คำนวณคำตอบจาก 4 ศาสตร์พร้อมกัน — overlap = signal strength · 4/4 = "Soul calling" · <strong>เฟส 1 เริ่มที่ Destiny Matrix</strong> · เฟสถัดมาจะเปิดตามลำดับ
+    Moome คำนวณคำตอบจาก 4 ศาสตร์พร้อมกัน — overlap = signal strength · 4/4 = "Soul calling" · <strong>ลองใหม่! Career Match ใช้ทั้ง 4 ศาสตร์แล้ว</strong> (MVP · วันเกิดอย่างเดียว · ฟรี)
   </p>
   <div class="systems-grid">
     <div class="system-card available">
-      <span class="status-badge">✓ พร้อมใช้</span>
+      <span class="status-badge">✓ Deep + Career</span>
       <div class="system-icon">🔮</div>
       <h3>Destiny Matrix</h3>
       <div class="origin">Russian numerology</div>
       <p>22 archetypes ตัวตน + 8 จุดดวงชะตา · ภารกิจชีวิตและจังหวะ</p>
     </div>
-    <div class="system-card coming-soon">
-      <span class="status-badge">Coming soon</span>
+    <div class="system-card available">
+      <span class="status-badge">✓ ใน Career MVP</span>
       <div class="system-icon">🏹</div>
       <h3>Western Astrology</h3>
       <div class="origin">Greek/Roman</div>
-      <p>Sun + Moon + Ascendant · บุคลิก ภาพลักษณ์ อารมณ์</p>
+      <p>Sun sign + career traits · บุคลิก ภาพลักษณ์ อารมณ์ · <em style="color:var(--lavender);font-style:normal;font-size:12px;">(Deep: Moon + Ascendant · เฟสถัดไป)</em></p>
     </div>
-    <div class="system-card coming-soon">
-      <span class="status-badge">Coming soon</span>
+    <div class="system-card available">
+      <span class="status-badge">✓ ใน Career MVP</span>
       <div class="system-icon">🦂</div>
       <h3>Vedic Astrology</h3>
       <div class="origin">India · Sidereal</div>
-      <p>Nakshatras + Dasha periods · กรรมและระยะยาว</p>
+      <p>Sidereal sign + career traits · กรรมและระยะยาว · <em style="color:var(--lavender);font-style:normal;font-size:12px;">(Deep: Nakshatra + Dasha · เฟสถัดไป)</em></p>
     </div>
-    <div class="system-card coming-soon">
-      <span class="status-badge">Coming soon</span>
+    <div class="system-card available">
+      <span class="status-badge">✓ ใน Career MVP</span>
       <div class="system-icon">🐉</div>
       <h3>Chinese BaZi</h3>
       <div class="origin">China · 4 pillars</div>
-      <p>Day Master + 5 elements · ธาตุและอาชีพ</p>
+      <p>Day Master + 5 elements · ธาตุและอาชีพ · <em style="color:var(--lavender);font-style:normal;font-size:12px;">(Deep: ครบ 4 pillars · เฟสถัดไป)</em></p>
     </div>
   </div>
-  <p style="text-align:center;margin-top:32px;font-size:13px;color:var(--lavender);">
-    ✦ อยากให้ Moome เพิ่มศาสตร์ไหนก่อน? · <a href="https://line.me/R/ti/p/@262zpsua" style="color:var(--gold);">บอกเราได้ทาง LINE OA</a>
-  </p>
+  <div style="text-align:center;margin-top:36px;">
+    <a href="/career/" class="btn btn-primary" style="padding:16px 32px;font-size:16px;background:linear-gradient(135deg,var(--midnight),var(--plum));color:var(--cream);display:inline-flex;align-items:center;gap:10px;border-radius:999px;text-decoration:none;font-weight:600;box-shadow:0 10px 30px -10px rgba(61,44,78,0.4);">
+      🧭 ลอง Career Match 4 ศาสตร์เลย →
+    </a>
+    <p style="margin-top:14px;font-size:13px;color:var(--lavender);">
+      ใส่วันเกิด · เจอ Soul Calling ของคุณใน 30 วินาที · ฟรี ไม่ต้องสมัคร
+    </p>
+  </div>
 </section>
 
 <!-- ===== TRIPLE VOICE ===== -->

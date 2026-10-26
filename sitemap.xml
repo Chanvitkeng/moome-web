@@ -41,6 +41,14 @@
     <priority>0.95</priority>
   </url>
 
+  <!-- Career Convergence Engine MVP (V3.5) -->
+  <url>
+    <loc>https://moome.app/career/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- Blog index -->
   <url>
     <loc>https://moome.app/blog/</loc>
