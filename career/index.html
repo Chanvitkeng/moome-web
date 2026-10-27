@@ -174,15 +174,16 @@
   #shareCard .sc-brand { font-size: 20px; letter-spacing: 0.38em; color: #c9a961; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
   #shareCard .sc-label { font-size: 14px; letter-spacing: 0.22em; color: rgba(245,239,230,0.55); text-transform: uppercase; margin-bottom: 48px; }
   #shareCard .sc-soul-lbl { font-size: 13px; letter-spacing: 0.28em; color: #c9a961; text-transform: uppercase; margin-bottom: 14px; }
-  #shareCard .sc-soul-title { font-size: 52px; font-weight: 700; color: #ead8b8; line-height: 1.2; margin-bottom: 28px; }
+  #shareCard .sc-soul-title { font-size: 64px; font-weight: 700; color: #ead8b8; line-height: 1.2; margin-bottom: 28px; }
   #shareCard .sc-soul-items { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
-  #shareCard .sc-soul-item { background: rgba(201,169,97,0.15); border: 1.5px solid #c9a961; color: #f5efe6; padding: 12px 22px; border-radius: 999px; font-size: 18px; font-weight: 600; }
+  #shareCard .sc-soul-item { background: rgba(201,169,97,0.15); border: 1.5px solid #c9a961; color: #f5efe6; padding: 14px 26px; border-radius: 999px; font-size: 22px; font-weight: 600; }
   #shareCard .sc-divider { width: 60px; height: 2px; background: rgba(201,169,97,0.4); margin-bottom: 36px; }
   #shareCard .sc-systems { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: auto; }
   #shareCard .sc-sys { background: rgba(255,255,255,0.05); border: 1px solid rgba(245,239,230,0.1); border-radius: 18px; padding: 18px 22px; }
   #shareCard .sc-sys-name { font-size: 11px; letter-spacing: 0.18em; color: #c9a961; text-transform: uppercase; margin-bottom: 4px; }
   #shareCard .sc-sys-label { font-size: 17px; font-weight: 700; color: #f5efe6; margin-bottom: 6px; }
   #shareCard .sc-sys-clusters { font-size: 13px; color: rgba(245,239,230,0.6); line-height: 1.6; }
+  #shareCard .sc-dob { font-size: 15px; color: rgba(245,239,230,0.5); letter-spacing: 0.06em; margin-bottom: 18px; }
   #shareCard .sc-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; }
   #shareCard .sc-url { font-size: 15px; color: rgba(245,239,230,0.4); letter-spacing: 0.08em; }
   #shareCard .sc-watermark { font-size: 15px; color: rgba(201,169,97,0.6); font-weight: 600; letter-spacing: 0.2em; }
@@ -289,6 +290,7 @@
   <div class="sc-inner">
     <div class="sc-brand">✦ MOOME</div>
     <div class="sc-label">Career Convergence Engine</div>
+    <div class="sc-dob" id="sc-dob"></div>
     <div class="sc-soul-lbl" id="sc-soul-lbl">✦ SOUL CALLING</div>
     <div class="sc-soul-title" id="sc-soul-title">อาชีพที่ 4 ศาสตร์ชี้ตรงกัน</div>
     <div class="sc-soul-items" id="sc-soul-items"></div>
@@ -520,9 +522,17 @@ const SYS_LABELS = {
 function sysLabel(key) { return SYS_LABELS[key] || key; }
 
 // ===== SHARE AS IMAGE =====
+const THAI_MONTHS_SHORT = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
 function populateShareCard(data) {
   const soul = data.soulCalling || [];
   const strong = data.strongMatches || [];
+
+  // DOB line
+  if (LAST_DOB) {
+    const m = THAI_MONTHS_SHORT[LAST_DOB.month] || '';
+    document.getElementById('sc-dob').textContent = `เกิด ${LAST_DOB.day} ${m} ${LAST_DOB.year}`;
+  }
 
   // Soul Calling section
   const scLbl = document.getElementById('sc-soul-lbl');
@@ -561,6 +571,13 @@ function populateShareCard(data) {
   `).join('');
 }
 
+function fallbackDownload(canvas, filename) {
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
 async function shareAsImage() {
   const btn = document.getElementById('shareImgBtn');
   btn.disabled = true;
@@ -584,11 +601,33 @@ async function shareAsImage() {
       logging: false,
     });
 
-    const link = document.createElement('a');
     const dobStr = LAST_DOB ? `${LAST_DOB.day}-${LAST_DOB.month}-${LAST_DOB.year}` : 'career';
-    link.download = `moome-career-${dobStr}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    const filename = `moome-career-${dobStr}.png`;
+
+    // Try Native Share (mobile) first
+    if (navigator.share && navigator.canShare) {
+      try {
+        canvas.toBlob(async (blob) => {
+          const file = new File([blob], filename, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'ดวงการงาน 4 ศาสตร์ · Moome',
+              text: 'ค้นพบ Soul Calling ของฉันจาก 4 ศาสตร์ · moome.app/career/',
+            });
+          } else {
+            fallbackDownload(canvas, filename);
+          }
+          btn.disabled = false;
+          btn.textContent = '📸 แชร์ผลเป็นรูป';
+        }, 'image/png');
+        return; // wait for blob callback
+      } catch (shareErr) {
+        if (shareErr.name !== 'AbortError') fallbackDownload(canvas, filename);
+      }
+    } else {
+      fallbackDownload(canvas, filename);
+    }
   } catch (err) {
     alert('ไม่สามารถสร้างรูปได้: ' + err.message);
   } finally {
