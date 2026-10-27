@@ -32,6 +32,7 @@
 
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,7 +108,21 @@
   .vote-badge.western { background: rgba(201,169,97,0.2); color: #8a6e2d; }
   .vote-badge.vedic { background: rgba(185,122,139,0.2); color: #8a4d5f; }
   .vote-badge.bazi { background: rgba(58,93,78,0.2); color: #3a5d4e; }
-  .cluster-jobs { font-size: 13.5px; color: var(--plum); line-height: 1.6; }
+  .cluster-jobs { font-size: 13.5px; color: var(--plum); line-height: 1.6; margin-bottom: 14px; }
+
+  /* Why toggle */
+  .why-toggle { background: transparent; border: 1px solid rgba(61,44,78,0.15); color: var(--plum); padding: 7px 14px; border-radius: 999px; font-family: inherit; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-right: 6px; margin-bottom: 6px; transition: all 0.15s; }
+  .why-toggle:hover { background: rgba(201,169,97,0.1); border-color: var(--gold); }
+  .ask-cluster-btn { background: linear-gradient(135deg, var(--lavender), var(--plum)); border: none; color: white; padding: 7px 14px; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; margin-bottom: 6px; transition: transform 0.15s; }
+  .ask-cluster-btn:hover { transform: scale(1.04); }
+
+  .why-expand { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed rgba(61,44,78,0.15); animation: fadeIn 0.3s ease; }
+  .why-expand.open { display: block; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .why-row { font-size: 12.5px; color: var(--plum); line-height: 1.55; margin-bottom: 8px; display: flex; gap: 8px; align-items: flex-start; }
+  .why-row .why-ico { font-size: 15px; flex-shrink: 0; }
+  .why-row .why-content { flex: 1; }
+  .why-row .why-sys { font-weight: 700; color: var(--midnight); display: inline; }
 
   /* 4 systems row */
   .systems-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 28px 0 32px; }
@@ -132,6 +147,45 @@
 
   footer { background: var(--midnight); color: var(--gold-soft); padding: 32px 24px; text-align: center; font-size: 13px; }
   footer a { color: var(--gold-soft); text-decoration: none; margin: 0 12px; }
+
+  /* Share button */
+  .share-bar { display: flex; justify-content: center; margin: 24px 0 8px; }
+  .share-img-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #c9a961, #8a6e2d); color: white; border: none; padding: 14px 28px; border-radius: 999px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; transition: transform 0.15s, opacity 0.15s; letter-spacing: 0.02em; }
+  .share-img-btn:hover { transform: translateY(-2px); }
+  .share-img-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Hidden share canvas source */
+  #shareCard {
+    position: fixed; left: -9999px; top: 0;
+    width: 1080px; height: 1080px;
+    background: #0f0a1e;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    overflow: hidden;
+  }
+  #shareCard .sc-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201,169,97,0.22) 0%, transparent 45%),
+      radial-gradient(circle at 80% 80%, rgba(184,165,201,0.20) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(61,44,78,0.6) 0%, transparent 70%),
+      #0f0a1e;
+  }
+  #shareCard .sc-inner { position: relative; z-index: 1; padding: 72px 80px; height: 100%; display: flex; flex-direction: column; }
+  #shareCard .sc-brand { font-size: 20px; letter-spacing: 0.38em; color: #c9a961; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+  #shareCard .sc-label { font-size: 14px; letter-spacing: 0.22em; color: rgba(245,239,230,0.55); text-transform: uppercase; margin-bottom: 48px; }
+  #shareCard .sc-soul-lbl { font-size: 13px; letter-spacing: 0.28em; color: #c9a961; text-transform: uppercase; margin-bottom: 14px; }
+  #shareCard .sc-soul-title { font-size: 52px; font-weight: 700; color: #ead8b8; line-height: 1.2; margin-bottom: 28px; }
+  #shareCard .sc-soul-items { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+  #shareCard .sc-soul-item { background: rgba(201,169,97,0.15); border: 1.5px solid #c9a961; color: #f5efe6; padding: 12px 22px; border-radius: 999px; font-size: 18px; font-weight: 600; }
+  #shareCard .sc-divider { width: 60px; height: 2px; background: rgba(201,169,97,0.4); margin-bottom: 36px; }
+  #shareCard .sc-systems { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: auto; }
+  #shareCard .sc-sys { background: rgba(255,255,255,0.05); border: 1px solid rgba(245,239,230,0.1); border-radius: 18px; padding: 18px 22px; }
+  #shareCard .sc-sys-name { font-size: 11px; letter-spacing: 0.18em; color: #c9a961; text-transform: uppercase; margin-bottom: 4px; }
+  #shareCard .sc-sys-label { font-size: 17px; font-weight: 700; color: #f5efe6; margin-bottom: 6px; }
+  #shareCard .sc-sys-clusters { font-size: 13px; color: rgba(245,239,230,0.6); line-height: 1.6; }
+  #shareCard .sc-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; }
+  #shareCard .sc-url { font-size: 15px; color: rgba(245,239,230,0.4); letter-spacing: 0.08em; }
+  #shareCard .sc-watermark { font-size: 15px; color: rgba(201,169,97,0.6); font-weight: 600; letter-spacing: 0.2em; }
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -220,8 +274,32 @@
     <a href="/ask/" id="askLink" class="ask-cta-btn">เริ่มคุยกับมู →</a>
   </div>
 
+  <div class="share-bar">
+    <button class="share-img-btn" id="shareImgBtn" style="display:none;" onclick="shareAsImage()">
+      📸 แชร์ผลเป็นรูป
+    </button>
+  </div>
+
   <button class="reset-btn" id="resetBtn">↺ คำนวณวันเกิดอื่น</button>
 </section>
+
+<!-- Hidden share card rendered by html2canvas -->
+<div id="shareCard" aria-hidden="true">
+  <div class="sc-bg"></div>
+  <div class="sc-inner">
+    <div class="sc-brand">✦ MOOME</div>
+    <div class="sc-label">Career Convergence Engine</div>
+    <div class="sc-soul-lbl" id="sc-soul-lbl">✦ SOUL CALLING</div>
+    <div class="sc-soul-title" id="sc-soul-title">อาชีพที่ 4 ศาสตร์ชี้ตรงกัน</div>
+    <div class="sc-soul-items" id="sc-soul-items"></div>
+    <div class="sc-divider"></div>
+    <div class="sc-systems" id="sc-systems"></div>
+    <div class="sc-footer">
+      <div class="sc-url">moome.app/career/</div>
+      <div class="sc-watermark">MOOME ✦</div>
+    </div>
+  </div>
+</div>
 
 <div class="disclaimer">
   <strong>หมายเหตุ MVP:</strong> ใช้วันเกิดอย่างเดียว · ความแม่น ~70% · ผลลัพธ์เป็น <em>self-reflection tool</em> ไม่ใช่คำทำนายแน่นอน · เราจะเปิด version แม่นสูง (ใช้เวลา+สถานที่เกิด) ในเฟสถัดไป · <a href="/">กลับหน้าหลัก</a>
@@ -298,6 +376,7 @@ form.addEventListener('submit', async (e) => {
 
 document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('resultSection').classList.remove('show');
+  document.getElementById('shareImgBtn').style.display = 'none';
   document.getElementById('day').focus();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
@@ -306,18 +385,27 @@ function escapeHtml(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Store global reference so cluster cards can access system data
+let LAST_DATA = null;
+let LAST_DOB = null;
+
 function renderResult(data, dob) {
+  LAST_DATA = data;
+  LAST_DOB = dob;
+
   // 4 systems row
   const systemsRow = document.getElementById('systemsRow');
   systemsRow.innerHTML = '';
   const systems = [data.destiny, data.western, data.vedic, data.bazi];
   for (const sys of systems) {
     const clusterTags = sys.clusters.map(c => `<span style="display:inline-block;background:rgba(201,169,97,0.1);color:var(--plum);padding:3px 9px;border-radius:999px;margin:2px;font-size:11px;">${escapeHtml(clusterLabel(c))}</span>`).join('');
+    const descLine = sys.desc ? `<div style="font-size:11.5px;color:var(--lavender);font-style:italic;margin-bottom:6px;">${escapeHtml(sys.desc)}</div>` : '';
     systemsRow.innerHTML += `
       <div class="sys-card">
         <div class="sys-ico">${sys.icon}</div>
         <div class="sys-name">${escapeHtml(sys.system)}</div>
         <div class="sys-label">${escapeHtml(sys.label)}</div>
+        ${descLine}
         <div class="sys-clusters">${clusterTags}</div>
       </div>
     `;
@@ -344,12 +432,21 @@ function renderResult(data, dob) {
   // Ask link with DOB
   document.getElementById('askLink').href = `/ask/?d=${dob.day}&m=${dob.month}&y=${dob.year}`;
 
+  // Show share button
+  document.getElementById('shareImgBtn').style.display = 'inline-flex';
+
   // Show + scroll
   document.getElementById('resultSection').classList.add('show');
   setTimeout(() => {
     document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
   }, 100);
 }
+
+// Toggle "Why this cluster?" per card
+window.toggleWhy = function(cardId) {
+  const el = document.getElementById(cardId);
+  if (el) el.classList.toggle('open');
+};
 
 function renderClusters(gridId, headingId, countId, items, level) {
   const grid = document.getElementById(gridId);
@@ -363,12 +460,35 @@ function renderClusters(gridId, headingId, countId, items, level) {
   heading.style.display = 'flex';
   count.textContent = `· ${items.length} กลุ่ม`;
 
-  grid.innerHTML = items.map(c => {
+  grid.innerHTML = items.map((c, i) => {
     const badges = (c.systems || []).map(s =>
       `<span class="vote-badge ${s}">${sysLabel(s)}</span>`
     ).join('');
     const jobs = (c.jobs || []).slice(0, 4).map(j => `· ${escapeHtml(j)}`).join('<br>');
     const soulClass = level === 'soul' ? ' soul' : level === 'strong' ? ' strong' : ' supporting';
+    const whyId = `why-${level}-${i}`;
+
+    // Build "why" rows: for each system that voted this cluster, show its desc
+    const whyRows = (c.systems || []).map(s => {
+      const sysData = LAST_DATA ? LAST_DATA[s] : null;
+      if (!sysData) return '';
+      return `
+        <div class="why-row">
+          <span class="why-ico">${sysData.icon}</span>
+          <div class="why-content">
+            <span class="why-sys">${escapeHtml(sysData.label)}</span>
+            ${sysData.desc ? ` — ${escapeHtml(sysData.desc)}` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Prefill question for /ask/
+    const askQ = encodeURIComponent(`archetype ของผม/ฉัน เหมาะกับงานสาย "${c.th}" ไหม · มีจุดแข็ง/ข้อควรระวังอะไรบ้าง?`);
+    const askUrl = LAST_DOB
+      ? `/ask/?d=${LAST_DOB.day}&m=${LAST_DOB.month}&y=${LAST_DOB.year}&q=${askQ}`
+      : `/ask/?q=${askQ}`;
+
     return `
       <div class="cluster-card${soulClass}">
         <div class="cluster-head">
@@ -380,6 +500,12 @@ function renderClusters(gridId, headingId, countId, items, level) {
         </div>
         <div class="cluster-votes">${badges}</div>
         <div class="cluster-jobs">${jobs}</div>
+        <button class="why-toggle" onclick="toggleWhy('${whyId}')">💡 ทำไมถึงใช่?</button>
+        <a href="${askUrl}" class="ask-cluster-btn">💬 ถามมู</a>
+        <div class="why-expand" id="${whyId}">
+          <div style="font-size:11px;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px;">ศาสตร์ที่เห็นตรงกัน</div>
+          ${whyRows}
+        </div>
       </div>
     `;
   }).join('');
@@ -392,6 +518,85 @@ const SYS_LABELS = {
   bazi: '🐉 BaZi',
 };
 function sysLabel(key) { return SYS_LABELS[key] || key; }
+
+// ===== SHARE AS IMAGE =====
+function populateShareCard(data) {
+  const soul = data.soulCalling || [];
+  const strong = data.strongMatches || [];
+
+  // Soul Calling section
+  const scLbl = document.getElementById('sc-soul-lbl');
+  const scTitle = document.getElementById('sc-soul-title');
+  const scItems = document.getElementById('sc-soul-items');
+
+  if (soul.length > 0) {
+    scLbl.textContent = '✦ SOUL CALLING — 4/4 ศาสตร์เห็นตรงกัน';
+    scTitle.textContent = soul.map(c => `${c.icon || '✦'} ${c.th}`).join('  ·  ');
+    scItems.innerHTML = soul.map(c =>
+      `<span class="sc-soul-item">${c.icon || '✦'} ${escapeHtml(c.th)}</span>`
+    ).join('');
+    scTitle.style.display = 'none'; // use items instead
+  } else if (strong.length > 0) {
+    scLbl.textContent = '💫 STRONG MATCH — 3/4 ศาสตร์เห็นตรงกัน';
+    scTitle.textContent = strong.slice(0, 3).map(c => `${c.icon || '✦'} ${c.th}`).join('  ·  ');
+    scItems.innerHTML = strong.slice(0, 3).map(c =>
+      `<span class="sc-soul-item">${c.icon || '✦'} ${escapeHtml(c.th)}</span>`
+    ).join('');
+    scTitle.style.display = 'none';
+  } else {
+    scLbl.textContent = '✦ CAREER READING';
+    scTitle.textContent = 'ดวงการงาน 4 ศาสตร์';
+    scTitle.style.display = 'block';
+    scItems.innerHTML = '';
+  }
+
+  // 4 Systems
+  const sysList = [data.destiny, data.western, data.vedic, data.bazi];
+  document.getElementById('sc-systems').innerHTML = sysList.map(sys => `
+    <div class="sc-sys">
+      <div class="sc-sys-name">${sys.icon} ${escapeHtml(sys.system)}</div>
+      <div class="sc-sys-label">${escapeHtml(sys.label)}</div>
+      <div class="sc-sys-clusters">${(sys.clusters || []).slice(0, 3).map(c => clusterLabel(c)).join(' · ')}</div>
+    </div>
+  `).join('');
+}
+
+async function shareAsImage() {
+  const btn = document.getElementById('shareImgBtn');
+  btn.disabled = true;
+  btn.textContent = '⋯ กำลังสร้างรูป...';
+
+  try {
+    populateShareCard(LAST_DATA);
+
+    // Briefly show card for html2canvas
+    const card = document.getElementById('shareCard');
+    card.style.left = '-9999px';
+    card.style.position = 'fixed';
+
+    const canvas = await html2canvas(card, {
+      width: 1080,
+      height: 1080,
+      scale: 1,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#0f0a1e',
+      logging: false,
+    });
+
+    const link = document.createElement('a');
+    const dobStr = LAST_DOB ? `${LAST_DOB.day}-${LAST_DOB.month}-${LAST_DOB.year}` : 'career';
+    link.download = `moome-career-${dobStr}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  } catch (err) {
+    alert('ไม่สามารถสร้างรูปได้: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '📸 แชร์ผลเป็นรูป';
+  }
+}
+// ===== END SHARE =====
 
 const CLUSTER_LABELS = {
   teacher: '📚 ครู', healer: '🌿 เยียวยา', creator: '🎨 สร้างสรรค์', leader: '👑 ผู้นำ',
