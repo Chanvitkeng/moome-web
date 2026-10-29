@@ -256,6 +256,10 @@
     <div class="soul-calling-items" id="soulCallingItems"></div>
   </div>
 
+  <div id="ageGroupBadge" style="display:none; text-align:center; margin-bottom:8px;">
+    <span style="display:inline-block; background:rgba(61,44,78,0.08); color:var(--plum); padding:8px 20px; border-radius:999px; font-size:13px; font-weight:600; letter-spacing:0.02em;"></span>
+  </div>
+
   <h3 class="section-title">🪞 สิ่งที่แต่ละศาสตร์เห็นในตัวคุณ</h3>
   <div class="systems-row" id="systemsRow"></div>
 
@@ -379,6 +383,7 @@ form.addEventListener('submit', async (e) => {
 document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('resultSection').classList.remove('show');
   document.getElementById('shareImgBtn').style.display = 'none';
+  document.getElementById('ageGroupBadge').style.display = 'none';
   document.getElementById('day').focus();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
@@ -430,6 +435,13 @@ function renderResult(data, dob) {
 
   // Supporting (2/4)
   renderClusters('supportingGrid', 'supportingHeading', 'supportingCount', data.supporting || [], 'supporting');
+
+  // Age group badge
+  if (data.ageGroupLabel) {
+    const badge = document.getElementById('ageGroupBadge');
+    badge.querySelector('span').textContent = data.ageGroupLabel;
+    badge.style.display = 'block';
+  }
 
   // Ask link with DOB
   document.getElementById('askLink').href = `/ask/?d=${dob.day}&m=${dob.month}&y=${dob.year}`;
